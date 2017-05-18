@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="keywords" content="augmented, reality, ar, authoring, tools, realidad, aumentada, visual, environment, development">
+	<meta name="description" content="Authoring tools for Augmented Reality development using visual programming">
+	<meta name="author" content="Luis José Quintana Bolaño (@Glidder_)">
+	<meta charset="UTF-8">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<!--/Bootstrap -->
+	
+	<link href="./css/style.css" rel="stylesheet">
+	<script src="./js/core.js"></script>
+    <!--script src="./js/editor.js"></script-->
+	
+	<title>Editor | VEARD | Visual Environment for Augmented Reality Development</title>
+</head>
+<body role="document">
+  <div id='header'></div>
+ 	<!--  Hidden content -->
+  	<span id='modifiedStatus' class='hidden'>saved</span>
+  	<!-- div id="form" class="hidden">
+		
+	</div -->
+	< div class="navbar">
+		<button id='saveButton'>Save</button>
+		<button id='resetButton'>Reset</button>
+		<button id='runButton'>Run</button>
+		<span id='modifiedStatus'>saved</span> //Change the save button to active instead
+		<button id='saveREST' action="./rest/editor/save/ohmanohmanohman" method="POST">REST</button>
+	</div>  
+	<table id="myTabContent" width="100%" height="100%" role="main">
+    <tr>
+		<td class="navbar">
+		    <ul id="myTab" class="nav nav-tabs">
+		  		<li class="active"><a href="#editor" data-toggle="tab">Editor</a></li>
+		  		<li><a href="#viewer" data-toggle="tab">Viewer</a></li>
+			</ul>
+		</td>
+	</tr>
+	<tr height="100%">
+		<td id="myMy" height="100%">
+			<div class="tab-content" height="100%">
+			  	<div class="tab-pane fade active in" id="editor">
+			    	<iframe src="editor_frame.html"></iframe>
+			  	</div>
+			  	<div class="tab-pane fade" id="viewer">
+			    	<iframe class='viewFrame' src="editor_view.html"></iframe>
+			    </div>
+			</div>
+		</td>
+	</tr>
+   </table>
+  <div id='footer'></div>
+<script src="./js/editor.js"></script>
+</body></html>
+
+
+
+
