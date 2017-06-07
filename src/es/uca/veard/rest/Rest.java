@@ -65,6 +65,7 @@ public class Rest {
 	@Path("/create/{name}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getCode(@PathParam ("name") String name) {
-		return Pdao.saveTest(name);
+		Pdao.saveTest(name);
+        return "Created "+name;
 	}
 } 
