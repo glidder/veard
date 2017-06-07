@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +26,28 @@ import org.w3c.dom.NodeList;
 public class Pdao {
     
     static public String saveTest(String path,String name){
-        String fullpath = System.getProperty("user.home")+path+name+".xml";
-        File myXMLFile = new File(System.getProperty("user.home")+path,name+".xml");
+        String fullPath = System.getProperty("user.home")+path+name+".xml";
+        File myXMLFile = createFile(fullPath);
+
+        return fullPath;
+    }
+    
+    static public boolean uploadTest(InputStream uploadedInputStream, String path){
         try{
-            myXMLFile.createNewFile();
-            //FileWriter fw = new FileWriter(myXMLFile.getAbsoluteFile());
-        } catch (IOException e) {return e.toString();}
-        return fullpath;
+            OutputStream out = null;
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            out = new FileOutputStream(new File(path));
+            while ((read = uploadedInputStream.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+			return false;
+		}
+        return true;
+        
     }
     
 	static public boolean save(String name, String description, String ecode, String jcode){
@@ -168,4 +186,13 @@ public class Pdao {
 	    }
 		return desc;
 	}
+    
+    static public File createFile(String path){
+        File newFile = new File(path);
+        newFile.getParentFile().mkdirs();
+        try{
+            newFile.createNewFile();
+        } catch (IOException e) {}
+        return newFile;
+    }
 }

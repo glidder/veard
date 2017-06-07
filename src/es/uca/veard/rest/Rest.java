@@ -2,6 +2,10 @@ package es.uca.veard.rest;
 
 import java.util.List;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -10,8 +14,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletConfig;
+
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
 
 import es.uca.veard.dao.Pdao;
 
@@ -76,4 +85,15 @@ public class Rest extends HttpServlet {
 	public String createFile (@PathParam ("name") String name) {
         return "Created "+Pdao.saveTest(path,name);
 	}
+    @POST
+    @Path("/upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response uploadFile (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
+        if(uploadedInputStream == null || fileDetail == null)
+            return Response.status(400).entity("Invalid form data").build();
+        if (Pdao.uploadTest(uploadedInputStream,path+fileDetail.getFileName()))
+            return Response.status(200).entity("File saved to " + path).build();
+        else
+            return Response.status(500).entity("Can not save file").build();
+    }
 } 
