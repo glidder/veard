@@ -10,11 +10,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.servlet.http.HttpServlet;
 
 import es.uca.veard.dao.Pdao;
 
 @Path("/dao")
-public class Rest {
+public class Rest extends HttpServlet {
 	private static int hum=0;
 	@POST
 	@Path("/save")
@@ -65,7 +66,7 @@ public class Rest {
 	@Path("/create/{name}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String createFile (@PathParam ("name") String name) {
-		Pdao.saveTest(name);
+		Pdao.saveTest(getServletContext().getInitParameter("filestorage"),name);
         return "Created "+name;
 	}
 } 

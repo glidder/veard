@@ -14,7 +14,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
-import javax.servlet.*;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -23,8 +22,8 @@ import org.w3c.dom.NodeList;
 
 public class Pdao {
     
-    static public boolean saveTest(String name){
-        File myXMLFile = new File(getServletContext().getInitParameter("filestorage"),name+".xml");
+    static public boolean saveTest(String path,String name){
+        File myXMLFile = new File(path,name+".xml");
         try{
             myXMLFile.createNewFile();
             //FileWriter fw = new FileWriter(myXMLFile.getAbsoluteFile());
