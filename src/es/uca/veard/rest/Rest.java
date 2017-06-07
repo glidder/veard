@@ -31,7 +31,7 @@ public class Rest {
   @Path("/hello")
   @Produces(MediaType.TEXT_PLAIN)
   public String sayPlainTextHello() {
-    return "Hello Jersey "+Editor.hum;
+    return "Hello Jersey "+Rest.hum;
   }
 
 } 
