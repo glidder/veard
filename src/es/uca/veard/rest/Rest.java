@@ -11,12 +11,20 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletConfig;
 
 import es.uca.veard.dao.Pdao;
 
 @Path("/dao")
 public class Rest extends HttpServlet {
+    
+    public void init(ServletConfig config){
+        path = config.getInitParameter("filestorage");
+    }
+    
 	private static int hum=0;
+    private static String path="/home/veard/userdata/";
+    
 	@POST
 	@Path("/save")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -66,7 +74,7 @@ public class Rest extends HttpServlet {
 	@Path("/create/{name}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String createFile (@PathParam ("name") String name) {
-		Pdao.saveTest(getServletConfig().getInitParameter("filestorage"),name);
+		Pdao.saveTest(path,name);
         return "Created "+name;
 	}
 } 
