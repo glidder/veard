@@ -23,7 +23,7 @@ public class Rest extends HttpServlet {
     }
     
 	private static int hum=0;
-    private static String path="/home/veard/userdata/";
+    private static String path="/userdata/";
     
 	@POST
 	@Path("/save")
