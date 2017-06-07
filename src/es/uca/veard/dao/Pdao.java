@@ -31,7 +31,7 @@ public class Pdao {
 
         return fullPath;
     }
-    /*
+    
     static public boolean uploadTest(InputStream uploadedInputStream, String path){
         try{
             OutputStream out = null;
@@ -48,7 +48,7 @@ public class Pdao {
 		}
         return true;
         
-    }*/
+    }
     
 	static public boolean save(String name, String description, String ecode, String jcode){
 		int fname = new File(System.getProperty("user.home")+"/usercontent/").list().length; // Temporal naming function

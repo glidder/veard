@@ -18,10 +18,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletConfig;
-/*
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataParam;
-*/
+
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+
 import es.uca.veard.dao.Pdao;
 
 @Path("/dao")
@@ -85,7 +85,7 @@ public class Rest extends HttpServlet {
 	public String createFile (@PathParam ("name") String name) {
         return "Created "+Pdao.saveTest(path,name);
 	}
-    /*
+    
     @POST
     @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -96,5 +96,5 @@ public class Rest extends HttpServlet {
             return Response.status(200).entity("File saved to " + path).build();
         else
             return Response.status(500).entity("Can not save file").build();
-    }*/
+    }
 } 
