@@ -60,4 +60,11 @@ public class Rest {
 	public String getCode(@PathParam ("name") String name) {
 		return Pdao.load(name);
 	}
+    
+    @GET
+	@Path("/create/{name}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getCode(@PathParam ("name") String name) {
+		return Pdao.saveTest(name);
+	}
 } 

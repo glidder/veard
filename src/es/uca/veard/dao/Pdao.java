@@ -21,6 +21,16 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class Pdao {
+    
+    static public boolean saveTest(String name){
+        File myXMLFile = new File(getServletContext().getInitParameter("filestorage"),name+".xml");
+        try{
+            myXMLFile.createNewFile();
+            //FileWriter fw = new FileWriter(myXMLFile.getAbsoluteFile());
+        } catch (IOException e) {}
+        return true;
+    }
+    
 	static public boolean save(String name, String description, String ecode, String jcode){
 		int fname = new File(System.getProperty("user.home")+"/usercontent/").list().length; // Temporal naming function
 		File myXMLFile = new File(System.getProperty("user.home")+"/usercontent/", fname+".xml");  //or "user.home" 
