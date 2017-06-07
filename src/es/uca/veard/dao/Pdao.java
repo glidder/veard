@@ -22,14 +22,14 @@ import org.w3c.dom.NodeList;
 
 public class Pdao {
     
-    static public boolean saveTest(String path,String name){
-        System.out.print(System.getProperty("user.home")+path+name+".xml");
+    static public String saveTest(String path,String name){
+        String fullpath = System.getProperty("user.home")+path+name+".xml";
         File myXMLFile = new File(System.getProperty("user.home")+path,name+".xml");
         try{
             myXMLFile.createNewFile();
             //FileWriter fw = new FileWriter(myXMLFile.getAbsoluteFile());
-        } catch (IOException e) {}
-        return true;
+        } catch (IOException e) {return e.toString();}
+        return fullpath;
     }
     
 	static public boolean save(String name, String description, String ecode, String jcode){
