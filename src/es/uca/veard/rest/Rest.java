@@ -66,7 +66,7 @@ public class Rest extends HttpServlet {
 	@Path("/create/{name}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String createFile (@PathParam ("name") String name) {
-		Pdao.saveTest(getServletContext().getInitParameter("filestorage"),name);
+		Pdao.saveTest(getServletConfig().getInitParameter("filestorage"),name);
         return "Created "+name;
 	}
 } 

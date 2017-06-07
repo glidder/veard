@@ -20,6 +20,10 @@ id="VEARD" version="3.0">
             <param-value>es.uca.veard.rest</param-value>
             <!--param-value>es.uca.veard.viewer</param-value-->
         </init-param>
+        <init-param>
+            <param-name>filestorage</param-name>
+            <param-value>/home/veard/userdata/</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
