@@ -23,7 +23,7 @@ import org.w3c.dom.NodeList;
 public class Pdao {
     
     static public boolean saveTest(String path,String name){
-        System.out.print(System.getProperty("user.home")+path+name+".xml")
+        System.out.print(System.getProperty("user.home")+path+name+".xml");
         File myXMLFile = new File(System.getProperty("user.home")+path,name+".xml");
         try{
             myXMLFile.createNewFile();
