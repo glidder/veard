@@ -37,7 +37,7 @@ public class Pdao {
             OutputStream out = null;
             int read = 0;
             byte[] bytes = new byte[1024];
-            out = new FileOutputStream(new File(path));
+            out = new FileOutputStream(new File(System.getProperty("user.home")+path));
             while ((read = uploadedInputStream.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }
