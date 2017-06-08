@@ -5,12 +5,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Files;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -32,6 +34,29 @@ public class Pdao {
         return fullPath;
     }
     
+    static public boolean uploadTest(File file, String path){
+        File savedFile = createFile(System.getProperty("user.home")+path);
+        //FileChannel source = null;
+        //FileChannel destination = null;
+        try{
+            Files.copy( file.toPath(), savedFile.toPath() );
+            //source = new FileInputStream(file).getChannel();
+            //destination = new FileOutputStream(savedFile).getChannel();
+            //destination.transferFrom(source, 0, source.size());
+        } catch (IOException e){
+            return false;
+        }
+        finally{
+            /*if(source!=null){
+                source.close();
+            }
+            if(destination!=null){
+                destination.close();
+            }*/
+            return true;
+        }
+    }
+    /*
     static public boolean uploadTest(InputStream uploadedInputStream, String path){
         OutputStream out = null;
         try{
@@ -61,7 +86,7 @@ public class Pdao {
         return true;
         
     }
-    
+    */
 	static public boolean save(String name, String description, String ecode, String jcode){
 		int fname = new File(System.getProperty("user.home")+"/usercontent/").list().length; // Temporal naming function
 		File myXMLFile = new File(System.getProperty("user.home")+"/usercontent/", fname+".xml");  //or "user.home" 
