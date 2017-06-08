@@ -95,6 +95,6 @@ public class Rest extends HttpServlet {
         if (Pdao.uploadTest(uploadedInputStream,path+fileDetail.getFileName()))
             return Response.status(200).entity("File saved to " + path).build();
         else
-            return Response.status(500).entity("Can not save file").build();
+            return Response.status(500).entity("Can not save file to "+path).build();
     }
 } 
