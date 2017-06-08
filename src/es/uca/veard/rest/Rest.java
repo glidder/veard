@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.File;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -90,7 +89,7 @@ public class Rest extends HttpServlet {
     @POST
     @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadFile (@FormDataParam("file") File uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
+    public Response uploadFile (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
         if(uploadedInputStream == null || fileDetail == null)
             return Response.status(400).entity("Invalid form data").build();
         if (Pdao.uploadTest(uploadedInputStream,path+fileDetail.getFileName()))

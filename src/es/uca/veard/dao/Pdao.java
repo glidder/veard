@@ -33,7 +33,7 @@ public class Pdao {
 
         return fullPath;
     }
-    
+    /*
     static public boolean uploadTest(File file, String path){
         File savedFile = createFile(System.getProperty("user.home")+path);
         //FileChannel source = null;
@@ -52,11 +52,11 @@ public class Pdao {
             }
             if(destination!=null){
                 destination.close();
-            }*/
+            }*//*
             return true;
         }
-    }
-    /*
+    }*/
+    
     static public boolean uploadTest(InputStream uploadedInputStream, String path){
         OutputStream out = null;
         try{
@@ -86,7 +86,7 @@ public class Pdao {
         return true;
         
     }
-    */
+    
 	static public boolean save(String name, String description, String ecode, String jcode){
 		int fname = new File(System.getProperty("user.home")+"/usercontent/").list().length; // Temporal naming function
 		File myXMLFile = new File(System.getProperty("user.home")+"/usercontent/", fname+".xml");  //or "user.home" 
