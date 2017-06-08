@@ -33,8 +33,8 @@ public class Pdao {
     }
     
     static public boolean uploadTest(InputStream uploadedInputStream, String path){
+        OutputStream out = null;
         try{
-            OutputStream out = null;
             int read = 0;
             byte[] bytes = new byte[1024];
             out = new FileOutputStream(new File(System.getProperty("user.home")+path));
@@ -44,8 +44,19 @@ public class Pdao {
         } catch (IOException e) {
 			return false;
 		} finally {
-            out.flush();
-            out.close();
+            if(uploadedInputStream != null){
+                try{
+                    uploadedInputStream.close();
+                } catch (IOException e){
+                }
+            }
+            if (out!=null){
+                try{
+                    out.flush();
+                    out.close();
+                } catch (IOException e){
+                }
+            }
         }
         return true;
         
