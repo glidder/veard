@@ -33,6 +33,11 @@
 		<button id='runButton'>Run</button>
 		<span id='modifiedStatus'>saved</span> //Change the save button to active instead
 		<button id='saveREST' action="./rest/editor/save/ohmanohmanohman" method="POST">REST</button>
+        <br>Choose file to upload<br>
+        <form action="./rest/dao/upload" method="post" enctype="multipart/form-data">
+            <input name="file" id="filename" type="file" /><br><br>
+    	   <button name="submit" type="submit">Upload</button>
+        </form>
 	</div>  
 	<table id="myTabContent" width="100%" height="100%" role="main">
     <tr>
@@ -57,11 +62,6 @@
 	</tr>
    </table>
     
-    Choose file to upload<br>
-    <form action="https://46.101.38.23:8443/veard/rest/dao/upload" method="post" enctype="multipart/form-data">
-    	<input name="file" id="filename" type="file" /><br><br>
-    	<button name="submit" type="submit">Upload</button>
-    </form>
     
   <div id='footer'></div>
 <script src="./js/editor.js"></script>
