@@ -40,12 +40,13 @@ public class Pdao {
             out = new FileOutputStream(new File(System.getProperty("user.home")+path));
             while ((read = uploadedInputStream.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
-            }
-            out.flush();
-            out.close();
+            }  
         } catch (IOException e) {
 			return false;
-		}
+		} finally {
+            out.flush();
+            out.close();
+        }
         return true;
         
     }
