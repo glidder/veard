@@ -15,7 +15,7 @@ function updateContextButton() {
 			'	<label for="text">Description:</label>'+
 			'	<input type="text" class="form-control" id="desc" name="desc">'+
 			'</div>'+
-			'<button id="saveButton" type="button" class="btn btn-default">Submit</button>'+
+			'<button id="saveButton" type="button" class="btn btn-default" onclick="console.log("LOLOLOL");saveWorkspace();$("#popover").popover("hide");>Submit</button>'+
 		'</form>'+
 		'<script>'+
 		'	$("#saveButton").on("click", function(event){'+
