@@ -6,7 +6,7 @@ function updateContextButton() {
 	$('#popover').popover({
 		  html: true,
 		  title: "Save Form",
-		  content: '<form id="saveForm" role="form" method="POST" enctype="application/x-www-form-urlencoded" action="./rest/editor/save/">'+
+		  content: '<form id="saveForm" role="form" method="POST" enctype="application/x-www-form-urlencoded" action="./rest/dao/save/">'+
 			'<div class="form-group">'+
 			'	<label for="text">Name:</label>'+
 			'	<input type="text" class="form-control" id="name" name="name">'+
@@ -23,7 +23,7 @@ function updateContextButton() {
 		'		saveWorkspace();'+
 		'		$("#popover").popover("hide");'+
 		'	});'+
-		'</script>',
+		'</script>'//,
 		  //trigger: 'manual',
 		  //delay: {'show':1000, 'hide':250},
 	});
@@ -110,7 +110,7 @@ window.addEventListener("beforeunload", function (e) {
 		var xmlText	= Blockly.Xml.domToText(xmlDom)
 		var jsText = Blockly.JavaScript.workspaceToCode();
 		//window.location.hash	= encodeURIComponent(xmlText)
-		console.log(xmlText+"\n"+jsText);
+		console.log("BIGOLPEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEENIS\n\n\n"+xmlText+"\n"+jsText);
 		//Include codes in the form data 
 		var input1 = $("<input>", { type: "hidden", name: "ecode", value: xmlText });
 		$('#saveForm').append($(input1));
