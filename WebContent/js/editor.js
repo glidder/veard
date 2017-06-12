@@ -15,7 +15,7 @@ function updateContextButton() {
 			'	<label for="text">Description:</label>'+
 			'	<input type="text" class="form-control" id="desc" name="desc">'+
 			'</div>'+
-			'<button id="saveButton" type="button" class="btn btn-default" onclick="saveWorkspace();$('#popover').popover('hide');">Submit</button>'+
+			'<button id="saveButton" type="button" class="btn btn-default" onclick="saveWorkspace();closePopoover();">Submit</button>'+
 		'</form>'+
 		'<script>'+
 		'	$("#saveButton").on("click", function(event){'+
@@ -121,6 +121,9 @@ window.addEventListener("beforeunload", function (e) {
 		// changed modifiedStatus
 		$('#modifiedStatus').text('saved');
 	}
+    function closePopover(){
+        $('#popover').popover('hide');
+    }
 	function loadWorkspace(){
 	  	console.assert(location.hash)
 		var xmlText	= decodeURIComponent(location.hash.substr(1))
