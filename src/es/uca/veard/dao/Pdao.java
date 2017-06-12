@@ -88,9 +88,9 @@ public class Pdao {
     }
     
 	static public boolean save(String name, String description, String ecode, String jcode){
-		int fname = new File(System.getProperty("user.home")+"/usercontent/").list().length; // Temporal naming function
-		File myXMLFile = new File(System.getProperty("user.home")+"/usercontent/", fname+".xml");  //or "user.home" 
-		File myJSFile = new File(System.getProperty("user.home")+"/usercontent/", fname+".js");
+		//int fname = new File(System.getProperty("user.home")+"/usercontent/").list().length; // Temporal naming function
+		File myXMLFile = new File(System.getProperty("user.home")+"/usercontent/", /*f*/name+".xml");  //or "user.home" 
+		File myJSFile = new File(System.getProperty("user.home")+"/usercontent/", /*f*/name+".js");
 		//System.out.print("Yep! "+System.getProperty("user.home")+" -->"+code);
 		try {
 			myXMLFile.createNewFile();
