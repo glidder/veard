@@ -1,5 +1,5 @@
 
-function updateContextButton(){
+function updateContextButton() {
 	$('#contextButton').html("<button id='popover' data-toggle='popover' data-container='body' data-placement='left' class='btn btn-default navbar-btn'>Save</button>");
 	//Instead of a popover, it could be a modal
 	//Also, the form content should be saved and/or loaded if the projects was loaded or previously saved.
