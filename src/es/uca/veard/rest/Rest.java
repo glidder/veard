@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.annotation.PostConstruct;
-import javax.annotation.Config;
+import javax.annotation.*;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
