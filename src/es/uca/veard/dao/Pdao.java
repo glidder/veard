@@ -53,9 +53,7 @@ public class Pdao {
 			bw = new BufferedWriter(fw);
             
             //Register the message in the log file
-			bw.append("\n[" +
-                      new SimpleDateFormat("yyyy.MM.dd HH/mm/ss").format(new Date()) +
-                      "] " + message);
+			bw.append(new SimpleDateFormat("\n[yyyy/MM/dd HH:mm:ss] ").format(new Date()) + message);
             
 		} catch (IOException e) {
 			e.printStackTrace();
