@@ -242,7 +242,7 @@ public class Pdao {
         return deserializeString(new File(System.getProperty("user.home")+"/usercontent/"+name+".log"));
     }
     
-    static public void postLog(String name, String content){
+    static public void postLog(String name, String content) throws IOException{
         //File file = createFile(basePath+"/usercontent/"+name+".log");
         File file = new File(basePath+"/usercontent/"+name+".log");
         file.createNewFile();
