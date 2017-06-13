@@ -19,6 +19,8 @@ import javax.ws.rs.core.UriInfo;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.annotation.PostConstruct;
+import javax.annotation.Config;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -37,8 +39,8 @@ public class Rest extends HttpServlet {
     private static String imagePath ;//= "images/";
     private static String logName ;//= "log";
     
-    @Context
-    private ServletContext context;
+    @Config
+    private ServletConfig context;
     /* 
      * Getting the propperties configured in Web.xml
      */
