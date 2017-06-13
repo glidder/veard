@@ -40,7 +40,17 @@ public class Rest extends HttpServlet {
     /* 
      * Getting the propperties configured in Web.xml
      */
-    public void init(ServletConfig config) throws ServletException {
+    public void init() throws ServletException {
+        //ServletContext sc = getServletContext(); 
+        //modelPath = config.getInitParameter ("modelstorage");
+        //imagePath = config.getInitParameter ("imagestorage");
+        //logName = config.getInitParameter ("logfilename");
+        
+        //Register the operation in the log file
+        Pdao.postLog(logName,"\nServlet initialisation\n"+
+                     "--------------------------------------\n");
+    }
+    /*public void init(ServletConfig config) throws ServletException {
         super.init(config);
     //TODO:delete    path = config.getInitParameter("filestorage");
         modelPath = config.getInitParameter ("modelstorage");
@@ -50,7 +60,7 @@ public class Rest extends HttpServlet {
         //Register the operation in the log file
         Pdao.postLog(logName,"\nServlet initialisation\n"+
                      "--------------------------------------\n");
-    }
+    }*/
     
     /*
      * GET methods
