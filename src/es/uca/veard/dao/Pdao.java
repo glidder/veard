@@ -229,7 +229,7 @@ public class Pdao {
     
     static public File createFile(String path){
         File newFile = new File(path);
-        if(!file.exists()){
+        if(!newfile.exists()){
             newFile.getParentFile().mkdirs();
             try{
                 newFile.createNewFile();
