@@ -51,6 +51,7 @@ public class Rest extends HttpServlet {
     @Path("/hello")
     @Produces(MediaType.TEXT_PLAIN)
     public String sayPlainTextHello() {
+        Pdao.postLog(logName,"\nUser requested a salutation\n");
         return "Hello Jersey "+System.getProperty("user.home")+Rest.hum;
     }
     
