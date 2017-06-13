@@ -1,11 +1,11 @@
 package es.uca.veard.rest;
 
 import java.util.List;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -24,21 +24,66 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import es.uca.veard.dao.Pdao;
 
+/*
+ * Class that implements all REST methods
+ */
 @Path("/dao")
 public class Rest extends HttpServlet {
     
+    //Properties configurable in Web.xml
+    //TODO:delete   private static String path="/userdata/";
+    private static String modelPath = "models/";
+    private static String imagePath = "images/";
+    private static String logName = "log";
+    
+    /* 
+     * Getting the propperties configured in Web.xml
+     */
     public void init(ServletConfig config){
-        path = config.getInitParameter("filestorage");
+        //Register the operation in the log file
+        Pdao.postLog(logName,"\nServlet initialisation\n"+
+                     "--------------------------------------\n");
+    //TODO:delete    path = config.getInitParameter("filestorage");
+        modelPath = config.getInitParameter ("modelstorage");
+        imagePath = config.getInitParameter ("imagestorage");
+        logName = config.getInitParameter ("logfilename");
     }
     
-	private static int hum=0;
-    private static String path="/userdata/";
-    private static String logName="log";
+    /*
+     * GET methods
+     *****************************************************/
+    
+    /*
+     * Tests methods
+     */
+        /*
+         * Simple hello test
+         */
+        @GET
+        @Path("/hello")
+        @Produces(MediaType.TEXT_PLAIN)
+        public String sayPlainTextHello() {
+            //Register the operation in the log file
+            Pdao.postLog(logName,"User requested a salutation");
+            //Answer the petition
+            return "Hello Jersey "+System.getProperty("user.home")+Rest.hum;
+        }
+        /*
+         * Method to consult the application log file
+         */
+        @GET
+        @Path("/log")
+        @Produces(MediaType.TEXT_PLAIN)
+        public String showLog() {
+            //Register the operation in the log file
+            Pdao.postLog(logName,"User requested the log");
+            return "Application Log:"+Pdao.getLog(logName);
+        }
+    
     
 	@POST
 	@Path("/save")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	//@Consumes(MediaType.TEXT_PLAIN)
 	public void saveProject(@FormParam("name") String name, @FormParam("desc") String desc, @FormParam("ecode") String ecode, @FormParam("jcode") String jcode )
 	{	//Editor.hum=Editor.hum+1;
 		//System.out.print("\nCACACACACACACACACACA\n"+ecode);
@@ -46,14 +91,7 @@ public class Rest extends HttpServlet {
 		Pdao.save(name, desc, ecode, jcode);//Add a check function to the form!!!!!!
 	}
     
-    // This method is called if TEXT_PLAIN is requested
-    @GET
-    @Path("/hello")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String sayPlainTextHello() {
-        Pdao.postLog(logName,"\nUser requested a salutation\n");
-        return "Hello Jersey "+System.getProperty("user.home")+Rest.hum;
-    }
+   
     
     @GET
 	@Path("/list")
@@ -101,10 +139,4 @@ public class Rest extends HttpServlet {
             return Response.status(500).entity("Can not save file to "+path).build();
     }
     
-    @GET
-    @Path("/log")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String showLog() {
-        return "Application Log:"+Pdao.getLog(logName);
-    }
 } 

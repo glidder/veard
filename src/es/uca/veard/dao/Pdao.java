@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 import java.nio.file.Files;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -25,10 +26,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/*
+ * Class that implements all filesystem operations
+ */
 public class Pdao {
     
     //TODO: change all references to System... for this variable;
-    private static String basePath = System.getProperty("user.home");
+    private static String basePath = System.getProperty("user.home")+"/usercontent/";
+    
     
     static public String saveTest(String path,String name){
         String fullPath = System.getProperty("user.home")+path+name+".xml";
@@ -257,7 +262,9 @@ public class Pdao {
 			fw = new FileWriter(file.getAbsoluteFile(), true);
 			bw = new BufferedWriter(fw);
             
-			bw.append("\nbasePath:\n"+basePath+"\n"+content);//.write(content);
+			bw.append("\n["+
+                      String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date())+
+                      "] "+content);//.write(content);
             
 		} catch (IOException e) {
 			e.printStackTrace();
