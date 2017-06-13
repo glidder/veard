@@ -248,7 +248,6 @@ public class Pdao {
             try{
                 file.createNewFile();
             } catch (IOException e) {}
-        }
         
         BufferedWriter bw = null;
 		FileWriter fw = null;
