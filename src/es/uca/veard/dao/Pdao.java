@@ -242,10 +242,13 @@ public class Pdao {
         return deserializeString(new File(System.getProperty("user.home")+"/usercontent/"+name+".log"));
     }
     
-    static public void postLog(String name, String content) throws IOException{
+    static public void postLog(String name, String content){
         //File file = createFile(basePath+"/usercontent/"+name+".log");
         File file = new File(basePath+"/usercontent/"+name+".log");
-        file.createNewFile();
+            try{
+                file.createNewFile();
+            } catch (IOException e) {}
+        }
         
         BufferedWriter bw = null;
 		FileWriter fw = null;
