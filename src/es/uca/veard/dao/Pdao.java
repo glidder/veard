@@ -92,8 +92,8 @@ public class Pdao {
     
 	static public boolean save(String name, String description, String ecode, String jcode){
 		//int fname = new File(System.getProperty("user.home")+"/usercontent/").list().length; // Temporal naming function
-		File myXMLFile = new File(System.getProperty("user.home")+"/usercontent/", /*f*/name+".xml");  //or "user.home" 
-		File myJSFile = new File(System.getProperty("user.home")+"/usercontent/", /*f*/name+".js");
+		File myXMLFile = new File(System.getProperty("user.home")+"/userdata/", /*f*/name+".xml");  //or "user.home" 
+		File myJSFile = new File(System.getProperty("user.home")+"/userdata/", /*f*/name+".js");
 		//System.out.print("Yep! "+System.getProperty("user.home")+" -->"+code);
 		try {
 			myXMLFile.createNewFile();
@@ -130,12 +130,12 @@ public class Pdao {
 	  }
 	
 	static public String load(String name){
-		return deserializeString(new File(System.getProperty("user.home")+"/usercontent/", name+".js"));
+		return deserializeString(new File(System.getProperty("user.home")+"/userdata/", name+".js"));
 		
 	}
 	
 	static public List<String> listAll(){
-		File dir = new File(System.getProperty("user.home")+"/usercontent/");
+		File dir = new File(System.getProperty("user.home")+"/userdata/");
 		File[] directoryListing = dir.listFiles(new FilenameFilter() {
 		    public boolean accept(File dir, String name) {
 		        return name.toLowerCase().endsWith(".xml");
@@ -184,7 +184,7 @@ public class Pdao {
 		String name = "Null";
 		try{
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(new File(System.getProperty("user.home")+"/usercontent/"+project+".xml"));
+			Document document = builder.parse(new File(System.getProperty("user.home")+"/userdata/"+project+".xml"));
 			Element rootElement = document.getDocumentElement();
 			
 			NodeList list = rootElement.getElementsByTagName("pname");
@@ -208,7 +208,7 @@ public class Pdao {
 		String desc = "Null";
 		try{
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(new File(System.getProperty("user.home")+"/usercontent/"+project+".xml"));
+			Document document = builder.parse(new File(System.getProperty("user.home")+"/userdata/"+project+".xml"));
 			Element rootElement = document.getDocumentElement();
 			
 			NodeList list = rootElement.getElementsByTagName("pdesc");
@@ -239,11 +239,11 @@ public class Pdao {
     }
     
     static public String getLog(String name){
-        return deserializeString(new File(System.getProperty("user.home")+"/usercontent/"+name+".log"));
+        return deserializeString(new File(System.getProperty("user.home")+"/userdata/"+name+".log"));
     }
     
     static public void postLog(String name, String content){
-        File file = createFile(System.getProperty("user.home")+"/usercontent/"+name+".log");
+        File file = createFile(System.getProperty("user.home")+"/userdata/"+name+".log");
         /*File file = new File(basePath+"/usercontent/"+name+".log");
             try{
                 file.createNewFile();
