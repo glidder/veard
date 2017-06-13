@@ -71,6 +71,9 @@ public class Pdao {
 			}
 		}
     }
+    static public void postLog(String message){
+        postLog("log",message);
+    }
     
     /*
      * Function that return the contents of the requested log file

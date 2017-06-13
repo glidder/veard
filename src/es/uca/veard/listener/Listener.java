@@ -1,31 +1,22 @@
-package es.uca.veard.rest;
+package es.uca.veard.listener;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
-import java.util.List;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+public class Listener implements ServletContextListener{
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.annotation.PostConstruct;
-import javax.annotation.*;
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+		Pdao.postLog("\nServlet destruction\n"+
+                     "--------------------------------------\n");
+	}
 
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.glassfish.jersey.media.multipart.FormDataParam;
-
-import es.uca.veard.dao.Pdao;
+        //Run this before web application is started
+	@Override
+	public void contextInitialized(ServletContextEvent arg0) {
+		Pdao.postLog("\nServlet initialisation\n"+
+                     "--------------------------------------\n");
+	}
+}
 
 /*
  * Class that implements all REST methods
@@ -36,9 +27,10 @@ public class Rest extends HttpServlet {
     //TODO: eliminate from Web.xml
     private static String modelPath = "models/";
     private static String imagePath = "images/";
+    //TODO: eliminate this variable
     private static String logName = "log";
     
-    /* TODO: Delete both functions
+    /* 
      * Getting the propperties configured in Web.xml
      */
     /*@PostConstruct

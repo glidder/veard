@@ -46,4 +46,8 @@ id="VEARD" version="3.0">
         <servlet-name>VEARDEditorRESTService</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
+    
+    <listener>
+        <listener-class>es.uca.veard.listener</listener-class>
+   </listener>
 </web-app>
