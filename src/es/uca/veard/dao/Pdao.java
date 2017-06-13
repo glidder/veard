@@ -75,7 +75,7 @@ public class Pdao {
     /*
      * Function that return the contents of the requested log file
      */
-    static public String getLog(String name){
+    static public String getLog(String logName){
         return deserializeString(new File(basePath+logName+".log"));
     }
     
