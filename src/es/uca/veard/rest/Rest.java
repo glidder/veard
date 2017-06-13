@@ -32,9 +32,9 @@ public class Rest extends HttpServlet {
     
     //Properties configurable in Web.xml
     //TODO:delete   private static String path="/userdata/";
-    private static String modelPath = "models/";
-    private static String imagePath = "images/";
-    private static String logName = "log";
+    private static String modelPath ;//= "models/";
+    private static String imagePath ;//= "images/";
+    private static String logName ;//= "log";
     
     /* 
      * Getting the propperties configured in Web.xml
