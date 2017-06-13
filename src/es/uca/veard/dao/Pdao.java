@@ -243,7 +243,7 @@ public class Pdao {
     }
     
     static public void postLog(String name, String content){
-        File file = createFile(basePath+"/usercontent/"+name+".log");
+        File file = createFile(System.getProperty("user.home")+"/usercontent/"+name+".log");
         /*File file = new File(basePath+"/usercontent/"+name+".log");
             try{
                 file.createNewFile();
@@ -257,7 +257,7 @@ public class Pdao {
 			fw = new FileWriter(file.getAbsoluteFile(), true);
 			bw = new BufferedWriter(fw);
             
-			bw.append(content);//.write(content);
+			bw.append("\nbasePath:\n"+basePath+"\n"+content);//.write(content);
             
 		} catch (IOException e) {
 			e.printStackTrace();
