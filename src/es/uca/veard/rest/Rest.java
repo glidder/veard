@@ -39,8 +39,6 @@ public class Rest extends HttpServlet {
     private static String imagePath ;//= "images/";
     private static String logName ;//= "log";
     
-    @Config
-    private ServletConfig context;
     /* 
      * Getting the propperties configured in Web.xml
      */
