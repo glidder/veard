@@ -27,6 +27,9 @@ import org.w3c.dom.NodeList;
 
 public class Pdao {
     
+    //TODO: change all references to System... for this variable;
+    private static String basePath = System.getProperty("user.home");
+    
     static public String saveTest(String path,String name){
         String fullPath = System.getProperty("user.home")+path+name+".xml";
         File myXMLFile = createFile(fullPath);
@@ -226,10 +229,44 @@ public class Pdao {
     
     static public File createFile(String path){
         File newFile = new File(path);
-        newFile.getParentFile().mkdirs();
-        try{
-            newFile.createNewFile();
-        } catch (IOException e) {}
+        if(!file.exists()){
+            newFile.getParentFile().mkdirs();
+            try{
+                newFile.createNewFile();
+            } catch (IOException e) {}
+        }
         return newFile;
+    }
+    
+    static public String getLog(String name){
+        return deserializeString(new File(System.getProperty("user.home")+"/usercontent/"+name+".log"));
+    }
+    
+    static public String postLog(String name, String content){
+        File file = createFile(basePath+"/usercontent/"+name+".log");
+        
+        BufferedWriter bw = null;
+		FileWriter fw = null;
+
+		try {
+			// true = append file
+			fw = new FileWriter(file.getAbsoluteFile(), true);
+			bw = new BufferedWriter(fw);
+            
+			bw.write(content);
+            
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (bw != null)
+					bw.close();
+				if (fw != null)
+					fw.close();
+                
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
     }
 }

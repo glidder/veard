@@ -33,6 +33,7 @@ public class Rest extends HttpServlet {
     
 	private static int hum=0;
     private static String path="/userdata/";
+    private static String logName="log";
     
 	@POST
 	@Path("/save")
@@ -40,7 +41,8 @@ public class Rest extends HttpServlet {
 	//@Consumes(MediaType.TEXT_PLAIN)
 	public void saveProject(@FormParam("name") String name, @FormParam("desc") String desc, @FormParam("ecode") String ecode, @FormParam("jcode") String jcode )
 	{	//Editor.hum=Editor.hum+1;
-		System.out.print("\nCACACACACACACACACACA\n"+ecode);
+		//System.out.print("\nCACACACACACACACACACA\n"+ecode);
+        Pdao.postLog(logName,"\nECODE:\n"+ecode);
 		Pdao.save(name, desc, ecode, jcode);//Add a check function to the form!!!!!!
 	}
     
@@ -96,5 +98,12 @@ public class Rest extends HttpServlet {
             return Response.status(200).entity("File saved to " + path).build();
         else
             return Response.status(500).entity("Can not save file to "+path).build();
+    }
+    
+    @GET
+    @Path("/log")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String showLog() {
+        return "Application Log:"+Pdao.getLog(logName);
     }
 } 
