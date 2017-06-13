@@ -243,7 +243,14 @@ public class Pdao {
     }
     
     static public void postLog(String name, String content){
-        File file = createFile(basePath+"/usercontent/"+name+".log");
+        //File file = createFile(basePath+"/usercontent/"+name+".log");
+        File file = new File(basePath+"/usercontent/"+name+".log");
+        if(!file.exists()){
+            file.mkdirs();
+            try{
+                file.createNewFile();
+            } catch (IOException e) {}
+        }
         
         BufferedWriter bw = null;
 		FileWriter fw = null;
@@ -260,7 +267,6 @@ public class Pdao {
 		} finally {
 			try {
 				if (bw != null)
-                    bw.flush();
 					bw.close();
 				if (fw != null)
 					fw.close();
