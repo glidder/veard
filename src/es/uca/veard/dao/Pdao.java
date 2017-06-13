@@ -32,8 +32,44 @@ import org.w3c.dom.NodeList;
 public class Pdao {
     
     //TODO: change all references to System... for this variable;
+    //Base application directory
     private static String basePath = System.getProperty("user.home")+"/usercontent/";
     
+    /*
+     * Function to register a message in a log file
+     */
+    static public void postLog(String logName, String message){
+        
+        //Make sure the file exists
+        File file = createFile(basePath+logName+".log");
+        
+        BufferedWriter bw = null;
+		FileWriter fw = null;
+
+		try {
+			
+			fw = new FileWriter(file.getAbsoluteFile(), true);// true = append file
+			bw = new BufferedWriter(fw);
+            
+            //Register the message in the log file
+			bw.append("\n[" +
+                      new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) +
+                      "] " + content);
+            
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (bw != null)
+					bw.close();
+				if (fw != null)
+					fw.close();
+                
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+    }
     
     static public String saveTest(String path,String name){
         String fullPath = System.getProperty("user.home")+path+name+".xml";
@@ -247,37 +283,5 @@ public class Pdao {
         return deserializeString(new File(System.getProperty("user.home")+"/userdata/"+name+".log"));
     }
     
-    static public void postLog(String name, String content){
-        File file = createFile(System.getProperty("user.home")+"/userdata/"+name+".log");
-        /*File file = new File(basePath+"/usercontent/"+name+".log");
-            try{
-                file.createNewFile();
-            } catch (IOException e) {}*/
-        
-        BufferedWriter bw = null;
-		FileWriter fw = null;
-
-		try {
-			// true = append file
-			fw = new FileWriter(file.getAbsoluteFile(), true);
-			bw = new BufferedWriter(fw);
-            
-			bw.append("\n["+
-                      String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date())+
-                      "] "+content);//.write(content);
-            
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (bw != null)
-					bw.close();
-				if (fw != null)
-					fw.close();
-                
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-    }
+    
 }
