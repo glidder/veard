@@ -2,6 +2,7 @@ package es.uca.veard.listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+@WebListener
 public class Listener implements ServletContextListener{
 
 	@Override
