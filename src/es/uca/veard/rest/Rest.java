@@ -66,7 +66,7 @@ public class Rest extends HttpServlet {
             //Register the operation in the log file
             Pdao.postLog(logName,"User requested a salutation");
             //Answer the petition
-            return "Hello Jersey "+System.getProperty("user.home")+Rest.hum;
+            return "Hello Jersey at "+System.getProperty("user.home");
         }
         /*
          * Method to consult the application log file
@@ -120,13 +120,15 @@ public class Rest extends HttpServlet {
 		return Pdao.load(name);
 	}
     
+    /*
     @GET
 	@Path("/create/{name}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String createFile (@PathParam ("name") String name) {
         return "Created "+Pdao.saveTest(path,name);
-	}
+	}*/
     
+    /*
     @POST
     @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -137,6 +139,6 @@ public class Rest extends HttpServlet {
             return Response.status(200).entity("File saved to " + path).build();
         else
             return Response.status(500).entity("Can not save file to "+path).build();
-    }
+    }*/
     
 } 

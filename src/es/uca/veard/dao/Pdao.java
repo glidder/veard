@@ -54,7 +54,7 @@ public class Pdao {
             //Register the message in the log file
 			bw.append("\n[" +
                       new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) +
-                      "] " + content);
+                      "] " + message);
             
 		} catch (IOException e) {
 			e.printStackTrace();
