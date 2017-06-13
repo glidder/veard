@@ -37,9 +37,12 @@ public class Rest extends HttpServlet {
     private static String imagePath ;//= "images/";
     private static String logName ;//= "log";
     
+    @Context
+    private ServletContext context;
     /* 
      * Getting the propperties configured in Web.xml
      */
+    @PostConstruct
     public void init() throws ServletException {
         //ServletContext sc = getServletContext(); 
         //modelPath = config.getInitParameter ("modelstorage");
