@@ -230,7 +230,7 @@ public class Pdao {
     static public File createFile(String path){
         File newFile = new File(path);
         if(!newFile.exists()){
-            newFile.getParentFile().mkdirs();
+            newFile.mkdirs();
             try{
                 newFile.createNewFile();
             } catch (IOException e) {}
@@ -253,13 +253,14 @@ public class Pdao {
 			fw = new FileWriter(file.getAbsoluteFile(), true);
 			bw = new BufferedWriter(fw);
             
-			bw.write(content);
+			bw.append(content);//.write(content);
             
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				if (bw != null)
+                    bw.flush();
 					bw.close();
 				if (fw != null)
 					fw.close();
