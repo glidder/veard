@@ -40,7 +40,6 @@ public class Rest extends HttpServlet {
     /* 
      * Getting the propperties configured in Web.xml
      */
-    @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
     //TODO:delete    path = config.getInitParameter("filestorage");
