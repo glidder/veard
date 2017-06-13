@@ -230,7 +230,7 @@ public class Pdao {
     static public File createFile(String path){
         File newFile = new File(path);
         if(!newFile.exists()){
-            newFile.mkdirs();
+            newFile.getParentFile().mkdirs();
             try{
                 newFile.createNewFile();
             } catch (IOException e) {}
@@ -243,11 +243,11 @@ public class Pdao {
     }
     
     static public void postLog(String name, String content){
-        //File file = createFile(basePath+"/usercontent/"+name+".log");
-        File file = new File(basePath+"/usercontent/"+name+".log");
+        File file = createFile(basePath+"/usercontent/"+name+".log");
+        /*File file = new File(basePath+"/usercontent/"+name+".log");
             try{
                 file.createNewFile();
-            } catch (IOException e) {}
+            } catch (IOException e) {}*/
         
         BufferedWriter bw = null;
 		FileWriter fw = null;
