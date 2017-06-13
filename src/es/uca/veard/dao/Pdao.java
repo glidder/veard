@@ -72,6 +72,13 @@ public class Pdao {
 		}
     }
     
+    /*
+     * Function that return the contents of the requested log file
+     */
+    static public String getLog(String name){
+        return deserializeString(new File(basePath+logName+".log"));
+    }
+    
     static public String saveTest(String path,String name){
         String fullPath = System.getProperty("user.home")+path+name+".xml";
         File myXMLFile = createFile(fullPath);
@@ -279,10 +286,4 @@ public class Pdao {
         }
         return newFile;
     }
-    
-    static public String getLog(String name){
-        return deserializeString(new File(System.getProperty("user.home")+"/userdata/"+name+".log"));
-    }
-    
-    
 }

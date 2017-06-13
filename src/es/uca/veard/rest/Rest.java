@@ -40,13 +40,14 @@ public class Rest extends HttpServlet {
      * Getting the propperties configured in Web.xml
      */
     public void init(ServletConfig config){
-        //Register the operation in the log file
-        Pdao.postLog(logName,"\nServlet initialisation\n"+
-                     "--------------------------------------\n");
     //TODO:delete    path = config.getInitParameter("filestorage");
         modelPath = config.getInitParameter ("modelstorage");
         imagePath = config.getInitParameter ("imagestorage");
         logName = config.getInitParameter ("logfilename");
+        
+        //Register the operation in the log file
+        Pdao.postLog(logName,"\nServlet initialisation\n"+
+                     "--------------------------------------\n");
     }
     
     /*
