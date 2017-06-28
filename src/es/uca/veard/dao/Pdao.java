@@ -84,7 +84,13 @@ public class Pdao {
     static public void postLog(String message, String logName){
         
         //Make sure the file exists
-        File file = createFile(BASE_PATH+logName+".log");
+        File file = new File(BASE_PATH+logName+".log");
+        if(!newFile.exists()){
+            newFile.getParentFile().mkdirs();
+            try{
+                newFile.createNewFile();
+            } catch (IOException e) {}
+        }
         //Declare the file buffers
         BufferedWriter bw = null;
 		FileWriter fw = null;
