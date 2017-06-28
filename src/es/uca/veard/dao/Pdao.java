@@ -123,6 +123,52 @@ public class Pdao {
     /*
      * SAVE methods
      *******************************************************/
+    /**
+     * Saves a file from an InputStream in the specified path
+     * @param uploadedInputStream   the InputStream to be saved as a file
+     * @param path                  the path to save the file in
+     * @return                      a bool set true if there's no error, false otherwise
+     */
+    static public boolean saveInputStream(InputStream uploadedInputStream, String path){
+        OutputStream out = null;
+        try{
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            out = new FileOutputStream(new File(BASE_PATH+path));
+            while ((read = uploadedInputStream.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }  
+        } catch (IOException e) {
+			return false;
+		} finally {
+            if(uploadedInputStream != null){
+                try{
+                    uploadedInputStream.close();
+                } catch (IOException e){
+                }
+            }
+            if (out!=null){
+                try{
+                    out.flush();
+                    out.close();
+                } catch (IOException e){
+                }
+            }
+        }
+        return true; 
+    }
+    /**
+     * Returns the contents of an specified file
+     * @param path  relative path of the file
+     * @return      string with the contents of the file
+     */
+    static public String loadPlainText(String path){
+        //Register the action in the log file
+        postLog("User downloaded the file: "+path);
+        //TODO: throw custom exception if the file doesn't exists
+        
+        return deserializeString(new File(BASE_PATH+path));
+    }
     
     /*
      * LOAD methods
@@ -131,7 +177,6 @@ public class Pdao {
     /*
      * HELPER methods
      *******************************************************/
-    
     /**
      * Creates a {@link File} object safely.
      * Creates the necesary folder structure if necessary.
@@ -151,6 +196,27 @@ public class Pdao {
         }
         return newFile;
     }
+    /**
+     * Creates a string with the contents of the specified file
+     * @param file  a File object to be deserialized
+     * @return      a string with the contents of the File object
+     */
+    public static String deserializeString(File file){
+	      int len;
+	      char[] chr = new char[4096];
+	      final StringBuffer buffer = new StringBuffer();
+	      try {
+              final FileReader reader = new FileReader(file);
+              try {
+                  while ((len = reader.read(chr)) > 0) {
+                      buffer.append(chr, 0, len);
+                  }
+              } finally {
+                  reader.close();
+              }
+          }catch(Exception e){}
+	      return buffer.toString();
+	  }
     
     static public String saveTest(String path,String name){
         String fullPath = BASE_PATH+path+name+".xml";
@@ -182,36 +248,6 @@ public class Pdao {
         }
     }*/
     
-    static public boolean uploadTest(InputStream uploadedInputStream, String path){
-        OutputStream out = null;
-        try{
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            out = new FileOutputStream(new File(BASE_PATH+path));
-            while ((read = uploadedInputStream.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }  
-        } catch (IOException e) {
-			return false;
-		} finally {
-            if(uploadedInputStream != null){
-                try{
-                    uploadedInputStream.close();
-                } catch (IOException e){
-                }
-            }
-            if (out!=null){
-                try{
-                    out.flush();
-                    out.close();
-                } catch (IOException e){
-                }
-            }
-        }
-        return true;
-        
-    }
-    
 	static public boolean save(String name, String description, String ecode, String jcode){
 		//int fname = new File(System.getProperty("user.home")+"/usercontent/").list().length; // Temporal naming function
 		File myXMLFile = new File(BASE_PATH, /*f*/name+".xml");  //or "user.home" 
@@ -233,23 +269,6 @@ public class Pdao {
 		return true;
 	}
 	
-	public static String deserializeString(File file){
-		
-	      int len;
-	      char[] chr = new char[4096];
-	      final StringBuffer buffer = new StringBuffer();
-	      try {
-	      final FileReader reader = new FileReader(file);
-	      try {
-	          while ((len = reader.read(chr)) > 0) {
-	              buffer.append(chr, 0, len);
-	          }
-	      } finally {
-	          reader.close();
-	      }}catch(Exception e){}
-	      return buffer.toString();
-		
-	  }
 	
 	static public String load(String name){
 		return deserializeString(new File(BASE_PATH, name+".js"));

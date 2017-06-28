@@ -80,6 +80,56 @@ public class Rest extends HttpServlet {
             return "Application Log:"+Pdao.getLog(LOG_NAME);
         }
     
+    /**
+     * Downloads a model from the server
+     */
+    @GET
+    @Path("/model/{name}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String downloadModel(@PathParam("name") String name) {
+        return Pdao.loadPlainText(MODEL_PATH+name);
+    }
+    /**
+     * Downloads an image from the server
+     */
+    @GET
+    @Path("/image/{name}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String downloadImage(@PathParam("name") String name) {
+        return Pdao.loadPlainText(IMAGE_PATH+name);
+    }
+    /*
+     * POST methods
+     ****************************************************/
+    /**
+     * Uploads a model to the server via InputStream
+     */
+    @POST
+    @Path("/upload/model")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public void uploadModel (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
+        if(uploadedInputStream == null || fileDetail == null)
+            Pdao.postLog("Rest.uploadFile(): Invalid form data");
+        if (Pdao.saveInputStream(uploadedInputStream,MODEL_PATH+fileDetail.getFileName()))
+            Pdao.postLog("Rest.uploadFile(): File saved: " + fileDetail.getFileName());
+        else
+            Pdao.postLog("Rest.uploadFile(): Can not save file: "+ fileDetail.getFileName());
+    }
+    /**
+     * Uploads an image to the server via InputStream
+     */
+    @POST
+    @Path("/upload/image")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public void uploadImage (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
+        if(uploadedInputStream == null || fileDetail == null)
+            Pdao.postLog("Rest.uploadFile(): Invalid form data");
+        if (Pdao.saveInputStream(uploadedInputStream,IMAGE_PATH+fileDetail.getFileName()))
+            Pdao.postLog("Rest.uploadFile(): File saved: " + fileDetail.getFileName());
+        else
+            Pdao.postLog("Rest.uploadFile(): Can not save file: "+ fileDetail.getFileName());
+    }
+    
     
 	@POST
 	@Path("/save")
@@ -90,8 +140,6 @@ public class Rest extends HttpServlet {
         Pdao.postLog("\nECODE:\n"+ecode,LOG_NAME);
 		Pdao.save(name, desc, ecode, jcode);//Add a check function to the form!!!!!!
 	}
-    
-   
     
     @GET
 	@Path("/list")
@@ -129,16 +177,6 @@ public class Rest extends HttpServlet {
 	}*/
     
     
-    @POST
-    @Path("/upload")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public void uploadFile (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
-        if(uploadedInputStream == null || fileDetail == null)
-            Pdao.postLog("Rest.uploadFile(): Invalid form data");
-        if (Pdao.uploadTest(uploadedInputStream,fileDetail.getFileName()))
-            Pdao.postLog("Rest.uploadFile(): File saved: " + fileDetail.getFileName());
-        else
-            Pdao.postLog("Rest.uploadFile(): Can not save file: "+ fileDetail.getFileName());
-    }
+    
     
 } 

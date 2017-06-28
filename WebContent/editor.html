@@ -38,6 +38,16 @@
             <input name="file" id="filename" type="file" /><br><br>
     	   <button name="submit" type="submit">Upload</button>
         </form>
+        <br>Choose MODEL to upload<br>
+        <form action="./rest/dao/upload/model" method="post" enctype="multipart/form-data">
+            <input name="file" id="filename" type="file" /><br><br>
+    	   <button name="submit" type="submit">Upload</button>
+        </form>
+        <br>Choose IMAGE to upload<br>
+        <form action="./rest/dao/upload/image" method="post" enctype="multipart/form-data">
+            <input name="file" id="filename" type="file" /><br><br>
+    	   <button name="submit" type="submit">Upload</button>
+        </form>
 	</div>  
 	<table id="myTabContent" width="100%" height="100%" role="main">
     <tr>
