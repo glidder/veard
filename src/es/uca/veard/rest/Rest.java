@@ -7,6 +7,7 @@
 package es.uca.veard.rest;
 
 import java.util.List;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +23,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.StreamingOutput;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -97,6 +100,13 @@ public class Rest extends HttpServlet {
     @Produces(MediaType.TEXT_PLAIN)
     public String downloadImage(@PathParam("name") String name) {
         return Pdao.loadPlainText(IMAGE_PATH+name);
+    }
+    @GET
+    @Path("/download/{name}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response downloadFile(@PathParam("name") String name){
+        File file = Pdao.loadFile(name);
+        return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
     }
     /*
      * POST methods

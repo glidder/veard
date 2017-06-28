@@ -157,22 +157,33 @@ public class Pdao {
         }
         return true; 
     }
-    /**
+    
+    /*
+     * LOAD methods
+     *******************************************************/
+     /**
      * Returns the contents of an specified file
      * @param path  relative path of the file
      * @return      string with the contents of the file
      */
     static public String loadPlainText(String path){
         //Register the action in the log file
-        postLog("User downloaded the file: "+path);
+        postLog("User downloaded as a string the file: "+path);
         //TODO: throw custom exception if the file doesn't exists
         
         return deserializeString(new File(BASE_PATH+path));
     }
-    
-    /*
-     * LOAD methods
-     *******************************************************/
+    /**
+     * Returns a specified File
+     * @param path  relative path of the file
+     * @return      the specified File
+     */
+    static public File loadFile(String path){
+        //Register the action in the log file
+        postLog("User downloaded the file: "+path);
+        //TODO: Control if the file exists instead of creating it
+        return createFile(BASE_PATH+path);
+    }
     
     /*
      * HELPER methods
@@ -217,6 +228,8 @@ public class Pdao {
           }catch(Exception e){}
 	      return buffer.toString();
 	  }
+    
+    
     
     static public String saveTest(String path,String name){
         String fullPath = BASE_PATH+path+name+".xml";
