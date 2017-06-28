@@ -134,11 +134,11 @@ public class Rest extends HttpServlet {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public void uploadFile (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
         if(uploadedInputStream == null || fileDetail == null)
-            Pdao.postLog(Response.status(400).entity("Invalid form data").build().toString());
+            Pdao.postLog("Rest.uploadFile(): Invalid form data");
         if (Pdao.uploadTest(uploadedInputStream,fileDetail.getFileName()))
-            Pdao.postLog(Response.status(200).entity("File saved: " + fileDetail.getFileName()).build().toString());
+            Pdao.postLog("Rest.uploadFile(): File saved: " + fileDetail.getFileName());
         else
-            Pdao.postLog(Response.status(500).entity("Can not save file: "+ fileDetail.getFileName()).build().toString());
+            Pdao.postLog("Rest.uploadFile(): Can not save file: "+ fileDetail.getFileName());
     }
     
 } 
