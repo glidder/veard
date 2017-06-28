@@ -128,17 +128,17 @@ public class Rest extends HttpServlet {
         return "Created "+Pdao.saveTest(path,name);
 	}*/
     
-    /*
+    
     @POST
     @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadFile (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
+    public void uploadFile (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
         if(uploadedInputStream == null || fileDetail == null)
-            return Response.status(400).entity("Invalid form data").build();
-        if (Pdao.uploadTest(uploadedInputStream,path+fileDetail.getFileName()))
-            return Response.status(200).entity("File saved to " + path).build();
+            Pdao.postLog(Response.status(400).entity("Invalid form data").build().toString());
+        if (Pdao.uploadTest(uploadedInputStream,fileDetail.getFileName()))
+            Pdao.postLog(Response.status(200).entity("File saved: " + fileDetail.getFileName()).build().toString());
         else
-            return Response.status(500).entity("Can not save file to "+path).build();
-    }*/
+            Pdao.postLog(Response.status(500).entity("Can not save file: "+ fileDetail.getFileName()).build().toString());
+    }
     
 } 

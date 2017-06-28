@@ -135,10 +135,13 @@ public class Pdao {
     static public File createFile(String path){
         File newFile = new File(path);
         if(!newFile.exists()){
+            postLog("Created new file "+path);
             newFile.getParentFile().mkdirs();
             try{
                 newFile.createNewFile();
             } catch (IOException e) {}
+        } else {
+            postLog("File already exists at "+path);
         }
         return newFile;
     }
