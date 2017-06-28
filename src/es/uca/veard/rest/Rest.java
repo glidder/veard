@@ -180,6 +180,30 @@ public class Rest extends HttpServlet {
         File file = Pdao.loadFile(IMG_PATH+name);
         return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
     }
+    /**
+     * Lists all available projects from the server
+     */
+    @GET
+	@Path("/projects")
+	@Produces(MediaType.TEXT_HTML)
+	public String listProjects() {
+		List<String> projects = Pdao.listAll(PRO_PATH);
+		String result ="<ul  class='thumbnails'>";
+        String list = "";
+		if(!projects.isEmpty()){
+			for (String project:projects){
+				list+=project+"; ";
+				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
+				"<li class='col-md-3'><div class='thumbnail'>"+
+	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
+	                  "<h3>"+Pdao.getName(project)+"</h3>"+
+	                  "<p>"+Pdao.getDescription(project) +"</p>"+
+	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
+			}
+		}
+        Pdao.postLog("Project list request:\n\t\t\t"+list);
+		return result+"</ul>";
+	}
     
     /*
      * POST methods
@@ -226,7 +250,26 @@ public class Rest extends HttpServlet {
         else
             Pdao.postLog("Rest.uploadFile(): Can not save file: "+ fileDetail.getFileName());
     }
+    /**
+     * Uploads a project to the server
+     */
+    @POST
+    @Path("/upload/project")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public void saveProject(@FormParam("name") String name, @FormParam("desc") String desc, @FormParam("ecode") String ecode, @FormParam("jcode") String jcode ){
+        Pdao.postLog("Project upload requested:\nECODE:\n"+ecode,LOG_NAME);
+        //Pdao.save(name, desc, ecode, jcode);//Add a check function to the form!!!!!!
+        Pdao.saveString(ecode.substring(0, ecode.length()-6)+"<pname>"+name+"</pname><pdesc>"+desc+"</pdesc><jcode>"+jcode+"</jcode></xml>",PRO_PATH+name+".xml");
+    } 
     
+    
+    /*
+    @GET
+	@Path("/create/{name}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String createFile (@PathParam ("name") String name) {
+        return "Created "+Pdao.saveTest(path,name);
+	}
     
 	@POST
 	@Path("/save")
@@ -237,44 +280,13 @@ public class Rest extends HttpServlet {
 		Pdao.save(name, desc, ecode, jcode);//Add a check function to the form!!!!!!
 	}
     
-    
-    
     @GET
-	@Path("/projects")
-	@Produces(MediaType.TEXT_HTML)
-	public String listProjects() {
-		List<String> projects = Pdao.listAll(PRO_PATH);
-		String result ="<ul  class='thumbnails'>";
-        String list = "";
-		if(!projects.isEmpty()){
-			for (String project:projects){
-				list+=project+"; ";
-				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
-				"<li class='col-md-3'><div class='thumbnail'>"+
-	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
-	                  "<h3>"+Pdao.getName(project)+"</h3>"+
-	                  "<p>"+Pdao.getDescription(project) +"</p>"+
-	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
-			}
-		}
-        Pdao.postLog("Project list request:\n\t\t\t"+list);
-		return result+"</ul>";
-	}
-	
-	@GET
 	@Path("/project/{name}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getCode(@PathParam ("name") String name) {
 		return Pdao.load(name);
-	}
-    
-    /*
-    @GET
-	@Path("/create/{name}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String createFile (@PathParam ("name") String name) {
-        return "Created "+Pdao.saveTest(path,name);
 	}*/
+    
     
     
     

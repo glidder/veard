@@ -157,6 +157,45 @@ public class Pdao {
         }
         return true; 
     }
+    /**
+     * Saves a file from a string in the specified path
+     * @param contents  Content string to be saved
+     * @param path      path of the file
+     * @return          a bool set to true if there's no error, false otherwise
+     */
+    static public boolean saveString(String content, String path){
+        File file = createFile(BASE_PATH+path);
+        //Declare the file buffers
+        BufferedWriter bw = null;
+		FileWriter fw = null;
+
+		try {
+			
+            //Open the buffers
+			fw = new FileWriter(file.getAbsoluteFile());
+			bw = new BufferedWriter(fw);
+            
+            //Register the message in the log file
+			bw.write(content);
+            
+		} catch (IOException e) {
+			e.printStackTrace();
+            return false;
+		} finally {
+            //Close the buffers
+			try {
+				if (bw != null)
+					bw.close();
+				if (fw != null)
+					fw.close();
+                
+			} catch (IOException e) {
+				e.printStackTrace();
+                return false;
+			}
+		}
+        return true;
+    }
     
     /*
      * LOAD methods
@@ -215,6 +254,90 @@ public class Pdao {
 		}
 		return names;
     }
+    /**
+     * Returns the name of a certain project
+     * @param path  path of the project file
+     * @return      string with the name of the project
+     */
+    static public String getName(String path){
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		String name = "Unnamed";
+		try{
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(createFile(path));
+			Element rootElement = document.getDocumentElement();
+			
+			NodeList list = rootElement.getElementsByTagName("pname");
+	        if (list != null && list.getLength() > 0) {
+	            NodeList subList = list.item(0).getChildNodes();
+
+	            if (subList != null && subList.getLength() > 0) {
+	                 name = (String) subList.item(0).getNodeValue();
+	            }
+	        }
+		} catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+        postLog("Requested name of the project on path "+path+": "+name);
+		return name;
+	}
+    /**
+     * Returns the description of a certain project
+     * @param path  path of the project file
+     * @return      string with the description of the project
+     */
+    static public String getDescription(String path){
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		String desc = "Null";
+		try{
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(createFile(path));
+			Element rootElement = document.getDocumentElement();
+			
+			NodeList list = rootElement.getElementsByTagName("pdesc");
+	        if (list != null && list.getLength() > 0) {
+	            NodeList subList = list.item(0).getChildNodes();
+
+	            if (subList != null && subList.getLength() > 0) {
+	                 desc = (String) subList.item(0).getNodeValue();
+	            }
+	        }
+		} catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+        postLog("Requested description of the project on path "+path+": "+desc);
+		return desc;
+	}
+        /**
+     * Returns the java code of a certain project
+     * @param path  path of the project file
+     * @return      string with the java code of the project
+     */
+    static public String getJavaCode(String path){
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		String jcode = "Null";
+		try{
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(createFile(path));
+			Element rootElement = document.getDocumentElement();
+			
+			NodeList list = rootElement.getElementsByTagName("jcode");
+	        if (list != null && list.getLength() > 0) {
+	            NodeList subList = list.item(0).getChildNodes();
+
+	            if (subList != null && subList.getLength() > 0) {
+	                 jcode = (String) subList.item(0).getNodeValue();
+	            }
+	        }
+		} catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+        postLog("Requested java code of the project on path "+path+": "+jcode);
+		return jcode;
+	}
     
     /*
      * HELPER methods
@@ -262,13 +385,14 @@ public class Pdao {
     
     
     
+    /*
     static public String saveTest(String path,String name){
         String fullPath = BASE_PATH+path+name+".xml";
         File myXMLFile = createFile(fullPath);
 
         return fullPath;
     }
-    /*
+    
     static public boolean uploadTest(File file, String path){
         File savedFile = createFile(System.getProperty("user.home")+path);
         //FileChannel source = null;
@@ -290,12 +414,12 @@ public class Pdao {
             }*//*
             return true;
         }
-    }*/
+    }
     
-	static public boolean save(String name, String description, String ecode, String jcode){
+    static public boolean saveProject(String name, String description, String ecode, String jcode){
 		//int fname = new File(System.getProperty("user.home")+"/usercontent/").list().length; // Temporal naming function
-		File myXMLFile = new File(BASE_PATH, /*f*/name+".xml");  //or "user.home" 
-		File myJSFile = new File(BASE_PATH, /*f*/name+".js");
+		File myXMLFile = new File(BASE_PATH, name+".xml");  //or "user.home" 
+		File myJSFile = new File(BASE_PATH, name+".js");
 		//System.out.print("Yep! "+System.getProperty("user.home")+" -->"+code);
 		try {
 			myXMLFile.createNewFile();
@@ -312,14 +436,13 @@ public class Pdao {
 		} catch (IOException e) {}
 		return true;
 	}
-	
-	
-	static public String load(String name){
+    
+    static public String load(String name){
 		return deserializeString(new File(BASE_PATH, name+".js"));
 		
 	}
-	
-	static public List<String> listAll(){
+    
+    static public List<String> listAll(){
 		File dir = new File(BASE_PATH);
 		File[] directoryListing = dir.listFiles(new FilenameFilter() {
 		    public boolean accept(File dir, String name) {
@@ -358,12 +481,13 @@ public class Pdao {
 					//System.out.print(node.getNodeValue()+"\n <------VALUE");
 			    } catch (Exception e) {
 			    	e.printStackTrace();
-			    }*/
+			    }*//*
 		    }
 		}
 		return names;
 	}
-	static public String getName(String project){
+    
+    static public String getName(String project){
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);
 		String name = "Null";
@@ -387,7 +511,8 @@ public class Pdao {
 	    }
 		return name;
 	}
-	static public String getDescription(String project){
+    
+    static public String getDescription(String project){
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);
 		String desc = "Null";
@@ -410,6 +535,6 @@ public class Pdao {
 	    	e.printStackTrace();
 	    }
 		return desc;
-	}
+	}*/
     
 }
