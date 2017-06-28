@@ -1,3 +1,9 @@
+/*
+ * Rest.java
+ * v0.8
+ * 28/07/2017
+ * Copyright (c) Luis José Quintana Bolaño
+ */
 package es.uca.veard.rest;
 
 import java.util.List;
@@ -27,72 +33,51 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import es.uca.veard.dao.Pdao;
 
-/*
- * Class that implements all REST methods
+/**
+ * Class that implements all REST methods.
+ * It uses the DAO {@link Pdao} class as an interface with the filesystem.
+ *
+ * @author Luis José Quintana Bolaño
  */
 @Path("/dao")
 public class Rest extends HttpServlet {
     
     //TODO: eliminate from Web.xml
-    private static String modelPath = "models/";
-    private static String imagePath = "images/";
-    private static String logName = "log";
-    
-    /* TODO: Delete both functions
-     * Getting the propperties configured in Web.xml
-     */
-    /*@PostConstruct
-    public void init() throws ServletException {
-        //ServletContext sc = getServletContext(); 
-        modelPath = config.getInitParameter ("modelstorage");
-        imagePath = config.getInitParameter ("imagestorage");
-        logName = config.getInitParameter ("logfilename");
-        
-        //Register the operation in the log file
-        Pdao.postLog(logName,"\nServlet initialisation\n"+
-                     "--------------------------------------\n");
-    }*/
-    /*public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-    //TODO:delete    path = config.getInitParameter("filestorage");
-        modelPath = config.getInitParameter ("modelstorage");
-        imagePath = config.getInitParameter ("imagestorage");
-        logName = config.getInitParameter ("logfilename");
-        
-        //Register the operation in the log file
-        Pdao.postLog(logName,"\nServlet initialisation\n"+
-                     "--------------------------------------\n");
-    }*/
+    private static final String MODEL_PATH = "models/";
+    private static final String IMAGE_PATH = "images/";
+    private static final String LOG_NAME = "log";
     
     /*
      * GET methods
      *****************************************************/
-    
     /*
      * Tests methods
      */
-        /*
-         * Simple hello test
+        /**
+         * Simple hello test.
+         * @returns plain text message
          */
         @GET
         @Path("/hello")
         @Produces(MediaType.TEXT_PLAIN)
         public String sayPlainTextHello() {
             //Register the operation in the log file
-            Pdao.postLog(logName,"User requested a salutation");
+            Pdao.postLog("User requested a salutation",LOG_NAME);
             //Answer the petition
             return "Hello Jersey at "+System.getProperty("user.home");
         }
-        /*
-         * Method to consult the application log file
+        /**
+         * Consults the application log file
+         * @returns string witht he contents of the log file
          */
         @GET
         @Path("/log")
         @Produces(MediaType.TEXT_PLAIN)
         public String showLog() {
             //Register the operation in the log file
-            Pdao.postLog(logName,"User requested the log");
-            return "Application Log:"+Pdao.getLog(logName);
+            Pdao.postLog("User requested the log",LOG_NAME);
+            //Answer the petition
+            return "Application Log:"+Pdao.getLog(LOG_NAME);
         }
     
     
@@ -102,7 +87,7 @@ public class Rest extends HttpServlet {
 	public void saveProject(@FormParam("name") String name, @FormParam("desc") String desc, @FormParam("ecode") String ecode, @FormParam("jcode") String jcode )
 	{	//Editor.hum=Editor.hum+1;
 		//System.out.print("\nCACACACACACACACACACA\n"+ecode);
-        Pdao.postLog(logName,"\nECODE:\n"+ecode);
+        Pdao.postLog("\nECODE:\n"+ecode,LOG_NAME);
 		Pdao.save(name, desc, ecode, jcode);//Add a check function to the form!!!!!!
 	}
     

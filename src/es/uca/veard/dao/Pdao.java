@@ -1,3 +1,9 @@
+/*
+ * Pdao.java
+ * v0.8
+ * 28/07/2017
+ * Copyright (c) Luis José Quintana Bolaño
+ */
 package es.uca.veard.dao;
 
 import java.io.BufferedWriter;
@@ -27,28 +33,65 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-/*
- * Class that implements all filesystem operations
+/**
+ * Class that implements all filesystem operations.
+ * It acts as a Data Access Object (DAO) for the operations performed by the REST {@link Rest} class.
+ *
+ * @author Luis José Quintana Bolaño
  */
 public class Pdao {
     
-    //TODO: change all references to System... for this variable;
     //Base application directory
-    private static String basePath = System.getProperty("user.home")+"/usercontent/";
+    private static final String BASE_PATH = System.getProperty("user.home")+"/usercontent/";
+    //Default log file name
+    private static final String LOG_NAME = "log";
     
     /*
-     * Function to register a message in a log file
+     * LOG methods
+     *******************************************************/
+    
+    /**
+     * Returns the contents of the default {@link LOG_NAME} log file
+     *
+     * @return  a string with the contents of the log file
      */
-    static public void postLog(String logName, String message){
+    static public String getLog (){
+        return getLog(LOG_NAME);
+    }
+    /**
+     * Returns the contents of the specified log file
+     *
+     * @param logName   the name of the log file
+     * @return          a string with the contents of the log file
+     */
+    static public String getLog(String logName){
+        return deserializeString(new File(BASE_PATH+logName+".log"));
+    }
+    /*
+     * Registers a message in the default {@link LOG_NAME} log file
+     *
+     * @param message   The message to register
+     */
+    static public void postLog(String message){
+        postLog(message,LOG_NAME);
+    }
+    /*
+     * Registers a message in the specified log file
+     *
+     * @param message   The message to register
+     * @param logName   The name of the log file
+     */
+    static public void postLog(String message, String logName){
         
         //Make sure the file exists
-        File file = createFile(basePath+logName+".log");
-        
+        File file = createFile(BASE_PATH+logName+".log");
+        //Declare the file buffers
         BufferedWriter bw = null;
 		FileWriter fw = null;
 
 		try {
 			
+            //Open the buffers
 			fw = new FileWriter(file.getAbsoluteFile(), true);// true = append file
 			bw = new BufferedWriter(fw);
             
@@ -58,6 +101,7 @@ public class Pdao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
+            //Close the buffers
 			try {
 				if (bw != null)
 					bw.close();
@@ -69,19 +113,38 @@ public class Pdao {
 			}
 		}
     }
-    static public void postLog(String message){
-        postLog("log",message);
-    }
     
     /*
-     * Function that return the contents of the requested log file
+     * SAVE methods
+     *******************************************************/
+    
+    /*
+     * LOAD methods
+     *******************************************************/
+    
+    /*
+     * HELPER methods
+     *******************************************************/
+    
+    /**
+     * Creates a {@link File} object safely.
+     * Creates the necesary folder structure if necessary.
+     * @param path  The complete file path
+     * @return      The created File object
      */
-    static public String getLog(String logName){
-        return deserializeString(new File(basePath+logName+".log"));
+    static public File createFile(String path){
+        File newFile = new File(path);
+        if(!newFile.exists()){
+            newFile.getParentFile().mkdirs();
+            try{
+                newFile.createNewFile();
+            } catch (IOException e) {}
+        }
+        return newFile;
     }
     
     static public String saveTest(String path,String name){
-        String fullPath = System.getProperty("user.home")+path+name+".xml";
+        String fullPath = BASE_PATH+path+name+".xml";
         File myXMLFile = createFile(fullPath);
 
         return fullPath;
@@ -115,7 +178,7 @@ public class Pdao {
         try{
             int read = 0;
             byte[] bytes = new byte[1024];
-            out = new FileOutputStream(new File(System.getProperty("user.home")+path));
+            out = new FileOutputStream(new File(BASE_PATH+path));
             while ((read = uploadedInputStream.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }  
@@ -142,8 +205,8 @@ public class Pdao {
     
 	static public boolean save(String name, String description, String ecode, String jcode){
 		//int fname = new File(System.getProperty("user.home")+"/usercontent/").list().length; // Temporal naming function
-		File myXMLFile = new File(System.getProperty("user.home")+"/userdata/", /*f*/name+".xml");  //or "user.home" 
-		File myJSFile = new File(System.getProperty("user.home")+"/userdata/", /*f*/name+".js");
+		File myXMLFile = new File(BASE_PATH, /*f*/name+".xml");  //or "user.home" 
+		File myJSFile = new File(BASE_PATH, /*f*/name+".js");
 		//System.out.print("Yep! "+System.getProperty("user.home")+" -->"+code);
 		try {
 			myXMLFile.createNewFile();
@@ -180,12 +243,12 @@ public class Pdao {
 	  }
 	
 	static public String load(String name){
-		return deserializeString(new File(System.getProperty("user.home")+"/userdata/", name+".js"));
+		return deserializeString(new File(BASE_PATH, name+".js"));
 		
 	}
 	
 	static public List<String> listAll(){
-		File dir = new File(System.getProperty("user.home")+"/userdata/");
+		File dir = new File(BASE_PATH);
 		File[] directoryListing = dir.listFiles(new FilenameFilter() {
 		    public boolean accept(File dir, String name) {
 		        return name.toLowerCase().endsWith(".xml");
@@ -234,7 +297,7 @@ public class Pdao {
 		String name = "Null";
 		try{
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(new File(System.getProperty("user.home")+"/userdata/"+project+".xml"));
+			Document document = builder.parse(new File(BASE_PATH+project+".xml"));
 			Element rootElement = document.getDocumentElement();
 			
 			NodeList list = rootElement.getElementsByTagName("pname");
@@ -258,7 +321,7 @@ public class Pdao {
 		String desc = "Null";
 		try{
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(new File(System.getProperty("user.home")+"/userdata/"+project+".xml"));
+			Document document = builder.parse(new File(BASE_PATH+project+".xml"));
 			Element rootElement = document.getDocumentElement();
 			
 			NodeList list = rootElement.getElementsByTagName("pdesc");
@@ -277,14 +340,4 @@ public class Pdao {
 		return desc;
 	}
     
-    static public File createFile(String path){
-        File newFile = new File(path);
-        if(!newFile.exists()){
-            newFile.getParentFile().mkdirs();
-            try{
-                newFile.createNewFile();
-            } catch (IOException e) {}
-        }
-        return newFile;
-    }
 }
