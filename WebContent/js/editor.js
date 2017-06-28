@@ -16,8 +16,8 @@ function updateContextButton() {
 			"	<input type='text' class='form-control' id='desc name='desc'>"+
 			"</div>"+
 			"<button id='saveButton' type='button' class='btn btn-default' onclick='saveWorkspace();closePopover();'>Submit</button>"+
-		"</form>'+
-		"<script>'+
+		"</form>"+
+		"<script>"+
 		"	$('#saveButton').on('click', function(event){"+
 		"		console.log('LOLOLOLOL');"+
 		"		saveWorkspace();"+
