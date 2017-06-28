@@ -85,10 +85,10 @@ public class Pdao {
         
         //Make sure the file exists
         File file = new File(BASE_PATH+logName+".log");
-        if(!newFile.exists()){
-            newFile.getParentFile().mkdirs();
+        if(!file.exists()){
+            file.getParentFile().mkdirs();
             try{
-                newFile.createNewFile();
+                file.createNewFile();
             } catch (IOException e) {}
         }
         //Declare the file buffers
