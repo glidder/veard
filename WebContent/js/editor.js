@@ -6,24 +6,24 @@ function updateContextButton() {
 	$('#popover').popover({
 		  html: true,
 		  title: "Save Form",
-		  content: '<form id="saveForm" role="form" method="POST" enctype="application/x-www-form-urlencoded" action="./rest/dao/save/">'+
-			'<div class="form-group">'+
-			'	<label for="text">Name:</label>'+
-			'	<input type="text" class="form-control" id="name" name="name">'+
-			'</div>'+
-			'<div class="form-group">'+
-			'	<label for="text">Description:</label>'+
-			'	<input type="text" class="form-control" id="desc" name="desc">'+
-			'</div>'+
-			'<button id="saveButton" type="button" class="btn btn-default" onclick="saveWorkspace();closePopover();">Submit</button>'+
-		'</form>'+
-		'<script>'+
-		'	$("#saveButton").on("click", function(event){'+
-		'		console.log("LOLOLOLOL");'+
-		'		saveWorkspace();'+
-		'		$("#popover").popover("hide");'+
-		'	});'+
-		'</script>'//,
+		  content: "<form id='saveForm' role='form' method='POST' enctype='application/x-www-form-urlencoded' action='./rest/dao/upload/project'>"+
+			"<div class='form-group''>"+
+			"	<label for='text'>Name:</label>"+
+			"	<input type='text' class='form-control' id='name' name='name'>"+
+			"</div>"+
+			"<div class='form-group'>"+
+			"	<label for='text'>Description:</label>"+
+			"	<input type='text' class='form-control' id='desc name='desc'>"+
+			"</div>"+
+			"<button id='saveButton' type='button' class='btn btn-default' onclick='saveWorkspace();closePopover();'>Submit</button>"+
+		"</form>'+
+		"<script>'+
+		"	$('#saveButton').on('click', function(event){"+
+		"		console.log('LOLOLOLOL');"+
+		"		saveWorkspace();"+
+		"		$('#popover').popover('hide');"+
+		"	});"+
+		"</script>"//,
 		  //trigger: 'manual',
 		  //delay: {'show':1000, 'hide':250},
 	});
