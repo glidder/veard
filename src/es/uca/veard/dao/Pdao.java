@@ -210,7 +210,7 @@ public class Pdao {
 		if (directoryListing != null) {
 			for (File child : directoryListing) {
 				String name=child.getName();
-				names.add(name.substring(0,name.length()-4));
+				names.add(name.substring(0,name.length()-type.length()));
 		    }
 		}
 		return names;
