@@ -96,7 +96,7 @@ public class Rest extends HttpServlet {
         String list = "";
 		if(!projects.isEmpty()){
 			for (String project:projects){
-				list+=project+" ";
+				list+=project+"; ";
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
 				"<li class='col-md-3'><div class='thumbnail'>"+
 	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
@@ -105,7 +105,7 @@ public class Rest extends HttpServlet {
 	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
 			}
 		}
-        Pdao.postLog("Model list request:\n"+list);
+        Pdao.postLog("Model list request:\n\t\t\t"+list);
 		return result+"</ul>";
 	}
     /**
@@ -129,7 +129,7 @@ public class Rest extends HttpServlet {
         String list = "";
 		if(!projects.isEmpty()){
 			for (String project:projects){
-				list+=project+" ";
+				list+=project+"; ";
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
 				"<li class='col-md-3'><div class='thumbnail'>"+
 	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
@@ -138,7 +138,7 @@ public class Rest extends HttpServlet {
 	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
 			}
 		}
-        Pdao.postLog("Image list request:\n"+list);
+        Pdao.postLog("Image list request:\n\t\t\t"+list);
 		return result+"</ul>";
 	}
     /**
@@ -248,7 +248,7 @@ public class Rest extends HttpServlet {
         String list = "";
 		if(!projects.isEmpty()){
 			for (String project:projects){
-				list+=project+" ";
+				list+=project+"; ";
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
 				"<li class='col-md-3'><div class='thumbnail'>"+
 	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
@@ -257,7 +257,7 @@ public class Rest extends HttpServlet {
 	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
 			}
 		}
-        Pdao.postLog("Project list request:\n"+list);
+        Pdao.postLog("Project list request:\n\t\t\t"+list);
 		return result+"</ul>";
 	}
 	
