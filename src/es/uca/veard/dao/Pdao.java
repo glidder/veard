@@ -2,7 +2,7 @@
  * Pdao.java
  * v0.8
  * 28/07/2017
- * Copyright (c) Luis José Quintana Bolaño
+ * Copyright (c) Luis J. Quintana B.
  */
 package es.uca.veard.dao;
 
@@ -37,7 +37,7 @@ import org.w3c.dom.NodeList;
  * Class that implements all filesystem operations.
  * It acts as a Data Access Object (DAO) for the operations performed by the REST {@link Rest} class.
  *
- * @author Luis José Quintana Bolaño
+ * @author Luis J. Quintana B.
  */
 public class Pdao {
     

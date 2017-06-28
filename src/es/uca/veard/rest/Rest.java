@@ -2,7 +2,7 @@
  * Rest.java
  * v0.8
  * 28/07/2017
- * Copyright (c) Luis José Quintana Bolaño
+ * Copyright (c) Luis J. Quintana B.
  */
 package es.uca.veard.rest;
 
@@ -37,7 +37,7 @@ import es.uca.veard.dao.Pdao;
  * Class that implements all REST methods.
  * It uses the DAO {@link Pdao} class as an interface with the filesystem.
  *
- * @author Luis José Quintana Bolaño
+ * @author Luis J. Quintana B.
  */
 @Path("/dao")
 public class Rest extends HttpServlet {
