@@ -46,8 +46,9 @@ import es.uca.veard.dao.Pdao;
 public class Rest extends HttpServlet {
     
     //TODO: eliminate from Web.xml
-    private static final String MODEL_PATH = "models/";
-    private static final String IMAGE_PATH = "images/";
+    private static final String MOD_PATH = "models/";
+    private static final String IMG_PATH = "images/";
+    private static final String PRO_PATH = "projects/";
     private static final String LOG_NAME = "log";
     
     /*
@@ -84,23 +85,74 @@ public class Rest extends HttpServlet {
         }
     
     /**
+     * Lists all available models from the server
+     */
+    @GET
+	@Path("/models")
+	@Produces(MediaType.TEXT_HTML)
+	public String listModels() {
+		List<String> projects = Pdao.listAll(MOD_PATH);
+		String result ="<ul  class='thumbnails'>";
+        String list = "";
+		if(!projects.isEmpty()){
+			for (String project:projects){
+				list+=project+" ";
+				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
+				"<li class='col-md-3'><div class='thumbnail'>"+
+	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
+	                  "<h3>"+Pdao.getName(project)+"</h3>"+
+	                  "<p>"+Pdao.getDescription(project) +"</p>"+
+	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
+			}
+		}
+        Pdao.postLog("Project list request:\n"+list);
+		return result+"</ul>";
+	}
+    /**
      * Downloads a model from the server
      */
     @GET
-    @Path("/model/{name}")
+    @Path("/models/{name}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String downloadModel(@PathParam("name") String name) {
-        return Pdao.loadPlainText(MODEL_PATH+name);
+    public String downloadPlainModel(@PathParam("name") String name) {
+        return Pdao.loadPlainText(MOD_PATH+name);
     }
+    /**
+     * Lists all available images from the server
+     */
+    @GET
+	@Path("/images")
+	@Produces(MediaType.TEXT_HTML)
+	public String listImages() {
+		List<String> projects = Pdao.listAll(IMG_PATH);
+		String result ="<ul  class='thumbnails'>";
+        String list = "";
+		if(!projects.isEmpty()){
+			for (String project:projects){
+				list+=project+" ";
+				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
+				"<li class='col-md-3'><div class='thumbnail'>"+
+	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
+	                  "<h3>"+Pdao.getName(project)+"</h3>"+
+	                  "<p>"+Pdao.getDescription(project) +"</p>"+
+	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
+			}
+		}
+        Pdao.postLog("Project list request:\n"+list);
+		return result+"</ul>";
+	}
     /**
      * Downloads an image from the server
      */
     @GET
-    @Path("/image/{name}")
+    @Path("/images/{name}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String downloadImage(@PathParam("name") String name) {
-        return Pdao.loadPlainText(IMAGE_PATH+name);
+    public String downloadPlainImage(@PathParam("name") String name) {
+        return Pdao.loadPlainText(IMG_PATH+name);
     }
+    /**
+     * Allows the download of the raw specified file
+     */
     @GET
     @Path("/download/{name}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
@@ -108,9 +160,44 @@ public class Rest extends HttpServlet {
         File file = Pdao.loadFile(name);
         return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
     }
+    /**
+     * Allows the download of the raw specified file
+     */
+    @GET
+    @Path("/download/model/{name}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response downloadModel(@PathParam("name") String name){
+        File file = Pdao.loadFile(MOD_PATH+name);
+        return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
+    }
+    /**
+     * Allows the download of the raw specified file
+     */
+    @GET
+    @Path("/download/image/{name}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response downloadImage(@PathParam("name") String name){
+        File file = Pdao.loadFile(IMG_PATH+name);
+        return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
+    }
+    
     /*
      * POST methods
      ****************************************************/
+    /**
+     * Uploads a file to the server via InputStream
+     */
+    @POST
+    @Path("/upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public void uploadFile (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
+        if(uploadedInputStream == null || fileDetail == null)
+            Pdao.postLog("Rest.uploadFile(): Invalid form data");
+        if (Pdao.saveInputStream(uploadedInputStream,fileDetail.getFileName()))
+            Pdao.postLog("Rest.uploadFile(): File saved: " + fileDetail.getFileName());
+        else
+            Pdao.postLog("Rest.uploadFile(): Can not save file: "+ fileDetail.getFileName());
+    }
     /**
      * Uploads a model to the server via InputStream
      */
@@ -120,7 +207,7 @@ public class Rest extends HttpServlet {
     public void uploadModel (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
         if(uploadedInputStream == null || fileDetail == null)
             Pdao.postLog("Rest.uploadFile(): Invalid form data");
-        if (Pdao.saveInputStream(uploadedInputStream,MODEL_PATH+fileDetail.getFileName()))
+        if (Pdao.saveInputStream(uploadedInputStream,MOD_PATH+fileDetail.getFileName()))
             Pdao.postLog("Rest.uploadFile(): File saved: " + fileDetail.getFileName());
         else
             Pdao.postLog("Rest.uploadFile(): Can not save file: "+ fileDetail.getFileName());
@@ -134,7 +221,7 @@ public class Rest extends HttpServlet {
     public void uploadImage (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
         if(uploadedInputStream == null || fileDetail == null)
             Pdao.postLog("Rest.uploadFile(): Invalid form data");
-        if (Pdao.saveInputStream(uploadedInputStream,IMAGE_PATH+fileDetail.getFileName()))
+        if (Pdao.saveInputStream(uploadedInputStream,IMG_PATH+fileDetail.getFileName()))
             Pdao.postLog("Rest.uploadFile(): File saved: " + fileDetail.getFileName());
         else
             Pdao.postLog("Rest.uploadFile(): Can not save file: "+ fileDetail.getFileName());
@@ -145,21 +232,23 @@ public class Rest extends HttpServlet {
 	@Path("/save")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void saveProject(@FormParam("name") String name, @FormParam("desc") String desc, @FormParam("ecode") String ecode, @FormParam("jcode") String jcode )
-	{	//Editor.hum=Editor.hum+1;
-		//System.out.print("\nCACACACACACACACACACA\n"+ecode);
+	{	
         Pdao.postLog("\nECODE:\n"+ecode,LOG_NAME);
 		Pdao.save(name, desc, ecode, jcode);//Add a check function to the form!!!!!!
 	}
     
+    
+    
     @GET
-	@Path("/list")
+	@Path("/projects")
 	@Produces(MediaType.TEXT_HTML)
 	public String listProjects() {
-		List<String> projects = Pdao.listAll();
+		List<String> projects = Pdao.listAll(PRO_PATH);
 		String result ="<ul  class='thumbnails'>";
+        String list = "";
 		if(!projects.isEmpty()){
 			for (String project:projects){
-				System.out.print(project);
+				list+=project+" ";
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
 				"<li class='col-md-3'><div class='thumbnail'>"+
 	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
@@ -168,7 +257,8 @@ public class Rest extends HttpServlet {
 	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
 			}
 		}
-		return result;
+        Pdao.postLog("Project list request:\n"+list);
+		return result+"</ul>";
 	}
 	
 	@GET

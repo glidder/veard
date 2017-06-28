@@ -161,7 +161,7 @@ public class Pdao {
     /*
      * LOAD methods
      *******************************************************/
-     /**
+    /**
      * Returns the contents of an specified file
      * @param path  relative path of the file
      * @return      string with the contents of the file
@@ -183,6 +183,37 @@ public class Pdao {
         postLog("User downloaded the file: "+path);
         //TODO: Control if the file exists instead of creating it
         return createFile(BASE_PATH+path);
+    }
+    /**
+     * Returns a list of all files within the specified directory
+     * @param path  directory path
+     * @return      list of all file names in the directory
+     */
+    static public List<String> listAll(String path){
+        return listType(path,"");
+    }
+    /**
+     * Returns a list of all files with the specified ending within the specified directory
+     * @param path  directory path
+     * @param type  File ending
+     * @return      list of all matching file names in the directory
+     */
+    static public List<String> listType(String path, String type){
+        File dir = new File(BASE_PATH+path);
+		File[] directoryListing = dir.listFiles(new FilenameFilter() {
+		    public boolean accept(File dir, String name) {
+		        return name.toLowerCase().endsWith(type);
+		    }
+		});
+		
+		List<String> names = new ArrayList<String>();
+		if (directoryListing != null) {
+			for (File child : directoryListing) {
+				String name=child.getName();
+				names.add(name.substring(0,name.length()-4));
+		    }
+		}
+		return names;
     }
     
     /*
