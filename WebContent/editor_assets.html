@@ -54,7 +54,7 @@
                 </a>
             </div>
             <div id="sidebar-wrapper" class="sidebar-toggle">
-                <h3>Selectes variables</h3>
+                <h3>Selected variables</h3>
                 <ul class="sidebar-nav" id="variablelist">
                     VARIABLES SHOULD GO HERE
                 </ul>
@@ -62,7 +62,7 @@
         </div>
     </nav>
       <br>Choose MODEL to upload<br>
-        <form action="./rest/dao/upload/model" method="post" enctype="multipart/form-data" onsubmit="return updateModels()">
+        <form action="./rest/dao/upload/model" method="post" enctype="multipart/form-data" onsubmit="updateModels()">
             <input name="file" id="filename" type="file" /><br>
     	   <button name="submit" type="submit" onclick="updateModels()">Upload</button>
         </form>

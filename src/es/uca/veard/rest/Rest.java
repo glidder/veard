@@ -112,8 +112,8 @@ public class Rest extends HttpServlet {
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
 				"<li class='col-md-3'><div class='thumbnail'>"+
 	                "<div class='caption'>"+
-	                  "<h3>"+model+"</h3>"+
-	                  "<p align='center'><button class='btn btn-primary btn-block' onclick='selectProject(\""+model+"\")'>Open</button></p></div></div></li>";
+	                  "<h1>"+model+"</h1>"+
+	                  "<button class='btn btn-primary btn-block' onclick='selectProject(\""+model+"\")'>Open</button></div></div></li>";
 			}
 		}
         Pdao.postLog("Model list request:\n\t\t\t"+list);
