@@ -30,10 +30,11 @@
         $('#modellist').load("./rest/dao/models");
       }
     function selectProject(project){
+        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"+project);
         parent.models.push(project);
         var formatedVariables="";
         for(var model in parent.models){
-            formatedVariables+="<li><a href='"+model+"'>"+model+"</a></li>";
+            formatedVariables+="<li><button href='"+model+"'>"+model+"</a></li>";
         }
         $('#variablelist').html(formatedVariables);
     }
