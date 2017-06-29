@@ -172,7 +172,7 @@ public class Pdao {
 		try {
 			
             //Open the buffers
-			fw = new FileWriter(file.getAbsoluteFile());
+			fw = new FileWriter(file.getAbsoluteFile(),false);
 			bw = new BufferedWriter(fw);
             
             //Register the message in the log file
