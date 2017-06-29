@@ -19,6 +19,11 @@
     <script>
 
       function init() {
+        var formatedVariables="";
+        for(var model in parent.models){
+            formatedVariables+=model+"\n";
+        }
+        $('#variablelist').html(formatedVariables);
         $('#modellist').load("./rest/dao/models");
       }
     </script>
