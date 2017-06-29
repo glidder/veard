@@ -88,9 +88,11 @@ public class Rest extends HttpServlet {
          */
         @GET
         @Path("/clear/log")
-        public void clearLog() {
+        @Produces(MediaType.TEXT_PLAIN)
+        public String clearLog() {
             Pdao.saveString("",LOG_NAME);
             Pdao.postLog("User cleared the log",LOG_NAME);
+            return "Application Log:"+Pdao.getLog(LOG_NAME);
         }
     
     /**
