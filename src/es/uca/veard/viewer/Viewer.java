@@ -13,6 +13,7 @@ import es.uca.veard.dao.Pdao;
 
 @Path("/viewer")
 public class Viewer {
+    /*
 	@GET
 	@Path("/list")
 	@Produces(MediaType.TEXT_HTML)
@@ -38,5 +39,5 @@ public class Viewer {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getCode(@PathParam ("name") String name) {
 		return Pdao.load(name);
-	}
+	}*/
 }

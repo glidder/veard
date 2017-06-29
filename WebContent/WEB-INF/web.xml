@@ -3,21 +3,51 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 xmlns="http://java.sun.com/xml/ns/javaee" 
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-
-<servlet>
-	<servlet-name>VEARD Editor REST Service</servlet-name>
-	<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-	<init-param>
-		<param-name>jersey.config.server.provider.packages</param-name>
-		<param-value>es.uca.veard.editor</param-value>
-		<param-value>es.uca.veard.viewer</param-value>
-	</init-param>
-	<load-on-startup>1</load-on-startup>
-</servlet>
-<servlet-mapping>
-	<servlet-name>VEARD Editor REST Service</servlet-name>
-	<url-pattern>/rest/*</url-pattern>
-</servlet-mapping>
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+id="VEARD" version="3.0">
+    <display-name>
+        VEARD
+    </display-name>
+    <servlet>
+        <servlet-name>VEARDEditorRESTService</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jersey.config.server.provider.classnames</param-name>
+            <param-value>org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
+        </init-param>
+        <init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>es.uca.veard.rest</param-value>
+        </init-param>
+        
+        <!-- Parameters for REST service configuration -->
+        <init-param>
+            <param-name>filestorage</param-name>
+            <param-value>/userdata/</param-value>
+        </init-param>
+        <init-param>
+            <param-name>modelstorage</param-name>
+            <param-value>models/</param-value>
+        </init-param>
+        <init-param>
+            <param-name>imagestorage</param-name>
+            <param-value>images/</param-value>
+        </init-param>
+        <init-param>
+            <param-name>logfilename</param-name>
+            <param-value>log</param-value>
+        </init-param>
+        
+        
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>VEARDEditorRESTService</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+    
+    <!--listener>
+        <listener-class>es.uca.veard.listener</listener-class>
+   </listener-->
 </web-app>

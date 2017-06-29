@@ -15,6 +15,7 @@ import es.uca.veard.dao.Pdao;
 
 @Path("/editor")
 public class Editor {
+    /*
 	private static int hum=0;
 	@POST
 	@Path("/save")
@@ -33,5 +34,5 @@ public class Editor {
   public String sayPlainTextHello() {
     return "Hello Jersey "+Editor.hum;
   }
-
+*/
 } 

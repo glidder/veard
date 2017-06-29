@@ -1,29 +1,29 @@
 
-function updateContextButton(){
+function updateContextButton() {
 	$('#contextButton').html("<button id='popover' data-toggle='popover' data-container='body' data-placement='left' class='btn btn-default navbar-btn'>Save</button>");
 	//Instead of a popover, it could be a modal
 	//Also, the form content should be saved and/or loaded if the projects was loaded or previously saved.
 	$('#popover').popover({
 		  html: true,
 		  title: "Save Form",
-		  content: '<form id="saveForm" role="form" method="POST" enctype="application/x-www-form-urlencoded" action="./rest/editor/save/">'+
-			'<div class="form-group">'+
-			'	<label for="text">Name:</label>'+
-			'	<input type="text" class="form-control" id="name" name="name">'+
-			'</div>'+
-			'<div class="form-group">'+
-			'	<label for="text">Description:</label>'+
-			'	<input type="text" class="form-control" id="desc" name="desc">'+
-			'</div>'+
-			'<button id="saveButton" type="button" class="btn btn-default">Submit</button>'+
-		'</form>'+
-		'<script>'+
-		'	$("#saveButton").on("click", function(event){'+
-		'		console.log("LOLOLOLOL");'+
-		'		saveWorkspace();'+
-		'		$("#popover").popover("hide");'+
-		'	});'+
-		'</script>',
+		  content: "<form id='saveForm' role='form' method='POST' enctype='application/x-www-form-urlencoded' action='./rest/dao/upload/project'>"+
+			"<div class='form-group''>"+
+			"	<label for='text'>Name:</label>"+
+			"	<input type='text' class='form-control' id='name' name='name'>"+
+			"</div>"+
+			"<div class='form-group'>"+
+			"	<label for='text'>Description:</label>"+
+			"	<input type='text' class='form-control' id='desc name='desc'>"+
+			"</div>"+
+			"<button id='saveButton' type='button' class='btn btn-default' onclick='saveWorkspace();closePopover();'>Submit</button>"+
+		"</form>"+
+		"<script>"+
+		"	$('#saveButton').on('click', function(event){"+
+		//"		console.log('LOLOLOLOL');"+
+		"		saveWorkspace();"+
+		"		$('#popover').popover('hide');"+
+		"	});"+
+		"</script>"//,
 		  //trigger: 'manual',
 		  //delay: {'show':1000, 'hide':250},
 	});
@@ -110,7 +110,7 @@ window.addEventListener("beforeunload", function (e) {
 		var xmlText	= Blockly.Xml.domToText(xmlDom)
 		var jsText = Blockly.JavaScript.workspaceToCode();
 		//window.location.hash	= encodeURIComponent(xmlText)
-		console.log(xmlText+"\n"+jsText);
+		console.log("BIGOLPEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEENIS\n\n\n"+xmlText+"\n"+jsText);
 		//Include codes in the form data 
 		var input1 = $("<input>", { type: "hidden", name: "ecode", value: xmlText });
 		$('#saveForm').append($(input1));
@@ -121,6 +121,9 @@ window.addEventListener("beforeunload", function (e) {
 		// changed modifiedStatus
 		$('#modifiedStatus').text('saved');
 	}
+    function closePopover(){
+        $('#popover').popover('hide');
+    }
 	function loadWorkspace(){
 	  	console.assert(location.hash)
 		var xmlText	= decodeURIComponent(location.hash.substr(1))
