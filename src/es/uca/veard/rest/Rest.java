@@ -86,7 +86,7 @@ public class Rest extends HttpServlet {
         /**
          * Clears the application log file
          */
-        @POST
+        @GET
         @Path("/clear/log")
         public void clearLog() {
             Pdao.saveString("",LOG_NAME);
