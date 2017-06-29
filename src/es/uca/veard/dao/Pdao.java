@@ -274,7 +274,7 @@ public class Pdao {
 		try{
             postLog("getName: starts");
 			DocumentBuilder builder = factory.newDocumentBuilder();
-            postLog("getName: parsing");
+            postLog("getName: parsing "+BASE_PATH+path);
 			Document document = builder.parse(createFile(BASE_PATH+path));
             postLog("getName: normalizing");
             document.getDocumentElement().normalize();
