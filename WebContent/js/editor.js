@@ -10,6 +10,7 @@ function updateVariables() {
     for(var model in models){
         formatedVariables+=model+"\n";
     }
+    $('#assets').contents().find('#modellist').load("./rest/dao/models");
     $('#variablelist').html(formatedVariables);
     $('#modellist').load("./rest/dao/models");
 }
