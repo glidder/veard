@@ -22,12 +22,14 @@
     <script>
 
       function init() {
+          console.log("\nINIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIT");
         var formatedVariables="";
         for(var i in parent.models){
             formatedVariables+="<li><a href='"+parent.models[i]+"'>"+parent.models[i]+"</a></li>";
         }
         $('#variablelist').html(formatedVariables);
         $('#modellist').load("./rest/dao/models");
+          console.log("\nDONEEEEE");
       }
     function selectProject(project){
         parent.models.push(project);
