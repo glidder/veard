@@ -30,7 +30,8 @@
         $('#modellist').load("./rest/dao/models");
       }
     function selectProject(project){
-        parent.models.push(project);
+        if(jQuery.inArray(project, parent.models)<0)
+            parent.models.push(project);   
         var formatedVariables="";
         for(var i in parent.models){
             formatedVariables+="<li><button href='"+parent.models[i]+"'>"+parent.models[i]+"</a></li>";
