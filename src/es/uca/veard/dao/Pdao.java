@@ -272,9 +272,11 @@ public class Pdao {
         
 		String name = "Unnamed";
 		try{
-            
+            postLog("getName: starts");
 			DocumentBuilder builder = factory.newDocumentBuilder();
+            postLog("getName: parsing");
 			Document document = builder.parse(createFile(path));
+            postLog("getName: normalizing");
             document.getDocumentElement().normalize();
 			//Element rootElement = document.getDocumentElement();
 			
