@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,6 +122,15 @@ public class Pdao {
 				e.printStackTrace();
 			}
 		}
+    }
+    /**
+     * Clears the contents of the specified log file
+     * @param logName   specified log file
+     */
+    static public void clearLog(String logName){
+        try{
+            new PrintWriter(BASE_PATH+logName+".log").close();
+        }catch(Exception e){}
     }
     
     /*
