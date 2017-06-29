@@ -111,7 +111,7 @@ public class Rest extends HttpServlet {
 				list+=model+"; ";
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
 				"<li class='col-md-3'><div class='thumbnail'>"+
-	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
+	                "<div class='caption'>"+
 	                  "<h3>"+model+"</h3>"+
 	                  "<p align='center'><button class='btn btn-primary btn-block' onclick='selectProject(\""+model+"\")'>Open</button></p></div></div></li>";
 			}
