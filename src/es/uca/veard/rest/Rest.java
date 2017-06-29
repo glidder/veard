@@ -111,8 +111,8 @@ public class Rest extends HttpServlet {
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
 				"<li class='col-md-3'><div class='thumbnail'>"+
 	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
-	                  "<h3>"+Pdao.getName(project)+"</h3>"+
-	                  "<p>"+Pdao.getDescription(project) +"</p>"+
+	                  "<h3>"+Pdao.getName(PRO_PATH+project)+"</h3>"+
+	                  "<p>"+Pdao.getDescription(PRO_PATH+project) +"</p>"+
 	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
 			}
 		}
