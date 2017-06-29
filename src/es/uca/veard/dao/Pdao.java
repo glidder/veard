@@ -275,6 +275,7 @@ public class Pdao {
             
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.parse(createFile(path));
+            document.getDocumentElement().normalize();
 			//Element rootElement = document.getDocumentElement();
 			
 			//NodeList list = rootElement.getElementsByTagName("pname");
