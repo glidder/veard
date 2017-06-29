@@ -130,7 +130,9 @@ public class Pdao {
     static public void clearLog(String logName){
         try{
             new PrintWriter(BASE_PATH+logName+".log").close();
-        }catch(Exception e){}
+        }catch(Exception e){
+            postLog("clearLog: failed on "+BASE_PATH+logName+".log\n"+e.printStackTrace()+"\n");
+        }
     }
     
     /*
@@ -152,12 +154,14 @@ public class Pdao {
                 out.write(bytes, 0, read);
             }  
         } catch (IOException e) {
+            postLog("saveInputStream: failed writting on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
 			return false;
 		} finally {
             if(uploadedInputStream != null){
                 try{
                     uploadedInputStream.close();
                 } catch (IOException e){
+                    postLog("saveInputStream: failed closing stream on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
                 }
             }
             if (out!=null){
@@ -165,6 +169,7 @@ public class Pdao {
                     out.flush();
                     out.close();
                 } catch (IOException e){
+                    postLog("saveInputStream: failed closing buffer on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
                 }
             }
         }
@@ -193,8 +198,7 @@ public class Pdao {
 			bw.write(content);
             
 		} catch (IOException e) {
-            postLog("saveString: Writting content failed.");
-			e.printStackTrace();
+            postLog("saveString: failed writting on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
             return false;
 		} finally {
             //Close the buffers
@@ -205,8 +209,7 @@ public class Pdao {
 					fw.close();
                 
 			} catch (IOException e) {
-                postLog("saveString: Closing buffer failed.");
-				e.printStackTrace();
+                postLog("saveInputStream: failed closing buffer on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
                 return false;
 			}
 		}
@@ -222,10 +225,7 @@ public class Pdao {
      * @return      string with the contents of the file
      */
     static public String loadPlainText(String path){
-        //Register the action in the log file
-        postLog("User downloaded as a string the file: "+path);
         //TODO: throw custom exception if the file doesn't exists
-        
         return deserializeString(new File(BASE_PATH+path));
     }
     /**
@@ -234,8 +234,6 @@ public class Pdao {
      * @return      the specified File
      */
     static public File loadFile(String path){
-        //Register the action in the log file
-        postLog("User downloaded the file: "+path);
         //TODO: Control if the file exists instead of creating it
         return createFile(BASE_PATH+path);
     }
@@ -297,8 +295,7 @@ public class Pdao {
                 postLog("getName: <pname> not found on "+BASE_PATH+path);
             }
 		} catch (Exception e) {
-            postLog("getName: DocumentBuilder Failed on "+BASE_PATH+path);
-	    	e.printStackTrace();
+            postLog("getName: DocumentBuilder failed on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
 	    }
         postLog("Requested name of the project on path "+path+": "+name);
 		return name;
@@ -328,8 +325,7 @@ public class Pdao {
                 postLog("getDescription: <pdesc> not found on "+BASE_PATH+path);
             }
 		} catch (Exception e) {
-            postLog("getDescription: DocumentBuilder Failed on "+BASE_PATH+path);
-	    	e.printStackTrace();
+            postLog("getDescription: DocumentBuilder failed on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
 	    }
         postLog("Requested description of the project on path "+path+": "+desc);
 		return desc;
@@ -359,8 +355,7 @@ public class Pdao {
                 postLog("getJavaCode: <jcode> not found on "+BASE_PATH+path);
             }
 		} catch (Exception e) {
-            postLog("getJavaCode: DocumentBuilder Failed on "+BASE_PATH+path);
-	    	e.printStackTrace();
+            postLog("getJavaCode: DocumentBuilder failed on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
 	    }
         postLog("Requested java code of the project on path "+path+": "+jcode);
 		return jcode;
@@ -409,159 +404,5 @@ public class Pdao {
           }catch(Exception e){}
 	      return buffer.toString();
 	  }
-    
-    
-    
-    /*
-    static public String saveTest(String path,String name){
-        String fullPath = BASE_PATH+path+name+".xml";
-        File myXMLFile = createFile(fullPath);
-
-        return fullPath;
-    }
-    
-    static public boolean uploadTest(File file, String path){
-        File savedFile = createFile(System.getProperty("user.home")+path);
-        //FileChannel source = null;
-        //FileChannel destination = null;
-        try{
-            Files.copy( file.toPath(), savedFile.toPath() );
-            //source = new FileInputStream(file).getChannel();
-            //destination = new FileOutputStream(savedFile).getChannel();
-            //destination.transferFrom(source, 0, source.size());
-        } catch (IOException e){
-            return false;
-        }
-        finally{
-            /*if(source!=null){
-                source.close();
-            }
-            if(destination!=null){
-                destination.close();
-            }*//*
-            return true;
-        }
-    }
-    
-    static public boolean saveProject(String name, String description, String ecode, String jcode){
-		//int fname = new File(System.getProperty("user.home")+"/usercontent/").list().length; // Temporal naming function
-		File myXMLFile = new File(BASE_PATH, name+".xml");  //or "user.home" 
-		File myJSFile = new File(BASE_PATH, name+".js");
-		//System.out.print("Yep! "+System.getProperty("user.home")+" -->"+code);
-		try {
-			myXMLFile.createNewFile();
-			FileWriter fw = new FileWriter(myXMLFile.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(ecode.substring(0, ecode.length()-6)+"<pname>"+name+"</pname><pdesc>"+description+"</pdesc></xml>");
-			bw.close();
-			
-			myJSFile.createNewFile();
-			fw = new FileWriter(myJSFile.getAbsoluteFile());
-			bw = new BufferedWriter(fw);
-			bw.write(jcode);
-			bw.close();
-		} catch (IOException e) {}
-		return true;
-	}
-    
-    static public String load(String name){
-		return deserializeString(new File(BASE_PATH, name+".js"));
-		
-	}
-    
-    static public List<String> listAll(){
-		File dir = new File(BASE_PATH);
-		File[] directoryListing = dir.listFiles(new FilenameFilter() {
-		    public boolean accept(File dir, String name) {
-		        return name.toLowerCase().endsWith(".xml");
-		    }
-		});
-		
-		List<String> names = new ArrayList<String>();
-		if (directoryListing != null) {
-			for (File child : directoryListing) {
-				String name=child.getName();
-				names.add(name.substring(0,name.length()-4));
-				/*
-				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-				factory.setNamespaceAware(true);
-				try{
-					DocumentBuilder builder = factory.newDocumentBuilder();
-					Document document = builder.parse(child);
-					Element rootElement = document.getDocumentElement();
-					
-					NodeList list = rootElement.getElementsByTagName("pname");
-			        if (list != null && list.getLength() > 0) {
-			        	//System.out.print("FOUND IT!!!!!");
-			            NodeList subList = list.item(0).getChildNodes();
-
-			            if (subList != null && subList.getLength() > 0) {
-			            	//System.out.print("DA FUCK?>>>>>>>>>>>>>>>"+(String) subList.item(0).getNodeValue()+"<<<<<<<<<<<<<<\n");
-			                names.add( (String) subList.item(0).getNodeValue());
-			            }
-			        }
-					
-					//XPath xPath = XPathFactory.newInstance().newXPath();
-
-					//Node node = (Node) xPath.evaluate("//pname", document, XPathConstants.NODE);
-					//names.add((String) xPath.evaluate("/pname", document, XPathConstants.STRING));//node.getNodeValue());
-					//System.out.print(node.getNodeValue()+"\n <------VALUE");
-			    } catch (Exception e) {
-			    	e.printStackTrace();
-			    }*//*
-		    }
-		}
-		return names;
-	}
-    
-    static public String getName(String project){
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setNamespaceAware(true);
-		String name = "Null";
-		try{
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(new File(BASE_PATH+project+".xml"));
-			Element rootElement = document.getDocumentElement();
-			
-			NodeList list = rootElement.getElementsByTagName("pname");
-	        if (list != null && list.getLength() > 0) {
-	        	//System.out.print("FOUND IT!!!!!");
-	            NodeList subList = list.item(0).getChildNodes();
-
-	            if (subList != null && subList.getLength() > 0) {
-	            	//System.out.print("DA FUCK?>>>>>>>>>>>>>>>"+(String) subList.item(0).getNodeValue()+"<<<<<<<<<<<<<<\n");
-	                 name = (String) subList.item(0).getNodeValue();
-	            }
-	        }
-		} catch (Exception e) {
-	    	e.printStackTrace();
-	    }
-		return name;
-	}
-    
-    static public String getDescription(String project){
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setNamespaceAware(true);
-		String desc = "Null";
-		try{
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(new File(BASE_PATH+project+".xml"));
-			Element rootElement = document.getDocumentElement();
-			
-			NodeList list = rootElement.getElementsByTagName("pdesc");
-	        if (list != null && list.getLength() > 0) {
-	        	//System.out.print("FOUND IT!!!!!");
-	            NodeList subList = list.item(0).getChildNodes();
-
-	            if (subList != null && subList.getLength() > 0) {
-	            	//System.out.print("DA FUCK?>>>>>>>>>>>>>>>"+(String) subList.item(0).getNodeValue()+"<<<<<<<<<<<<<<\n");
-	                 desc = (String) subList.item(0).getNodeValue();
-	            }
-	        }
-		} catch (Exception e) {
-	    	e.printStackTrace();
-	    }
-		return desc;
-	}*/
     
 }

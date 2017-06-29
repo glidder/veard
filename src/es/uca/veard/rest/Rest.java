@@ -66,7 +66,7 @@ public class Rest extends HttpServlet {
         @Produces(MediaType.TEXT_PLAIN)
         public String sayPlainTextHello() {
             //Register the operation in the log file
-            Pdao.postLog("User requested a salutation",LOG_NAME);
+            Pdao.postLog(">>User requested a salutation",LOG_NAME);
             //Answer the petition
             return "Hello Jersey at "+System.getProperty("user.home");
         }
@@ -79,7 +79,7 @@ public class Rest extends HttpServlet {
         @Produces(MediaType.TEXT_PLAIN)
         public String showLog() {
             //Register the operation in the log file
-            Pdao.postLog("User requested the log",LOG_NAME);
+            Pdao.postLog(">>User requested the log",LOG_NAME);
             //Answer the petition
             return "Application Log:"+Pdao.getLog(LOG_NAME);
         }
@@ -91,7 +91,7 @@ public class Rest extends HttpServlet {
         @Produces(MediaType.TEXT_PLAIN)
         public String clearLog() {
             Pdao.clearLog(LOG_NAME);
-            Pdao.postLog("User cleared the log",LOG_NAME);
+            Pdao.postLog(">>User cleared the log",LOG_NAME);
             return "Application Log:"+Pdao.getLog(LOG_NAME);
         }
     
@@ -102,6 +102,7 @@ public class Rest extends HttpServlet {
 	@Path("/models")
 	@Produces(MediaType.TEXT_HTML)
 	public String listModels() {
+        Pdao.postLog(">>User requested the list of models",LOG_NAME);
 		List<String> projects = Pdao.listAll(MOD_PATH);
 		String result ="<ul  class='thumbnails'>";
         String list = "";
@@ -126,6 +127,7 @@ public class Rest extends HttpServlet {
     @Path("/models/{name}")
     @Produces(MediaType.TEXT_PLAIN)
     public String downloadPlainModel(@PathParam("name") String name) {
+        Pdao.postLog(">>User requested the model "+name,LOG_NAME);
         return Pdao.loadPlainText(MOD_PATH+name);
     }
     /**
@@ -135,6 +137,7 @@ public class Rest extends HttpServlet {
 	@Path("/images")
 	@Produces(MediaType.TEXT_HTML)
 	public String listImages() {
+        Pdao.postLog(">>User requested the list of images",LOG_NAME);
 		List<String> projects = Pdao.listAll(IMG_PATH);
 		String result ="<ul  class='thumbnails'>";
         String list = "";
@@ -159,6 +162,7 @@ public class Rest extends HttpServlet {
     @Path("/images/{name}")
     @Produces(MediaType.TEXT_PLAIN)
     public String downloadPlainImage(@PathParam("name") String name) {
+        Pdao.postLog(">>User requested the image "+name,LOG_NAME);
         return Pdao.loadPlainText(IMG_PATH+name);
     }
     /**
@@ -168,6 +172,7 @@ public class Rest extends HttpServlet {
 	@Path("/projects")
 	@Produces(MediaType.TEXT_HTML)
 	public String listProjects() {
+        Pdao.postLog(">>User requested the list of images",LOG_NAME);
 		List<String> projects = Pdao.listAll(PRO_PATH);
 		String result ="<ul  class='thumbnails'>";
         String list = "";
@@ -192,6 +197,7 @@ public class Rest extends HttpServlet {
     @Path("/download/{name}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadFile(@PathParam("name") String name){
+        Pdao.postLog(">>User downloaded the file "+name,LOG_NAME);
         File file = Pdao.loadFile(name);
         return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
     }
@@ -202,6 +208,7 @@ public class Rest extends HttpServlet {
     @Path("/download/model/{name}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadModel(@PathParam("name") String name){
+        Pdao.postLog(">>User downloaded the model "+name,LOG_NAME);
         File file = Pdao.loadFile(MOD_PATH+name);
         return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
     }
@@ -212,6 +219,7 @@ public class Rest extends HttpServlet {
     @Path("/download/image/{name}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadImage(@PathParam("name") String name){
+        Pdao.postLog(">>User downloaded the image "+name,LOG_NAME);
         File file = Pdao.loadFile(IMG_PATH+name);
         return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
     }
@@ -222,6 +230,7 @@ public class Rest extends HttpServlet {
     @Path("/download/project/{name}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadProject(@PathParam("name") String name){
+        Pdao.postLog(">>User downloaded the project "+name,LOG_NAME);
         File file = Pdao.loadFile(PRO_PATH+name);
         return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
     }
@@ -236,6 +245,7 @@ public class Rest extends HttpServlet {
     @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public void uploadFile (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
+        Pdao.postLog(">>User uploaded a file",LOG_NAME);
         if(uploadedInputStream == null || fileDetail == null)
             Pdao.postLog("Rest.uploadFile(): Invalid form data");
         if (Pdao.saveInputStream(uploadedInputStream,fileDetail.getFileName()))
@@ -250,6 +260,7 @@ public class Rest extends HttpServlet {
     @Path("/upload/model")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public void uploadModel (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
+        Pdao.postLog(">>User uploaded a model",LOG_NAME);
         if(uploadedInputStream == null || fileDetail == null)
             Pdao.postLog("Rest.uploadFile(): Invalid form data");
         if (Pdao.saveInputStream(uploadedInputStream,MOD_PATH+fileDetail.getFileName()))
@@ -264,6 +275,7 @@ public class Rest extends HttpServlet {
     @Path("/upload/image")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public void uploadImage (@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail){
+        Pdao.postLog(">>User uploaded an image",LOG_NAME);
         if(uploadedInputStream == null || fileDetail == null)
             Pdao.postLog("Rest.uploadFile(): Invalid form data");
         if (Pdao.saveInputStream(uploadedInputStream,IMG_PATH+fileDetail.getFileName()))
@@ -278,39 +290,10 @@ public class Rest extends HttpServlet {
     @Path("/upload/project")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public void saveProject(@FormParam("name") String name, @FormParam("desc") String desc, @FormParam("ecode") String ecode, @FormParam("jcode") String jcode ){
-        Pdao.postLog("Project upload requested:\nNAME: "+name+"\nDESC: "+desc+
+        Pdao.postLog(">>User uploaded a project:\nNAME: "+name+"\nDESC: "+desc+
                      "\nECODE:\n"+ecode+"\nJCODE:\n"+jcode+"\n",LOG_NAME);
         //Pdao.save(name, desc, ecode, jcode);//Add a check function to the form!!!!!!
         Pdao.saveString(ecode.substring(0, ecode.length()-6)+"<pname>"+name+"</pname><pdesc>"+desc+"</pdesc><jcode>"+jcode+"</jcode></xml>",PRO_PATH+name+".xml");
     } 
-    
-    
-    /*
-    @GET
-	@Path("/create/{name}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String createFile (@PathParam ("name") String name) {
-        return "Created "+Pdao.saveTest(path,name);
-	}
-    
-	@POST
-	@Path("/save")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void saveProject(@FormParam("name") String name, @FormParam("desc") String desc, @FormParam("ecode") String ecode, @FormParam("jcode") String jcode )
-	{	
-        Pdao.postLog("\nECODE:\n"+ecode,LOG_NAME);
-		Pdao.save(name, desc, ecode, jcode);//Add a check function to the form!!!!!!
-	}
-    
-    @GET
-	@Path("/project/{name}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getCode(@PathParam ("name") String name) {
-		return Pdao.load(name);
-	}*/
-    
-    
-    
-    
     
 } 
