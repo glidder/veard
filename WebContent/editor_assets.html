@@ -15,10 +15,10 @@
         width: 100%;
       }
     </style>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">	
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
 
       function init() {
@@ -51,12 +51,18 @@
                 </a>
             </div>
             <div id="sidebar-wrapper" class="sidebar-toggle">
+                <h3>Selectes variables</h3>
                 <ul class="sidebar-nav" id="variablelist">
                     VARIABLES SHOULD GO HERE
                 </ul>
             </div>
         </div>
     </nav>
+      <br>Choose MODEL to upload<br>
+        <form action="./rest/dao/upload/model" method="post" enctype="multipart/form-data">
+            <input name="file" id="filename" type="file" /><br>
+    	   <button name="submit" type="submit" onclick="init()">Upload</button>
+        </form>
     <div id="modellist">
     LIST OF MODELS SHOULD GO HERE
     </div>
