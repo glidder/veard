@@ -23,18 +23,17 @@
 
       function init() {
         var formatedVariables="";
-        for(var model in parent.models){
-            formatedVariables+="<li><a href='"+model+"'>"+model+"</a></li>";
+        for(var i in parent.models){
+            formatedVariables+="<li><a href='"+parent.models[i]+"'>"+parent.models[i]+"</a></li>";
         }
         $('#variablelist').html(formatedVariables);
         $('#modellist').load("./rest/dao/models");
       }
     function selectProject(project){
-        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"+project);
         parent.models.push(project);
         var formatedVariables="";
-        for(var model in parent.models){
-            formatedVariables+="<li><button href='"+model+"'>"+model+"</a></li>";
+        for(var i in parent.models){
+            formatedVariables+="<li><button href='"+parent.models[i]+"'>"+parent.models[i]+"</a></li>";
         }
         $('#variablelist').html(formatedVariables);
     }
