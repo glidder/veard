@@ -279,11 +279,14 @@ public class Pdao {
 			//Element rootElement = document.getDocumentElement();
 			
 			//NodeList list = rootElement.getElementsByTagName("pname");
+            postLog("getName: ready to search");
             NodeList list = document.getElementsByTagName("pname");
 	        if (list != null && list.getLength() > 0) {
+                postLog("getName: list is not empty");
 	            NodeList subList = list.item(0).getChildNodes();
 
 	            if (subList != null && subList.getLength() > 0) {
+                    postLog("getName: sublist is not empty");
 	                 name = (String) subList.item(0).getTextContent();
 	            }
 	        }else{
