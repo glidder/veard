@@ -82,13 +82,20 @@ Blockly.JavaScript['animate'] = function(block) {
   return code;
 };
 
+
 Blockly.Blocks['model'] = {
   init: function() {
-      this.setHelpUrl('http://www.example.com/');
-    this.setColour(160);
-    this.appendDummyInput().appendField('Model');
-    this.appendDummyInput().appendField(new Blockly.FieldDropdown(parent.models), 'Model');
-      this.setTooltip('');
+      var options = [["option","OPTIONAME"]];
+      for (i in parent.models){
+          options.push([parent.models[i],parent.models[i]])
+      }
+      this.appendDummyInput().appendField('Model');
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(options), "Dropdown");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
   }
 };
 
