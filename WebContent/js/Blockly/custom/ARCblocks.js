@@ -84,8 +84,8 @@ Blockly.JavaScript['animate'] = function(block) {
 
 Blockly.Blocks['model'] = {
   init: function() {
-      input.appendField('Model');
-    input.appendField(new Blockly.FieldDropdown(parent.models), 'FLAG');
+    this.appendField('Model');
+    this.appendField(new Blockly.FieldDropdown(parent.models), 'FLAG');
   }
 };
 

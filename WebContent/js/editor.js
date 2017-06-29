@@ -103,10 +103,10 @@ window.addEventListener("beforeunload", function (e) {
 			}, 500);	// couch couch
 		}
 	})
-	document.querySelector('#runButton').addEventListener('click', function(event){
+	/*document.querySelector('#runButton').addEventListener('click', function(event){
 		saveWorkspace()
 		runWorkspace()
-	})
+	})*/
 	/*document.querySelector('#saveButton').addEventListener('click', function(event){
 		saveWorkspace()
 	})*/
