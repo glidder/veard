@@ -103,18 +103,17 @@ public class Rest extends HttpServlet {
 	@Produces(MediaType.TEXT_HTML)
 	public String listModels() {
         Pdao.postLog(">>User requested the list of models",LOG_NAME);
-		List<String> projects = Pdao.listAll(MOD_PATH);
+		List<String> models = Pdao.listAll(MOD_PATH);
 		String result ="<ul  class='thumbnails'>";
         String list = "";
 		if(!projects.isEmpty()){
-			for (String project:projects){
-				list+=project+"; ";
+			for (String model:models){
+				list+=model+"; ";
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
 				"<li class='col-md-3'><div class='thumbnail'>"+
 	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
-	                  "<h3>"+Pdao.getName(MOD_PATH+project)+"</h3>"+
-	                  "<p>"+Pdao.getDescription(MOD_PATH+project) +"</p>"+
-	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
+	                  "<h3>"+model+"</h3>"+
+	                  "<p align='center'><button class='btn btn-primary btn-block' onclick='selectProject(\""+model+"\")'>Open</button></p></div></div></li>";
 			}
 		}
         Pdao.postLog("Model list request:\n\t\t\t"+list);

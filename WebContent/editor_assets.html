@@ -29,6 +29,9 @@
         $('#variablelist').html(formatedVariables);
         $('#modellist').load("./rest/dao/models");
       }
+    function selectProject(project){
+        parent.models.push(project);
+    }
     </script>
   </head>
   <body onload="init()">
