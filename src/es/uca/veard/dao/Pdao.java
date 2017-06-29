@@ -268,34 +268,26 @@ public class Pdao {
     static public String getName(String path){
         
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		//factory.setNamespaceAware(true);
+		factory.setNamespaceAware(true);
         
 		String name = "Unnamed";
 		try{
-            postLog("getName: starts");
 			DocumentBuilder builder = factory.newDocumentBuilder();
-            postLog("getName: parsing "+BASE_PATH+path);
 			Document document = builder.parse(createFile(BASE_PATH+path));
-            postLog("getName: normalizing");
             document.getDocumentElement().normalize();
-			//Element rootElement = document.getDocumentElement();
-			
-			//NodeList list = rootElement.getElementsByTagName("pname");
-            postLog("getName: ready to search");
+
             NodeList list = document.getElementsByTagName("pname");
 	        if (list != null && list.getLength() > 0) {
-                postLog("getName: list is not empty");
 	            NodeList subList = list.item(0).getChildNodes();
 
 	            if (subList != null && subList.getLength() > 0) {
-                    postLog("getName: sublist is not empty");
 	                 name = (String) subList.item(0).getTextContent();
 	            }
 	        }else{
-                postLog("getName: <pname> not found.");
+                postLog("getName: <pname> not found on "+BASE_PATH+path);
             }
 		} catch (Exception e) {
-            postLog("getName: DocumentBuilder Failed.");
+            postLog("getName: DocumentBuilder Failed on "+BASE_PATH+path);
 	    	e.printStackTrace();
 	    }
         postLog("Requested name of the project on path "+path+": "+name);
@@ -312,24 +304,27 @@ public class Pdao {
 		String desc = "Null";
 		try{
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(createFile(path));
-			Element rootElement = document.getDocumentElement();
+			Document document = builder.parse(createFile(BASE_PATH+path));
+			document.getDocumentElement().normalize();
 			
-			NodeList list = rootElement.getElementsByTagName("pdesc");
+			NodeList list = document.getElementsByTagName("pdesc");
 	        if (list != null && list.getLength() > 0) {
 	            NodeList subList = list.item(0).getChildNodes();
 
 	            if (subList != null && subList.getLength() > 0) {
 	                 desc = (String) subList.item(0).getNodeValue();
 	            }
-	        }
+	        }else{
+                postLog("getDescription: <pdesc> not found on "+BASE_PATH+path);
+            }
 		} catch (Exception e) {
+            postLog("getDescription: DocumentBuilder Failed on "+BASE_PATH+path);
 	    	e.printStackTrace();
 	    }
         postLog("Requested description of the project on path "+path+": "+desc);
 		return desc;
 	}
-        /**
+    /**
      * Returns the java code of a certain project
      * @param path  path of the project file
      * @return      string with the java code of the project
@@ -340,18 +335,21 @@ public class Pdao {
 		String jcode = "Null";
 		try{
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(createFile(path));
-			Element rootElement = document.getDocumentElement();
+			Document document = builder.parse(createFile(BASE_PATH+path));
+			document.getDocumentElement().normalize();
 			
-			NodeList list = rootElement.getElementsByTagName("jcode");
+			NodeList list = document.getElementsByTagName("jcode");
 	        if (list != null && list.getLength() > 0) {
 	            NodeList subList = list.item(0).getChildNodes();
 
 	            if (subList != null && subList.getLength() > 0) {
 	                 jcode = (String) subList.item(0).getNodeValue();
 	            }
-	        }
+	        }else{
+                postLog("getJavaCode: <jcode> not found on "+BASE_PATH+path);
+            }
 		} catch (Exception e) {
+            postLog("getJavaCode: DocumentBuilder Failed on "+BASE_PATH+path);
 	    	e.printStackTrace();
 	    }
         postLog("Requested java code of the project on path "+path+": "+jcode);
