@@ -15,13 +15,16 @@
         width: 100%;
       }
     </style>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
 
       function init() {
         var formatedVariables="";
         for(var model in parent.models){
-            formatedVariables+=model+"\n";
+            formatedVariables+="<li><a href='"+model+"'>"+model+"</a></li>";
         }
         $('#variablelist').html(formatedVariables);
         $('#modellist').load("./rest/dao/models");
@@ -29,9 +32,23 @@
     </script>
   </head>
   <body onload="init()">
-    <div id="variablelist">
-    VARIABLES SHOULD GO HERE
-    </div>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a id="menu-toggle" href="#" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                </a>
+            </div>
+            <div id="sidebar-wrapper" class="sidebar-toggle">
+                <ul class="sidebar-nav" id="variablelist">
+                    VARIABLES SHOULD GO HERE
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div id="modellist">
     LIST OF MODELS SHOULD GO HERE
     </div>
