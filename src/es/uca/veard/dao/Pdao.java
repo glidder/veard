@@ -131,7 +131,7 @@ public class Pdao {
         try{
             new PrintWriter(BASE_PATH+logName+".log").close();
         }catch(Exception e){
-            postLog("clearLog: failed on "+BASE_PATH+logName+".log\n"+e.printStackTrace()+"\n");
+            postLog("clearLog: failed on "+BASE_PATH+logName+".log\n"+e+"\n");
         }
     }
     
@@ -154,14 +154,14 @@ public class Pdao {
                 out.write(bytes, 0, read);
             }  
         } catch (IOException e) {
-            postLog("saveInputStream: failed writting on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
+            postLog("saveInputStream: failed writting on "+BASE_PATH+path+"\n"+e+"\n");
 			return false;
 		} finally {
             if(uploadedInputStream != null){
                 try{
                     uploadedInputStream.close();
                 } catch (IOException e){
-                    postLog("saveInputStream: failed closing stream on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
+                    postLog("saveInputStream: failed closing stream on "+BASE_PATH+path+"\n"+e+"\n");
                 }
             }
             if (out!=null){
@@ -169,7 +169,7 @@ public class Pdao {
                     out.flush();
                     out.close();
                 } catch (IOException e){
-                    postLog("saveInputStream: failed closing buffer on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
+                    postLog("saveInputStream: failed closing buffer on "+BASE_PATH+path+"\n"+e+"\n");
                 }
             }
         }
@@ -198,7 +198,7 @@ public class Pdao {
 			bw.write(content);
             
 		} catch (IOException e) {
-            postLog("saveString: failed writting on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
+            postLog("saveString: failed writting on "+BASE_PATH+path+"\n"+e+"\n");
             return false;
 		} finally {
             //Close the buffers
@@ -209,7 +209,7 @@ public class Pdao {
 					fw.close();
                 
 			} catch (IOException e) {
-                postLog("saveInputStream: failed closing buffer on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
+                postLog("saveInputStream: failed closing buffer on "+BASE_PATH+path+"\n"+e+"\n");
                 return false;
 			}
 		}
@@ -295,7 +295,7 @@ public class Pdao {
                 postLog("getName: <pname> not found on "+BASE_PATH+path);
             }
 		} catch (Exception e) {
-            postLog("getName: DocumentBuilder failed on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
+            postLog("getName: DocumentBuilder failed on "+BASE_PATH+path+"\n"+e+"\n");
 	    }
         postLog("Requested name of the project on path "+path+": "+name);
 		return name;
@@ -325,7 +325,7 @@ public class Pdao {
                 postLog("getDescription: <pdesc> not found on "+BASE_PATH+path);
             }
 		} catch (Exception e) {
-            postLog("getDescription: DocumentBuilder failed on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
+            postLog("getDescription: DocumentBuilder failed on "+BASE_PATH+path+"\n"+e+"\n");
 	    }
         postLog("Requested description of the project on path "+path+": "+desc);
 		return desc;
@@ -355,7 +355,7 @@ public class Pdao {
                 postLog("getJavaCode: <jcode> not found on "+BASE_PATH+path);
             }
 		} catch (Exception e) {
-            postLog("getJavaCode: DocumentBuilder failed on "+BASE_PATH+path+"\n"+e.printStackTrace()+"\n");
+            postLog("getJavaCode: DocumentBuilder failed on "+BASE_PATH+path+"\n"+e+"\n");
 	    }
         postLog("Requested java code of the project on path "+path+": "+jcode);
 		return jcode;
