@@ -82,3 +82,15 @@ Blockly.JavaScript['animate'] = function(block) {
   return code;
 };
 
+Blockly.Blocks['model'] = {
+  init: function() {
+      input.appendField('Model');
+    input.appendField(new Blockly.FieldDropdown(parent.models), 'FLAG');
+  }
+};
+
+Blockly.JavaScript['model'] = function(block) {
+  var code = '';
+  return code;
+};
+
