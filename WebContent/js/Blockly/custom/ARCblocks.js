@@ -84,8 +84,11 @@ Blockly.JavaScript['animate'] = function(block) {
 
 Blockly.Blocks['model'] = {
   init: function() {
+      this.setHelpUrl('http://www.example.com/');
+    this.setColour(160);
     this.appendDummyInput().appendField('Model');
     this.appendDummyInput().appendField(new Blockly.FieldDropdown(parent.models), 'Model');
+      this.setTooltip('');
   }
 };
 
