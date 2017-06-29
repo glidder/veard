@@ -172,7 +172,7 @@ public class Rest extends HttpServlet {
 	@Path("/projects")
 	@Produces(MediaType.TEXT_HTML)
 	public String listProjects() {
-        Pdao.postLog(">>User requested the list of images",LOG_NAME);
+        Pdao.postLog(">>User requested the list of projects",LOG_NAME);
 		List<String> projects = Pdao.listAll(PRO_PATH);
 		String result ="<ul  class='thumbnails'>";
         String list = "";

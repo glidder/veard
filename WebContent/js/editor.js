@@ -1,3 +1,17 @@
+var models = [];
+
+function addModels(model) {
+    models.push(model);
+}
+
+function updateVariables() {
+    var formatedVariables="";
+    for(var model in models){
+        formatedVariables+=model+"\n";
+    }
+    $('#variablelist').html(formatedVariables);
+    $('#modellist').load("./rest/dao/models");
+}
 
 function updateContextButton() {
 	$('#contextButton').html("<button id='popover' data-toggle='popover' data-container='body' data-placement='left' class='btn btn-default navbar-btn'>Save</button>");
@@ -144,6 +158,7 @@ window.addEventListener("beforeunload", function (e) {
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   var target = $(e.target).attr("href") // activated tab
   //if ($(target)=='#viewer') {
+    updateVariables();
     saveWorkspace();
     runWorkspace();
  //}
