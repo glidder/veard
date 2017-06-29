@@ -15,8 +15,14 @@
         width: 100%;
       }
     </style>
+    <script>
+
+      function init() {
+        $('#modellist').load("./rest/dao/models");
+      }
+    </script>
   </head>
-  <body>
+  <body onload="init()">
     <div id="variablelist">
     VARIABLES SHOULD GO HERE
     </div>

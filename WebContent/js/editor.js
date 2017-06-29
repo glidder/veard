@@ -160,7 +160,7 @@ window.addEventListener("beforeunload", function (e) {
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   var target = $(e.target).attr("href") // activated tab
   //if ($(target)=='#viewer') {
-    updateVariables();
+    //updateVariables();
     saveWorkspace();
     runWorkspace();
  //}
