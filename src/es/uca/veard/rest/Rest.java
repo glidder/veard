@@ -106,7 +106,7 @@ public class Rest extends HttpServlet {
 		List<String> models = Pdao.listAll(MOD_PATH);
 		String result ="<ul  class='thumbnails'>";
         String list = "";
-		if(!projects.isEmpty()){
+		if(!models.isEmpty()){
 			for (String model:models){
 				list+=model+"; ";
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
