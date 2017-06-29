@@ -83,6 +83,15 @@ public class Rest extends HttpServlet {
             //Answer the petition
             return "Application Log:"+Pdao.getLog(LOG_NAME);
         }
+        /**
+         * Clears the application log file
+         */
+        @POST
+        @Path("/clear/log")
+        public void clearLog() {
+            Pdao.saveString("",LOG_NAME);
+            Pdao.postLog("User cleared the log",LOG_NAME);
+        }
     
     /**
      * Lists all available models from the server
@@ -267,7 +276,8 @@ public class Rest extends HttpServlet {
     @Path("/upload/project")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public void saveProject(@FormParam("name") String name, @FormParam("desc") String desc, @FormParam("ecode") String ecode, @FormParam("jcode") String jcode ){
-        Pdao.postLog("Project upload requested:\nECODE:\n"+ecode,LOG_NAME);
+        Pdao.postLog("Project upload requested:\nNAME: "+name+"\nDESC: "+desc+
+                     "\nECODE:\n"+ecode+"\nJCODE:\n"+jcode,LOG_NAME);
         //Pdao.save(name, desc, ecode, jcode);//Add a check function to the form!!!!!!
         Pdao.saveString(ecode.substring(0, ecode.length()-6)+"<pname>"+name+"</pname><pdesc>"+desc+"</pdesc><jcode>"+jcode+"</jcode></xml>",PRO_PATH+name+".xml");
     } 

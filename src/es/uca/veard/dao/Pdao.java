@@ -275,8 +275,11 @@ public class Pdao {
 	            if (subList != null && subList.getLength() > 0) {
 	                 name = (String) subList.item(0).getNodeValue();
 	            }
-	        }
+	        }else{
+                postLog("getName: <pname> not found.");
+            }
 		} catch (Exception e) {
+            postLog("getName: DocumentBuilder Failed.");
 	    	e.printStackTrace();
 	    }
         postLog("Requested name of the project on path "+path+": "+name);
