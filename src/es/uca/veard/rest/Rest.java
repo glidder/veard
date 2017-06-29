@@ -113,7 +113,7 @@ public class Rest extends HttpServlet {
 				"<li class='col-md-3'><div class='thumbnail'>"+
 	                "<div>"+
 	                  "<h4>"+model+"</h4>"+
-	                  "<button class='btn' onclick='selectProject(\""+model+"\")'>Open</button></div></div></li>";
+	                  "<button class='btn' onclick='selectModel(\""+model+"\");updateVariables()'>Open</button></div></div></li>";
 			}
 		}
         Pdao.postLog("Model list request:\n\t\t\t"+list);
