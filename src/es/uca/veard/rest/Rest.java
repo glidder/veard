@@ -151,36 +151,6 @@ public class Rest extends HttpServlet {
         return Pdao.loadPlainText(IMG_PATH+name);
     }
     /**
-     * Allows the download of the raw specified file
-     */
-    @GET
-    @Path("/download/{name}")
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response downloadFile(@PathParam("name") String name){
-        File file = Pdao.loadFile(name);
-        return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
-    }
-    /**
-     * Allows the download of the raw specified file
-     */
-    @GET
-    @Path("/download/model/{name}")
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response downloadModel(@PathParam("name") String name){
-        File file = Pdao.loadFile(MOD_PATH+name);
-        return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
-    }
-    /**
-     * Allows the download of the raw specified file
-     */
-    @GET
-    @Path("/download/image/{name}")
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response downloadImage(@PathParam("name") String name){
-        File file = Pdao.loadFile(IMG_PATH+name);
-        return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
-    }
-    /**
      * Lists all available projects from the server
      */
     @GET
@@ -204,6 +174,46 @@ public class Rest extends HttpServlet {
         Pdao.postLog("Project list request:\n\t\t\t"+list);
 		return result+"</ul>";
 	}
+    /**
+     * Allows the download of the raw specified file
+     */
+    @GET
+    @Path("/download/{name}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response downloadFile(@PathParam("name") String name){
+        File file = Pdao.loadFile(name);
+        return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
+    }
+    /**
+     * Allows the download of the raw specified model
+     */
+    @GET
+    @Path("/download/model/{name}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response downloadModel(@PathParam("name") String name){
+        File file = Pdao.loadFile(MOD_PATH+name);
+        return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
+    }
+    /**
+     * Allows the download of the raw specified image
+     */
+    @GET
+    @Path("/download/image/{name}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response downloadImage(@PathParam("name") String name){
+        File file = Pdao.loadFile(IMG_PATH+name);
+        return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
+    }
+     /**
+     * Allows the download of the raw specified project
+     */
+    @GET
+    @Path("/download/project/{name}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response downloadProject(@PathParam("name") String name){
+        File file = Pdao.loadFile(PRO_PATH+name);
+        return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
+    }
     
     /*
      * POST methods

@@ -19,7 +19,7 @@ function updateContextButton() {
 		"</form>"+
 		"<script>"+
 		"	$('#saveButton').on('click', function(event){"+
-		"		console.log('LOLOLOLOL');"+
+		//"		console.log('LOLOLOLOL');"+
 		"		saveWorkspace();"+
 		"		$('#popover').popover('hide');"+
 		"	});"+
