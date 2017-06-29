@@ -176,9 +176,11 @@ public class Pdao {
 			bw = new BufferedWriter(fw);
             
             //Register the message in the log file
+            postLog("saveString: Writting: '"+content+"' in path '"+BASE_PATH+path+"'.");
 			bw.write(content);
             
 		} catch (IOException e) {
+            postLog("saveString: Writting content failed.");
 			e.printStackTrace();
             return false;
 		} finally {
@@ -190,6 +192,7 @@ public class Pdao {
 					fw.close();
                 
 			} catch (IOException e) {
+                postLog("saveString: Closing buffer failed.");
 				e.printStackTrace();
                 return false;
 			}
