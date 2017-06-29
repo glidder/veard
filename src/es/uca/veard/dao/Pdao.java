@@ -33,6 +33,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import org.jsoup.Jsoup;
+import org.jsoup.parser.Parser;
+
 /**
  * Class that implements all filesystem operations.
  * It acts as a Data Access Object (DAO) for the operations performed by the REST {@link Rest} class.
@@ -175,8 +178,8 @@ public class Pdao {
 			fw = new FileWriter(file.getAbsoluteFile());
 			bw = new BufferedWriter(fw);
             
-            //Register the message in the log file
-            postLog("saveString: Writting: '"+content+"' in path '"+BASE_PATH+path+"'.");
+            //Write the content to the file
+            //postLog("saveString: Writting: '"+content+"' in path '"+BASE_PATH+path+"'.");
 			bw.write(content);
             
 		} catch (IOException e) {
@@ -263,15 +266,19 @@ public class Pdao {
      * @return      string with the name of the project
      */
     static public String getName(String path){
+        
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setNamespaceAware(true);
+		//factory.setNamespaceAware(true);
+        
 		String name = "Unnamed";
 		try{
+            
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.parse(createFile(path));
-			Element rootElement = document.getDocumentElement();
+			//Element rootElement = document.getDocumentElement();
 			
-			NodeList list = rootElement.getElementsByTagName("pname");
+			//NodeList list = rootElement.getElementsByTagName("pname");
+            NodeList list = document.getElementsByTagName("pname");
 	        if (list != null && list.getLength() > 0) {
 	            NodeList subList = list.item(0).getChildNodes();
 
