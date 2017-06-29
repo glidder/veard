@@ -284,7 +284,7 @@ public class Pdao {
 	            NodeList subList = list.item(0).getChildNodes();
 
 	            if (subList != null && subList.getLength() > 0) {
-	                 name = (String) subList.item(0).getNodeValue();
+	                 name = (String) subList.item(0).getTextContent();
 	            }
 	        }else{
                 postLog("getName: <pname> not found.");
