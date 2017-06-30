@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import java.nio.file.Files;
+import static java.lang.Math.min;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,9 +34,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import org.jsoup.Jsoup;
-import org.jsoup.parser.Parser;
 
 /**
  * Class that implements all filesystem operations.
@@ -238,6 +236,16 @@ public class Pdao {
         return createFile(BASE_PATH+path);
     }
     /**
+     * Returns a list of specified maximum size of files within the specified directory
+     * @param path  directory path
+     * @param num   maximum lenght of the list
+     * @return      list of scecified maximum number of file names in the directory
+     */
+    static public List<String> listMax(String path, int num){
+        List<String> list = listType(path,"");
+        return list.subList(0, min(list.size(), num));
+    }
+    /**
      * Returns a list of all files within the specified directory
      * @param path  directory path
      * @return      list of all file names in the directory
@@ -268,6 +276,39 @@ public class Pdao {
 		}
 		return names;
     }
+    /**
+     * Returns the specified tag of a certain project
+     * @param path  path of the project file
+     * @param tag   specified tag
+     * @return      string with the name of the project
+     */
+    static public String getTag(String path, String tag){
+        
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+        
+		String foundTag = "Null";
+		try{
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(createFile(BASE_PATH+path));
+            document.getDocumentElement().normalize();
+
+            NodeList list = document.getElementsByTagName(tag);
+	        if (list != null && list.getLength() > 0) {
+	            NodeList subList = list.item(0).getChildNodes();
+
+	            if (subList != null && subList.getLength() > 0) {
+	                 foundTag = (String) subList.item(0).getTextContent();
+	            }
+	        }else{
+                postLog("getName: <"+tag+"> not found on "+BASE_PATH+path);
+            }
+		} catch (Exception e) {
+            postLog("getName: DocumentBuilder failed on "+BASE_PATH+path+"\n"+e+"\n");
+	    }
+        postLog("Requested "+tag+" of the project on path "+path+": "+foundTag);
+		return foundTag;
+	}
     /**
      * Returns the name of a certain project
      * @param path  path of the project file

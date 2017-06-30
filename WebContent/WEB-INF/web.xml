@@ -20,25 +20,6 @@ id="VEARD" version="3.0">
             <param-value>es.uca.veard.rest</param-value>
         </init-param>
         
-        <!-- Parameters for REST service configuration -->
-        <init-param>
-            <param-name>filestorage</param-name>
-            <param-value>/userdata/</param-value>
-        </init-param>
-        <init-param>
-            <param-name>modelstorage</param-name>
-            <param-value>models/</param-value>
-        </init-param>
-        <init-param>
-            <param-name>imagestorage</param-name>
-            <param-value>images/</param-value>
-        </init-param>
-        <init-param>
-            <param-name>logfilename</param-name>
-            <param-value>log</param-value>
-        </init-param>
-        
-        
         <load-on-startup>1</load-on-startup>
     </servlet>
     
@@ -47,7 +28,4 @@ id="VEARD" version="3.0">
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
     
-    <!--listener>
-        <listener-class>es.uca.veard.listener</listener-class>
-   </listener-->
 </web-app>

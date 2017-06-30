@@ -190,6 +190,30 @@ public class Rest extends HttpServlet {
 		return result+"</ul>";
 	}
     /**
+     * Lists a specific maximum number of projects from the server
+     */
+    @Path("/projects/limit/{num}")
+	@Produces(MediaType.TEXT_HTML)
+	public String listMaxProjects(@PathParam("num") int num) {
+        Pdao.postLog(">>User requested a list of "+num+" projects",LOG_NAME);
+		List<String> projects = Pdao.listMax(PRO_PATH,num);
+		String result ="<ul  class='thumbnails'>";
+        String list = "";
+		if(!projects.isEmpty()){
+			for (String project:projects){
+				list+=project+"; ";
+				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
+				"<li class='col-md-3'><div class='thumbnail'>"+
+	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
+	                  "<h3>"+Pdao.getName(PRO_PATH+project)+"</h3>"+
+	                  "<p>"+Pdao.getDescription(PRO_PATH+project) +"</p>"+
+	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
+			}
+		}
+        Pdao.postLog("Project ("+num+") list request:\n\t\t\t"+list);
+		return result+"</ul>";
+	}
+    /**
      * Allows the download of the raw specified file
      */
     @GET
