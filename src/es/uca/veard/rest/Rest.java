@@ -192,6 +192,7 @@ public class Rest extends HttpServlet {
     /**
      * Lists a specific maximum number of projects from the server
      */
+    @GET
     @Path("/projects/limit/{num}")
 	@Produces(MediaType.TEXT_HTML)
 	public String listMaxProjects(@PathParam("num") int num) {
