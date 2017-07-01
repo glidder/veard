@@ -90,8 +90,8 @@ Blockly.Blocks['model'] = {
           options.push([parent.models[i],parent.models[i]])
       }
       this.appendDummyInput().appendField('Model');
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown(options), "Dropdown");
+    this.appendValueInput(new Blockly.FieldDropdown(options))
+        .appendField("Dropdown");
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip('');
@@ -110,12 +110,13 @@ Blockly.Blocks['animation'] = {
       $.get("./rest/dao/animations", function(data){
           animations = data.split(";");
       });
+      
       for (i in animations){
           options.push([animations[i],animations[i]])
       }
       this.appendDummyInput().appendField('Animation');
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown(options), "Dropdown");
+     this.appendValueInput(new Blockly.FieldDropdown(options))
+        .appendField("Dropdown");
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip('');
