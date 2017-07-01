@@ -105,7 +105,7 @@ Blockly.JavaScript['model'] = function(block) {
 
 Blockly.Blocks['animation'] = {
   init: function() {
-      var options;
+      var options=[["none","NONE"]];
       var animations;
       $.get("./rest/dao/animations", function(data){
           animations = data.split(";");
