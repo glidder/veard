@@ -84,7 +84,7 @@ window.addEventListener("beforeunload", function (e) {
         var project = $.urlParam('proc');
         console.log("FALAAAAAAAAR: "+project+" --- "+typeof(project));
         if (typeof(project) === 'string') {
-            loadWorkspaceProject($.urlParam('load'));
+            loadWorkspaceProject($.urlParam('proc'));
         }
 		if( location.hash ){
 			loadWorkspace()
