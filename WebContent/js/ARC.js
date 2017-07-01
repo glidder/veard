@@ -93,11 +93,12 @@ function Model(name){
 	//		object.add(mesh);
 	//	}, "models/"+name+"/");
     
-	//this.base = { position : {x:0,y:0,z:0}, rotation : {x:0,y:0,z:0} };
-	//this.relative = { position : {x:0,y:0,z:0}, rotation : {x:0,y:0,z:0} };
+	
 //};
     });
     loader.load();
+    this.base = { position : {x:0,y:0,z:0}, rotation : {x:0,y:0,z:0} };
+	this.relative = { position : {x:0,y:0,z:0}, rotation : {x:0,y:0,z:0} };
 };
     
 Model.prototype = new THREE.Object3D();
