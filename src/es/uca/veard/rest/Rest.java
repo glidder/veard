@@ -215,6 +215,16 @@ public class Rest extends HttpServlet {
 		return result+"</ul>";
 	}
     /**
+     * Allows the download of the xml for the specified project
+     */
+    @GET
+    @Path("/projects/edit/{name}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String downloadExecutableProject(@PathParam("name") String name){
+        Pdao.postLog(">>User downloaded the code of the project "+name,LOG_NAME);
+        return Pdao.getJavaCode(PRO_PATH+name);
+    }
+    /**
      * Allows the download of the executable code for the specified project
      */
     @GET

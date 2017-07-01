@@ -29,7 +29,7 @@ function updateContextButton() {
 			"</div>"+
 			"<div class='form-group'>"+
 			"	<label for='text'>Description:</label>"+
-			"	<input type='text' class='form-control' id='desc name='desc'>"+
+			"	<input type='text' class='form-control' id='desc' name='desc'>"+
 			"</div>"+
 			"<button id='saveButton' type='button' class='btn btn-default' onclick='saveWorkspace();closePopover();'>Submit</button>"+
 		"</form>"+
@@ -44,6 +44,14 @@ function updateContextButton() {
 	
 $(document).ready(function(){
 	$("#myTabContent").css('height', '100%').css('height', '-='+($("#myTab").height()*2)+'px');
+    $.get( "./rest/dao/projects/"+$.urlParam('proc'), function( data ) {
+		$("#theviewer").load("editor_view.html",function () {  
+            setTimeout(function(){
+				loadCodeandRun(data);	
+			}, 500);// cough cough
+			
+	    });
+	});
 });
 
 $(window).resize(function(){
@@ -105,15 +113,16 @@ window.addEventListener("beforeunload", function (e) {
         $('#popover').popover('hide');
     }
 	function loadWorkspace(){
-	  	console.assert(location.hash)
-		var xmlText	= decodeURIComponent(location.hash.substr(1))
+        console.log("WROOOOGHHH"+location.hash);
+	  	console.assert(location.hash);
+		var xmlText	= decodeURIComponent(location.hash.substr(1));
 		var xmlDoc	= Blockly.Xml.textToDom(xmlText);
-		Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace(), xmlDoc)	  	
+		Blockly.Xml.domToWorkspace(xmlDoc,Blockly.getMainWorkspace());	  	
 	}
 	function runWorkspace(){
 		var generatedCode	= Blockly.JavaScript.workspaceToCode();
         console.log('generatedCode', generatedCode)
-		var iframeView		= document.querySelector('iframe.viewFrame')
+		var iframeView		= document.querySelector('iframe.viewFrame');
 		iframeView.contentWindow.run(generatedCode);
 	}
 	function resetWorkspace(){
