@@ -1,4 +1,14 @@
 var models = [];
+var animations = [];
+
+function loadAnimations(){
+    $.get("./rest/dao/animations", function(data){
+          animations = String(data).split(";");
+      });
+}
+
+loadAnimations();
+
 
 function addModels(model) {
     models.push(model);

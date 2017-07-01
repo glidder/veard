@@ -108,17 +108,13 @@ Blockly.JavaScript['model'] = function(block) {
 Blockly.Blocks['animation'] = {
   init: function() {
       var options=[["none","NONE"]];
-      var anim;
-      var thisblock = this;
-      $.get("./rest/dao/animations", function(data){
-          anim = String(data).split(";");
-          for (i in animations){
-          if(animations[i]!="undefined")
-            options.push([animations[i],animations[i]])
-            }
-          thisblock.appendDummyInput().appendField('Animation');
-     thisblock.appendDummyInput().appendField(new Blockly.FieldDropdown(options), "DROPDOWN");
-      });
+
+      for (i in parent.animations){
+          if(parent.animations[i]!="undefined")
+            options.push([parent.animations[i],parent.animations[i]])
+    }
+    this.appendDummyInput().appendField('Animation');
+     this.appendDummyInput().appendField(new Blockly.FieldDropdown(options), "DROPDOWN");
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip('');
