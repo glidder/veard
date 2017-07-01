@@ -108,11 +108,11 @@ Blockly.JavaScript['model'] = function(block) {
 Blockly.Blocks['animation'] = {
   init: function() {
       var options=[["none","NONE"]];
-      var animations = new Array();
+      var animations;
       $.get("./rest/dao/animations", function(data){
           console.log("THEPURRTCKss: "+data);
-          animations = data.toString().split(";");
-          console.log("BAHFI "+data+" aosfh "+String(data).split(";").toString());
+          animations = String(data).split(";");
+          console.log("BAHFI "+data+" aosfh "+String(data).split(";").toString()+ " aoghoghg "+animations.toString());
       });
       console.log("JOOOOORRRRRRRK: "+animations);
       console.log("FRUPT: "+animations[0]);
