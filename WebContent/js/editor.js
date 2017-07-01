@@ -123,7 +123,7 @@ window.addEventListener("beforeunload", function (e) {
 	}
     function loadWorkspaceProject(project){
         $.get("./rest/dao/projects/edit/"+project, function(data){
-            console.log("WOOOOOORRGHH "+data);
+            console.log("WOOOOOORRGHH "+project+" --- "+data);
             var xmlDoc	= Blockly.Xml.textToDom(data);
             Blockly.Xml.domToWorkspace(xmlDoc,Blockly.getMainWorkspace);
         })
