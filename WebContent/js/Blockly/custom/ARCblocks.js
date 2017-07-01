@@ -117,7 +117,7 @@ Blockly.Blocks['animation'] = {
           options.push([animations[i],animations[i]])
       }
       this.appendDummyInput().appendField('Animation');
-     this.appendDummyInput.appenfField(new Blockly.FieldDropdown(options), "DROPDOWN");
+     this.appendDummyInput().appenfField(new Blockly.FieldDropdown(options), "DROPDOWN");
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip('');
