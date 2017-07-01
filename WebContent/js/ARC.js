@@ -57,18 +57,48 @@ missingFunctionsError.prototype.constructor = missingFunctionsError;
  */
 function Model(name){
 	THREE.Object3D.apply(this, arguments);
+    // Prepare to use THREE.js in ZipLoader
+    ZipLoader.use( { 'THREE': THREE } );
+    console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUURRRRKKKKK: "+name);
 	var object = this,
-		loader = new THREE.JSONLoader(),
-		mesh;
+		loader = new ZipLoader( window.location.host+"/files/models/"+name+".zip" );//,//new THREE.JSONLoader(),
+		//mesh;
 
-	loader.load("./models/"+name+"/"+name+".js", function (geometry, materials) {
-			mesh = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial( materials ));
-			object.add(mesh);
-		}, "models/"+name+"/");
+    loader.on( 'progress', function ( e ) {
+	   console.log( 'loading', e.loaded / e.total * 100 + '%' );
+    } );
+    loader.on( 'load', function ( e ) {
 
-	this.base = { position : {x:0,y:0,z:0}, rotation : {x:0,y:0,z:0} };
-	this.relative = { position : {x:0,y:0,z:0}, rotation : {x:0,y:0,z:0} };
-};
+        // use loadThreeJson method to get geometry and materials
+        // just like THREE.JSONLoader
+        // You will get `result.geometry` and `result.materials`
+        var result = loader.loadThreeJson( name+"/"+name+".json" );
+        
+        result.materials.forEach( function ( material ) {
+            material.skinning = true;
+            material.side = THREE.DoubleSide;
+        } );
+        var mesh = new THREE.SkinnedMesh(
+		  result.geometry,
+		  new THREE.MultiMaterial( result.materials )
+	   );
+        mesh.position.z = -0.2;
+        
+        scene.add( mesh );
+
+	   loader.clear();
+        
+    //loader.load("./models/"+name+"/"+name+".js", function (geometry, materials) {
+	//		mesh = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial( materials ));
+	//		object.add(mesh);
+	//	}, "models/"+name+"/");
+    
+	//this.base = { position : {x:0,y:0,z:0}, rotation : {x:0,y:0,z:0} };
+	//this.relative = { position : {x:0,y:0,z:0}, rotation : {x:0,y:0,z:0} };
+//};
+    });
+    loader.load();
+    
 Model.prototype = new THREE.Object3D();
 Model.prototype.update = function(){
 	for(var i in this.base.position){
