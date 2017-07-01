@@ -102,7 +102,7 @@ Blockly.Blocks['model'] = {
 
 Blockly.JavaScript['model'] = function(block) {
     var dropdown_name = block.getFieldValue('DROPDOWN',Blockly.JavaScript.ORDER_ATOMIC);
-  return [dropdown_name, Blockly.JavaScript.ORDER_NONE];
+  return ['"'+dropdown_name+'"', Blockly.JavaScript.ORDER_NONE];
 };
 
 Blockly.Blocks['animation'] = {
@@ -127,5 +127,5 @@ Blockly.Blocks['animation'] = {
 
 Blockly.JavaScript['animation'] = function(block) {
   var dropdown_name = block.getFieldValue('DROPDOWN',Blockly.JavaScript.ORDER_ATOMIC);
-  return [dropdown_name, Blockly.JavaScript.ORDER_NONE];
+  return ['"'+dropdown_name+'"', Blockly.JavaScript.ORDER_NONE];
 };
