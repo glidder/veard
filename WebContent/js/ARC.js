@@ -337,7 +337,7 @@ ARC.prototype = {
 	runAnimation: function(animation, object){ 
 		if(!this.amap[animation]){
 			var ramap = this.amap;
-			$.ajax({url: "./models/"+animation+".js", dataType: "script", async: false,
+			$.ajax({url: "https://"+window.location.host+"/files/animations/"+name+".js", dataType: "script", async: false,
 			success: function(){
 				var tempanim=new Animation();
 				//check for an animate function

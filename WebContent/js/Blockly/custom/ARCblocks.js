@@ -85,7 +85,7 @@ Blockly.JavaScript['animate'] = function(block) {
 
 Blockly.Blocks['model'] = {
   init: function() {
-      var options = [["option","OPTIONAME"]];
+      var options = [["none","NONE"]];
       for (i in parent.models){
           options.push([parent.models[i],parent.models[i]])
       }
@@ -100,7 +100,29 @@ Blockly.Blocks['model'] = {
 };
 
 Blockly.JavaScript['model'] = function(block) {
-  var code = '';
-  return code;
+  return block.getFieldValue('Dropdown');
 };
 
+Blockly.Blocks['animation'] = {
+  init: function() {
+      var options;
+      var animations;
+      $.get("./rest/dao/animations", function(data){
+          animations = data.split(";");
+      });
+      for (i in animations){
+          options.push([animations[i],animations[i]])
+      }
+      this.appendDummyInput().appendField('Animation');
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(options), "Dropdown");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.JavaScript['animation'] = function(block) {
+  return block.getFieldValue('Dropdown');
+};
