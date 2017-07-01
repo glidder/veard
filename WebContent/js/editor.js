@@ -123,7 +123,9 @@ window.addEventListener("beforeunload", function (e) {
 	}
     function loadWorkspaceProject(project){
         $.get("./rest/dao/projects/edit/"+project, function(data){
-            Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(data),Blockly.getMainWorkspace);
+            console.log("WOOOOOORRGHH "+data);
+            var xmlDoc	= Blockly.Xml.textToDom(data);
+            Blockly.Xml.domToWorkspace(xmlDoc,Blockly.getMainWorkspace);
         })
     }
 	function runWorkspace(){
