@@ -108,7 +108,7 @@ Blockly.JavaScript['model'] = function(block) {
 Blockly.Blocks['animation'] = {
   init: function() {
       var options=[["none","NONE"]];
-      var animations;
+      var animations = new Array();
       $.get("./rest/dao/animations", function(data){
           console.log("THEPURRTCK: "+data);
           animations = data.split(";");
