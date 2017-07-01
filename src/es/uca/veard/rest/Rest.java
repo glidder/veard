@@ -208,7 +208,7 @@ public class Rest extends HttpServlet {
 	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
 	                  "<h3>"+Pdao.getName(PRO_PATH+project)+"</h3>"+
 	                  "<p>"+Pdao.getDescription(PRO_PATH+project) +"</p>"+
-	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
+	                  "<p align='center'><a href='"+"editor.html?proc="+project+"' class='btn btn-primary btn-block'>Edit</a><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
 			}
 		}
         Pdao.postLog("Project ("+num+") list request:\n\t\t\t"+list);
