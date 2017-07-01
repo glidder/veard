@@ -344,11 +344,13 @@ ARC.prototype = {
 				if(tempanim.implements("animate")){
     				ramap[animation]=tempanim;
     				console.log("Creating new animation "+animation);
+                    ramap[animation].animate(this.map[object]);
 				}else
     				throw new missingFunctionsError(animation,"animate"); //COULD BE BETTER
 			}});
-		}
+		}else{
 		this.amap[animation].animate(this.map[object]);
+        }
 	},
 	/**
 	 * DEBUG FUNCTIONS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
