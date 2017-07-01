@@ -127,7 +127,7 @@ window.addEventListener("beforeunload", function (e) {
         $.get("./rest/dao/projects/edit/"+project, function(data){
             console.log("WOOOOOORRGHH "+project+" --- "+data);
             var xmlDoc	= Blockly.Xml.textToDom('<xml xmlns="http://www.w3.org/1999/xhtml"><block type="marker" id="F~Owz0K.^Q4?cNB54Sm!" x="9" y="3"><value name="id"><block type="math_number" id="ovY}6|P/j(luU]}iK8u9"><field name="NUM">446</field></block></value><statement name="consequence"><block type="load" id="]2o}jsxp+PRrb0Xf(2yd"><value name="obj"><block type="text" id="foSKuh,v*b57dQ6Ax@m}"><field name="TEXT">us_police_car</field></block></value><value name="id"><block type="math_number" id="5|eSR/UQT.?==ZL:!^.U"><field name="NUM">446</field></block></value></block></statement></block</xml>>');//data);
-            Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace,xmlDoc);
+            Blockly.Xml.domToWorkspace(xmlDoc,Blockly.getMainWorkspace);
         })
     }
 	function runWorkspace(){
