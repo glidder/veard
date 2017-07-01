@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Date;
 import java.nio.file.Files;
 import static java.lang.Math.min;
+import static java.lang.Math.max;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -412,17 +413,19 @@ public class Pdao {
      * @return      The created File object
      */
     static public File createFile(String path){
-        File newFile = new File(path);
-        if(!newFile.exists()){
-            postLog("Created new file "+path);
-            newFile.getParentFile().mkdirs();
-            try{
-                newFile.createNewFile();
-            } catch (IOException e) {}
-        } else {
-            postLog("File already exists at "+path);
+        if(path.substring(max(0, path.length() - 4))!="null"){
+            File newFile = new File(path);
+            if(!newFile.exists()){
+                postLog("Created new file "+path);
+                newFile.getParentFile().mkdirs();
+                try{
+                    newFile.createNewFile();
+                } catch (IOException e) {}
+            } else {
+                postLog("File already exists at "+path);
+            }
+            return newFile;
         }
-        return newFile;
     }
     /**
      * Creates a string with the contents of the specified file

@@ -82,7 +82,6 @@ window.addEventListener("beforeunload", function (e) {
 	})
 	window.addEventListener('blocklyReady', function(){
         var project = $.urlParam('proc');
-        console.log("FALAAAAAAAAR: "+project+" --- "+typeof(project));
         if (typeof(project) === 'string') {
             loadWorkspaceProject(project);
         }
@@ -121,13 +120,11 @@ window.addEventListener("beforeunload", function (e) {
 	  	console.assert(location.hash);
 		var xmlText	= decodeURIComponent(location.hash.substr(1));
 		var xmlDoc	= Blockly.Xml.textToDom(xmlText);
-		Blockly.Xml.domToWorkspace(xmlDoc,Blockly.getMainWorkspace());	  	
+		Blockly.Xml.domToWorkspace(Blockly.mainWorkspace,xmlDoc);	  	
 	}
     function loadWorkspaceProject(project){
         $.get("./rest/dao/projects/edit/"+project, function(data){
-            console.log("WOOOOOORRGHH "+project+" --- "+data);
             var xmlDoc	= Blockly.Xml.textToDom(data);
-            console.log("FEUUUURGHHH "+xmlDoc);
             Blockly.Xml.domToWorkspace(Blockly.mainWorkspace,xmlDoc);
         });
     }
