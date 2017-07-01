@@ -20,21 +20,7 @@
         width: 100%;
       }
     </style>
-    <script>
-
-      function init() {
-        Blockly.inject(document.body, {
-          //path: '../../', 
-          toolbox: document.getElementById('toolbox')
-        });
-        // Dispatch the event.
-        var domEvent  = new CustomEvent('blocklyReady', {detail:{ Blockly: Blockly}})
-        window.parent.dispatchEvent(domEvent);
-      }
-    </script>
-  </head>
-  <body onload="init()">
-    <xml id="toolbox" style="display: none">
+      <xml id="toolbox" style="display: none">
       <!-- ARC Category -->
       <category name='Signals'>
         <block type="marker">
@@ -82,5 +68,20 @@
           <block type="model"></block>
       </category>
     </xml>
+    <script>
+
+      function init() {
+        Blockly.inject(document.body, {
+          //path: '../../', 
+          toolbox: document.getElementById('toolbox');
+        });
+        // Dispatch the event.
+        var domEvent  = new CustomEvent('blocklyReady', {detail:{ Blockly: Blockly}});
+        window.parent.dispatchEvent(domEvent);
+      }
+    </script>
+  </head>
+  <body onload="init()">
+    
   </body>
 </html>
