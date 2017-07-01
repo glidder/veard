@@ -61,7 +61,7 @@ function Model(name){
     ZipLoader.use( { 'THREE': THREE } );
     console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUURRRRKKKKK: "+window.location.host+"/files/models/"+name+".zip");
 	var object = this,
-		loader = new ZipLoader( window.location.host+"/files/models/"+name+".zip" );//,//new THREE.JSONLoader(),
+		loader = new ZipLoader( "https://"+window.location.host+"/files/models/"+name+".zip" );//,//new THREE.JSONLoader(),
 		//mesh;
 
     loader.on( 'progress', function ( e ) {
