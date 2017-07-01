@@ -46,7 +46,7 @@ $(document).ready(function(){
 	$("#myTabContent").css('height', '100%').css('height', '-='+($("#myTab").height()*2)+'px');
     var project = $.urlParam('proc');
     if (typeof(project) === 'string') {
-        $.get( "./rest/dao/projects/"+project), function( data ) {
+        $.get( "./rest/dao/projects/"+project, function( data ) {
             $("#theviewer").load("editor_view.html",function () {  
                 setTimeout(function(){
                     loadCodeandRun(data);	
