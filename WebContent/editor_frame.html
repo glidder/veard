@@ -69,11 +69,10 @@
       </category>
     </xml>
     <script>
-
       function init() {
         Blockly.inject(document.body, {
           //path: '../../', 
-          toolbox: document.getElementById('toolbox');
+          toolbox: document.getElementById('toolbox')
         });
         // Dispatch the event.
         var domEvent  = new CustomEvent('blocklyReady', {detail:{ Blockly: Blockly}});
