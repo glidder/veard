@@ -413,19 +413,17 @@ public class Pdao {
      * @return      The created File object
      */
     static public File createFile(String path){
-        if(path.substring(max(0, path.length() - 4))!="null"){
-            File newFile = new File(path);
-            if(!newFile.exists()){
-                postLog("Created new file "+path);
-                newFile.getParentFile().mkdirs();
-                try{
-                    newFile.createNewFile();
-                } catch (IOException e) {}
-            } else {
-                postLog("File already exists at "+path);
-            }
-            return newFile;
+        File newFile = new File(path);
+        if(!newFile.exists()){
+            postLog("Created new file "+path);
+            newFile.getParentFile().mkdirs();
+            try{
+                newFile.createNewFile();
+            } catch (IOException e) {}
+        } else {
+            postLog("File already exists at "+path);
         }
+        return newFile;
     }
     /**
      * Creates a string with the contents of the specified file

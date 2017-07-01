@@ -231,8 +231,10 @@ public class Rest extends HttpServlet {
     @Path("/projects/{name}")
     @Produces(MediaType.TEXT_PLAIN)
     public String downloadExecutableProject(@PathParam("name") String name){
+        if (name != "null"){
         Pdao.postLog(">>User downloaded the code of the project "+name,LOG_NAME);
         return Pdao.getJavaCode(PRO_PATH+name);
+        } else return "";
     }
     /**
      * Allows the download of the raw specified file
