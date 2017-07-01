@@ -116,7 +116,9 @@ Blockly.Blocks['animation'] = {
       console.log("JOOOOORRRRRRRK: "+animations);
       
       for (i in animations){
-          options.push([animations[i],animations[i]])
+          console.log("DUFFRLPÑNK: "+animations[i]);
+          if(animations[i]!="undefined")
+            options.push([animations[i],animations[i]])
       }
       this.appendDummyInput().appendField('Animation');
      this.appendDummyInput().appendField(new Blockly.FieldDropdown(options), "DROPDOWN");
