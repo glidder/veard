@@ -81,6 +81,9 @@ window.addEventListener("beforeunload", function (e) {
 		Blockly.mainWorkspace.traceOn(true);
 	})
 	window.addEventListener('blocklyReady', function(){
+        if (typeof($.urlParam('load')) !== 'undefined') {
+            loadWorkspaceProject($.urlParam('load'));
+        }
 		if( location.hash ){
 			loadWorkspace()
 			setTimeout(function(){
@@ -97,7 +100,7 @@ window.addEventListener("beforeunload", function (e) {
 	function saveWorkspace(){
 		var xmlDom	= Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
 		var xmlText	= Blockly.Xml.domToText(xmlDom)
-		var jsText = Blockly.JavaScript.workspaceToCode();
+		var jsText = Blockly.JavaScript.workspaceToCode(Blockly.getMainWorkspace());
 
 		//Include codes in the form data 
 		var input1 = $("<input>", { type: "hidden", name: "ecode", value: xmlText });
@@ -113,12 +116,16 @@ window.addEventListener("beforeunload", function (e) {
         $('#popover').popover('hide');
     }
 	function loadWorkspace(){
-        console.log("WROOOOGHHH"+location.hash);
 	  	console.assert(location.hash);
 		var xmlText	= decodeURIComponent(location.hash.substr(1));
 		var xmlDoc	= Blockly.Xml.textToDom(xmlText);
 		Blockly.Xml.domToWorkspace(xmlDoc,Blockly.getMainWorkspace());	  	
 	}
+    function loadWorkspaceProject(project){
+        $.get("./rest/dao/projects/edit/"+project, function(data){
+            Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(data),Blockly.getMainWorkspace);
+        })
+    }
 	function runWorkspace(){
 		var generatedCode	= Blockly.JavaScript.workspaceToCode();
         console.log('generatedCode', generatedCode)
