@@ -101,8 +101,8 @@ Blockly.Blocks['model'] = {
 
 
 Blockly.JavaScript['model'] = function(block) {
-    var dropdown_name = block.getFieldValue('DROPDOWN');
-  return dropdown_name;
+    var dropdown_name = block.getFieldValue('DROPDOWN',Blockly.JavaScript.ORDER_ATOMIC);
+  return [dropdown_name, Blockly.JavaScript.ORDER_NONE];
 };
 
 Blockly.Blocks['animation'] = {
@@ -117,8 +117,7 @@ Blockly.Blocks['animation'] = {
           options.push([animations[i],animations[i]])
       }
       this.appendDummyInput().appendField('Animation');
-     this.appendValueInput(new Blockly.FieldDropdown(options))
-        .appendField("Dropdown");
+     this.appendDummyInput.appenfField(new Blockly.FieldDropdown(options), "DROPDOWN");
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip('');
@@ -127,5 +126,6 @@ Blockly.Blocks['animation'] = {
 };
 
 Blockly.JavaScript['animation'] = function(block) {
-  return block.getFieldValue('Dropdown');
+  var dropdown_name = block.getFieldValue('DROPDOWN',Blockly.JavaScript.ORDER_ATOMIC);
+  return [dropdown_name, Blockly.JavaScript.ORDER_NONE];
 };
