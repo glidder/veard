@@ -110,7 +110,7 @@ Blockly.Blocks['animation'] = {
       var options=[["none","NONE"]];
       var animations = new Array();
       $.get("./rest/dao/animations", function(data){
-          console.log("THEPURRTCK: "+data);
+          console.log("THEPURRTCKss: "+data);
           animations = (""+data).split(';');
       });
       console.log("JOOOOORRRRRRRK: "+animations);
