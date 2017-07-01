@@ -220,9 +220,9 @@ public class Rest extends HttpServlet {
     @GET
     @Path("/projects/edit/{name}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String downloadExecutableProject(@PathParam("name") String name){
-        Pdao.postLog(">>User downloaded the code of the project "+name,LOG_NAME);
-        return Pdao.getJavaCode(PRO_PATH+name);
+    public String downloadEditableProject(@PathParam("name") String name){
+        Pdao.postLog(">>User downloaded the editable project "+name,LOG_NAME);
+        return Pdao.loadPlainText(PRO_PATH+name);
     }
     /**
      * Allows the download of the executable code for the specified project
