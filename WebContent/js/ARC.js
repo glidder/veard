@@ -61,8 +61,8 @@ function Model(name){
     ZipLoader.use( { 'THREE': THREE } );
     console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUURRRRKKKKK: "+window.location.host+"/files/models/"+name+".zip");
 	var object = this,
-		loader = new ZipLoader( "https://"+window.location.host+"/files/models/"+name+".zip" );//,//new THREE.JSONLoader(),
-		//mesh;
+		loader = new ZipLoader( "https://"+window.location.host+"/files/models/"+name+".zip" ),//new THREE.JSONLoader(),
+		mesh;
 
     loader.on( 'progress', function ( e ) {
 	   console.log( 'loading', e.loaded / e.total * 100 + '%' );
@@ -78,11 +78,14 @@ function Model(name){
             material.skinning = true;
             material.side = THREE.DoubleSide;
         } );
-        var mesh = new THREE.SkinnedMesh(
+        
+        mesh = new THREE.Mesh(result.geometry, new THREE.MeshFaceMaterial( result.materials ));
+
+        /*var mesh = new THREE.SkinnedMesh(
 		  result.geometry,
 		  new THREE.MultiMaterial( result.materials )
 	   );
-        mesh.position.z = -0.2;
+        mesh.position.z = -0.2;*/
         
         object.add( mesh );
 
