@@ -215,6 +215,16 @@ public class Rest extends HttpServlet {
 		return result+"</ul>";
 	}
     /**
+     * Allows the download of the executable code for the specified project
+     */
+    @GET
+    @Path("/projects/{name}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response downloadProject(@PathParam("name") String name){
+        Pdao.postLog(">>User downloaded the code of the project "+name,LOG_NAME);
+        return Pdao.getJavaCode(PRO_PATH+name);
+    }
+    /**
      * Allows the download of the raw specified file
      */
     @GET
@@ -247,7 +257,7 @@ public class Rest extends HttpServlet {
         File file = Pdao.loadFile(IMG_PATH+name);
         return Response.ok(file,MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","attachment; filename=\""+file.getName()+"\"").build();
     }
-     /**
+    /**
      * Allows the download of the raw specified project
      */
     @GET

@@ -39,7 +39,7 @@ Object.defineProperty(Object.prototype, 'listMissingFunctions', {
  */
 function missingFunctionsError(offender,offended){
 	this.name = "missingFunctionsError";
-	if(typeof offender == "string"){ //COULD BE BETTER
+	if(typeof offender == "string"){ //Temporary check
 		this.message = offender + " is missing the following necessary functions:\n"+ offended;
 	} else {
 		this.message = offended.constructor.name+" complains about "+offender.constructor.name+
@@ -167,7 +167,7 @@ ARC.prototype = {
 	/**
 	 * Function that returns a list of the names of all necessary methods for ARlibrary
 	 */
-	listInterface: function(){//IMPLEMENT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	listInterface: function(){//TBD
 		return ["getActiveSignalList","detectSignals","getPose"];
 	},
 

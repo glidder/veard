@@ -27,7 +27,7 @@ ArucoInterface.prototype = {
 		return ids;
 	},
 
-	getSignalIndexById: function(signal_id){ // NECESSARY ???????????????????????????
+	getSignalIndexById: function(signal_id){ // Necessary?
 		for (var i=0; i<this.currentMarkers.length;++i){
 			if (this.currentMarkers[i].id == signal_id){
 				return i;

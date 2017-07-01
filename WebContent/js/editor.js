@@ -5,7 +5,7 @@ function addModels(model) {
 }
 
 function updateVariables() {
-    console.log("TESQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+$('#assets').contents());
+    
     var formatedVariables="";
     for(var model in models){
         formatedVariables+=model+"\n";
@@ -35,25 +35,11 @@ function updateContextButton() {
 		"</form>"+
 		"<script>"+
 		"	$('#saveButton').on('click', function(event){"+
-		//"		console.log('LOLOLOLOL');"+
 		"		saveWorkspace();"+
 		"		$('#popover').popover('hide');"+
 		"	});"+
-		"</script>"//,
-		  //trigger: 'manual',
-		  //delay: {'show':1000, 'hide':250},
+		"</script>"
 	});
-	//$('#popover').on({
-	//	  click:function(){
-	//	    $('#popover').not(this).popover('hide');
-	//	  }
-	//});
-	//document.querySelector('#saveButton').addEventListener('click', function(event){
-//	$('#saveButton').on('click', function(event){
-//		console.log("LOLOLOLOL");
-//		saveWorkspace();
-//		$('#popover').popover('hide');
-//	});
 }
 	
 $(document).ready(function(){
@@ -65,7 +51,6 @@ $(window).resize(function(){
 });
 
 window.addEventListener("beforeunload", function (e) {
-	  //saveFormData();
 	console.log($('#modifiedStatus').text());
 	console.log($('#contextButton').html());
 	if($('#modifiedStatus').text() != 'saved' && Blockly.JavaScript.workspaceToCode() != ''){
@@ -73,13 +58,6 @@ window.addEventListener("beforeunload", function (e) {
 		return ("There's unsaved work! Are you sure you want to leave?");
 	}
 });
-
-//$(window).onbeforeunload=function(){
-
-	//if(document.querySelector('#modifiedStatus').innerText	!= 'saved'){
-	//	return ("There's unsaved work! Are you sure you want to leave?");
-	//}
-//};
 
 // export blockly namespace locally
 	window.addEventListener('blocklyReady', function(event){
@@ -100,22 +78,9 @@ window.addEventListener("beforeunload", function (e) {
 			setTimeout(function(){
 				// should have the viewer iframe ready... 
 				//runWorkspace()	
-			}, 500);	// couch couch
+			}, 500);	// cough cough
 		}
 	})
-	/*document.querySelector('#runButton').addEventListener('click', function(event){
-		saveWorkspace()
-		runWorkspace()
-	})*/
-	/*document.querySelector('#saveButton').addEventListener('click', function(event){
-		saveWorkspace()
-	})*/
-	/*document.querySelector('#resetButton').addEventListener('click', function(event){
-		resetWorkspace()
-		
-		var viewIframe	= document.querySelector('iframe.viewFrame')
-		viewIframe.contentWindow.location.reload()
-	})*/
 	
 	
 	//////////////////////////////////////////////////////////////////////////////////
@@ -125,8 +90,7 @@ window.addEventListener("beforeunload", function (e) {
 		var xmlDom	= Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
 		var xmlText	= Blockly.Xml.domToText(xmlDom)
 		var jsText = Blockly.JavaScript.workspaceToCode();
-		//window.location.hash	= encodeURIComponent(xmlText)
-		console.log("BIGOLPEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEENIS\n\n\n"+xmlText+"\n"+jsText);
+
 		//Include codes in the form data 
 		var input1 = $("<input>", { type: "hidden", name: "ecode", value: xmlText });
 		$('#saveForm').append($(input1));
@@ -150,7 +114,6 @@ window.addEventListener("beforeunload", function (e) {
 		var generatedCode	= Blockly.JavaScript.workspaceToCode();
         console.log('generatedCode', generatedCode)
 		var iframeView		= document.querySelector('iframe.viewFrame')
-        //iframeView.contentWindow.init(); // TEMPORAL????
 		iframeView.contentWindow.run(generatedCode);
 	}
 	function resetWorkspace(){
@@ -159,33 +122,6 @@ window.addEventListener("beforeunload", function (e) {
 
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   var target = $(e.target).attr("href") // activated tab
-  //if ($(target)=='#viewer') {
-    //updateVariables();
     saveWorkspace();
     runWorkspace();
- //}
 })
-/*
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-		  var target = $(e.target).attr("href") // activated tab
-		  alert($(#navbar).height());
-		  $(.tabset, .tab-content, .tab-pane, .tabbable).height('calc(100% -'+$(#navbar).height()*2+'px)');
-		  if ($(target).is(':empty')) {
-		    $.ajax({
-		      type: "GET",
-		      url: "/article/",
-		      error: function(data){
-		        alert("There was a problem");
-		      },
-		      success: function(data){
-		        $(target).html(data);
-		      }
-		  })
-		 }
-		})
-		
-	$('a[data-toggle="tab"]').on('shown', function () {
-    $('.selectpicker').selectpicker('setSize');
-    
-	});
-*/

@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
 	//console.log("LOLOLOL"+$.urlParam('proc'))
-	$.get( "./rest/viewer/project/"+$.urlParam('proc'), function( data ) {
+	$.get( "./rest/projects/"+$.urlParam('proc'), function( data ) {
 		$("#theviewer").load("editor_view.html",function () {  
 			$(this).contentWindow.run(data);
 	    });
