@@ -127,6 +127,7 @@ window.addEventListener("beforeunload", function (e) {
         $.get("./rest/dao/projects/edit/"+project, function(data){
             console.log("WOOOOOORRGHH "+project+" --- "+data);
             var xmlDoc	= Blockly.Xml.textToDom(data);
+            console.log("FEUUUURGHHH "+xmlDoc);
             Blockly.Xml.domToWorkspace(xmlDoc,Blockly.getMainWorkspace);
         });
     }
