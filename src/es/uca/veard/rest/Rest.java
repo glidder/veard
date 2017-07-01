@@ -253,7 +253,7 @@ public class Rest extends HttpServlet {
 			}
 		}
         Pdao.postLog("Model list request:\n\t\t\t"+list);
-		return list";
+		return list;
     }
     /**
      * Allows the download of the raw specified file
