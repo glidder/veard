@@ -103,7 +103,7 @@ public class Rest extends HttpServlet {
 	@Produces(MediaType.TEXT_HTML)
 	public String listModels() {
         Pdao.postLog(">>User requested the list of models",LOG_NAME);
-		List<String> models = Pdao.listAll(MOD_PATH);
+		List<String> models = Pdao.listType(MOD_PATH,".zip");
 		String result ="<ul  class='thumbnails'>";
         String list = "";
 		if(!models.isEmpty()){
