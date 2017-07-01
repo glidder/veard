@@ -112,6 +112,7 @@ Blockly.Blocks['animation'] = {
       $.get("./rest/dao/animations", function(data){
           console.log("THEPURRTCKss: "+data);
           animations = data.toString().split(";");
+          console.log("BAHFI "+data+" aosfh "+String(data).split(";").toString());
       });
       console.log("JOOOOORRRRRRRK: "+animations);
       console.log("FRUPT: "+animations[0]);
