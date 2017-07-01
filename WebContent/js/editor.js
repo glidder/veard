@@ -81,7 +81,9 @@ window.addEventListener("beforeunload", function (e) {
 		Blockly.mainWorkspace.traceOn(true);
 	})
 	window.addEventListener('blocklyReady', function(){
-        if (typeof($.urlParam('load')) !== 'undefined') {
+        var project = $.urlParam('load');
+        console.log("FALAAAAAAAAR: "+project+" --- "+typeof(project));
+        if (typeof(project) !== 'undefined') {
             loadWorkspaceProject($.urlParam('load'));
         }
 		if( location.hash ){
