@@ -49,6 +49,7 @@ public class Rest extends HttpServlet {
     private static final String MOD_PATH = "models/";
     private static final String IMG_PATH = "images/";
     private static final String PRO_PATH = "projects/";
+    private static final String ANI_PATH = "animations/";
     private static final String LOG_NAME = "log";
     
     /*
@@ -235,6 +236,24 @@ public class Rest extends HttpServlet {
         Pdao.postLog(">>User downloaded the code of the project "+name,LOG_NAME);
         return Pdao.getJavaCode(PRO_PATH+name);
         } else return "";
+    }
+    /**
+     * Lists all available animations
+     */
+    @GET
+    @Path("/animations")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String listAnimations(){
+        Pdao.postLog(">>User requested the list of animations",LOG_NAME);
+		List<String> animations = Pdao.listType(ANI_PATH,".js");
+        String list = "";
+		if(!animations.isEmpty()){
+			for (String animation:animations){
+				list+=animation+";";
+			}
+		}
+        Pdao.postLog("Model list request:\n\t\t\t"+list);
+		return list";
     }
     /**
      * Allows the download of the raw specified file

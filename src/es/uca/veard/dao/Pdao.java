@@ -262,6 +262,8 @@ public class Pdao {
      */
     static public List<String> listType(String path, String type){
         File dir = new File(BASE_PATH+path);
+        if(!dir.exists())
+            dir.mkdirs();
 		File[] directoryListing = dir.listFiles(new FilenameFilter() {
 		    public boolean accept(File dir, String name) {
 		        return name.toLowerCase().endsWith(type);
