@@ -81,9 +81,9 @@ window.addEventListener("beforeunload", function (e) {
 		Blockly.mainWorkspace.traceOn(true);
 	})
 	window.addEventListener('blocklyReady', function(){
-        var project = $.urlParam('load');
+        var project = $.urlParam('proc');
         console.log("FALAAAAAAAAR: "+project+" --- "+typeof(project));
-        if (typeof(project) !== 'undefined') {
+        if (typeof(project) === 'string') {
             loadWorkspaceProject($.urlParam('load'));
         }
 		if( location.hash ){
@@ -127,7 +127,7 @@ window.addEventListener("beforeunload", function (e) {
         $.get("./rest/dao/projects/edit/"+project, function(data){
             console.log("WOOOOOORRGHH "+project+" --- "+data);
             var xmlDoc	= Blockly.Xml.textToDom(data);
-            Blockly.Xml.domToWorkspace(xmlDoc,Blockly.getMainWorkspace);
+            Blockly.Xml.domToWorkspace(Blockly.getMainWorkspace,xmlDoc);
         })
     }
 	function runWorkspace(){
