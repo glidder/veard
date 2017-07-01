@@ -220,7 +220,7 @@ public class Rest extends HttpServlet {
     @GET
     @Path("/projects/{name}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response downloadExecutableProject(@PathParam("name") String name){
+    public String downloadExecutableProject(@PathParam("name") String name){
         Pdao.postLog(">>User downloaded the code of the project "+name,LOG_NAME);
         return Pdao.getJavaCode(PRO_PATH+name);
     }
