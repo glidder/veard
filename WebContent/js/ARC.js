@@ -98,6 +98,7 @@ function Model(name){
 //};
     });
     loader.load();
+};
     
 Model.prototype = new THREE.Object3D();
 Model.prototype.update = function(){
