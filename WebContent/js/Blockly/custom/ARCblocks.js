@@ -82,16 +82,16 @@ Blockly.JavaScript['animate'] = function(block) {
   return code;
 };
 
-
 Blockly.Blocks['model'] = {
   init: function() {
       var options = [["none","NONE"]];
       for (i in parent.models){
           options.push([parent.models[i],parent.models[i]])
       }
-      this.appendDummyInput().appendField('Model');
-    this.appendValueInput(new Blockly.FieldDropdown(options))
-        .appendField("Dropdown");
+    this.appendDummyInput()
+        .appendField("Model");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(options), "DROPDOWN");
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip('');
@@ -99,8 +99,10 @@ Blockly.Blocks['model'] = {
   }
 };
 
+
 Blockly.JavaScript['model'] = function(block) {
-  return block.getFieldValue('Dropdown');
+    var dropdown_name = block.getFieldValue('DROPDOWN');
+  return dropdown_name;
 };
 
 Blockly.Blocks['animation'] = {
