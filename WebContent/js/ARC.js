@@ -59,7 +59,7 @@ function Model(name){
 	THREE.Object3D.apply(this, arguments);
     // Prepare to use THREE.js in ZipLoader
     ZipLoader.use( { 'THREE': THREE } );
-    console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUURRRRKKKKK: "+name);
+    console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUURRRRKKKKK: "+window.location.host+"/files/models/"+name+".zip");
 	var object = this,
 		loader = new ZipLoader( window.location.host+"/files/models/"+name+".zip" );//,//new THREE.JSONLoader(),
 		//mesh;
