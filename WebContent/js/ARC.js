@@ -84,7 +84,7 @@ function Model(name){
 	   );
         mesh.position.z = -0.2;
         
-        scene.add( mesh );
+        object.add( mesh );
 
 	   loader.clear();
         
