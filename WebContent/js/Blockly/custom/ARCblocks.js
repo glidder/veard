@@ -22,21 +22,25 @@ Blockly.JavaScript['marker'] = function(block) {
   var statements_consequence = Blockly.JavaScript.statementToCode(block, 'consequence');
   // TODO: Assemble JavaScript into code variable.
     var condition;
+    console.log("JURRRP: "+dropdown_name);
     switch(dropdown_name){
-        case 'appears':
+        case 'APPEARS':
             condition = 'this.ARl.signalIsActive';
             break;
-        case 'disappears':
+        case 'DISAPPEARS':
             condition =  'this.signalIsGone';
             break;
-        case 'rotates':
+        case 'ROTATES':
             condition = 'this.signalIsRotated';
             break;
-        case 'flips':
+        case 'FLIPS':
             condition = 'this.signalIsTurnedOver';
             break;
-        case 'moves':
+        case 'MOVES':
             condition = 'this.signalHasMoved';
+            break;
+        default:
+            condition  = 'this.ARl.signalIsActive';
             break;
     }
   var code = 'if('+condition+'('+value_id+')){'+statements_consequence+'}';
