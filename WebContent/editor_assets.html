@@ -24,7 +24,7 @@
     function updateVariables(){
         var formatedVariables="";
         for(var i in parent.models){
-            formatedVariables+="<li style='list-style:none !important;'><span class='btn btn-default'>"+parent.models[i]+"<a class='btn btn-generic' onclick='deleteModel(\""+parent.models[i]+"\");updateVariables();'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> Remove</a></span></li>";
+            formatedVariables+="<li style='list-style:none !important;'><span class='btn btn-default btn-block'><h4>"+parent.models[i]+"</h4><a class='btn btn-generic pull-right' onclick='deleteModel(\""+parent.models[i]+"\");updateVariables();'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> Remove</a></span></li>";
         }
         $('#variablelist').html(formatedVariables);
     }
