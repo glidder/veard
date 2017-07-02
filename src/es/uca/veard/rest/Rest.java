@@ -112,8 +112,8 @@ public class Rest extends HttpServlet {
 			for (String model:models){
 				list+=model+"; ";
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
-				"<li class='col-md-3'><div class='thumbnail'>"+
-	                "<div class='caption' align='center'"+
+				"<li style='list-style:none !important;' class='col-md-3'><div class='thumbnail'>"+
+	                "<div class='caption' align='center'>"+
 	                  "<h4>"+model+"</h4>"+
 	                  "<button class='btn btn-primary' onclick='selectModel(\""+model+"\");'><span class='glyphicon glyphicon-plus-sign' aria-hidden='true'></span> Add to project</button></div></div></li>";
 			}
