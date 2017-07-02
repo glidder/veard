@@ -9,7 +9,7 @@
 Object.defineProperty(Object.prototype, 'implements', {
     enumerable: false,
     value: function(methods) {
-        console.log(methods.toStrong());
+        console.log(methods.toString());
         for(methodName in methods){
         	if(typeof this[methods[methodName]] != 'function') {
             	return false;
