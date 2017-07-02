@@ -8,7 +8,10 @@ $(document).ready(function(){
 		$("#theviewer").load("editor_view.html",function () {  
             setTimeout(function(){
 				loadCodeandRun(data);	
-			}, 500);// cough cough
+			}, 1000);// cough cough
+            setTimeout(function(){
+				loadCodeandRun(data);	
+			}, 5000);
 			
 	    });
 	});
