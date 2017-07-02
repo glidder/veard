@@ -182,7 +182,7 @@ public class Rest extends HttpServlet {
 				list+=project+"; ";
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
 				"<li class='col-md-3'><div class='thumbnail'>"+
-	                "<img src='img/veardicon"+ThreadLocalRandom.current().nextInt(0, 9 + 1);+".png' alt='Thumbnail'><div class='caption'>"+
+	                "<img src='img/veardicon"+ThreadLocalRandom.current().nextInt(0, 9 + 1)+".png' alt='Thumbnail'><div class='caption'>"+
 	                  "<h3>"+Pdao.getName(PRO_PATH+project)+"</h3>"+
 	                  "<p>"+Pdao.getDescription(PRO_PATH+project) +"</p>"+
 	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-play' aria-hidden='true'></span> Open</a><a href='"+"editor.html?proc="+project+"' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span> Edit</a></p></div></div></li>";
@@ -207,7 +207,7 @@ public class Rest extends HttpServlet {
 				list+=project+"; ";
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
 				"<li class='col-md-3'><div class='thumbnail'>"+
-	                "<img src='img/veardicon"+ThreadLocalRandom.current().nextInt(0, 9 + 1);+".png' alt='Thumbnail'><div class='caption'>"+
+	                "<img src='img/veardicon"+ThreadLocalRandom.current().nextInt(0, 9 + 1)+".png' alt='Thumbnail'><div class='caption'>"+
 	                  "<h3>"+Pdao.getName(PRO_PATH+project)+"</h3>"+
 	                  "<p>"+Pdao.getDescription(PRO_PATH+project) +"</p>"+
 	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-play' aria-hidden='true'></span> Open</a><a href='"+"editor.html?proc="+project+"' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span> Edit</a></p></div></div></li>";
