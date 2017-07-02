@@ -343,9 +343,13 @@ ARC.prototype = {
 				var tempanim=new Animation();
 				//check for an animate function
 				if(tempanim.implements(["animate"])){
+                    if(!this.map[object]){
+                    console.log("Object not loaded yet");
+                    }else{
     				ramap[animation]=tempanim;
     				console.log("Creating new animation "+animation);
                     ramap[animation].animate(this.map[object]);
+                    }
 				}else
     				throw new missingFunctionsError(animation,"animate"); //COULD BE BETTER
 			}});
