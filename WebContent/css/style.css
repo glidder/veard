@@ -195,3 +195,6 @@ iframe {
     width:100%;
     max-width:100%;
 }
+.graycont{
+    background-color: darkgray;
+}
