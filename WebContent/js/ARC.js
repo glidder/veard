@@ -383,7 +383,9 @@ ARC.prototype = {
             console.log("Object "+object+" not found.");
         } else {
             this.map[object].traverse(function(child) {
+                console.log("Looking for mesh child");
                 if(child instanceof THREE.Mesh) {
+                    console.log("Found Mesh child");
                     child.visible = !hidden;
                 }
             });
