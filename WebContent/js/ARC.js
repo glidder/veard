@@ -338,17 +338,18 @@ ARC.prototype = {
 	runAnimation: function(animation, object){ 
 		if(!this.amap[animation]){
 			var ramap = this.amap;
+            var rmap = this.map;
 			$.ajax({url: "https://"+window.location.host+"/files/animations/"+animation+".js", dataType: "script", async: false,
 			success: function(){
 				var tempanim=new Animation();
 				//check for an animate function
 				if(tempanim.implements(["animate"])){
-                    if(!this.map[object]){
+                    if(!rmap[object]){
                     console.log("Object not loaded yet");
                     }else{
     				ramap[animation]=tempanim;
     				console.log("Creating new animation "+animation);
-                    ramap[animation].animate(this.map[object]);
+                    ramap[animation].animate(rmap[object]);
                     }
 				}else
     				throw new missingFunctionsError(animation,"animate"); //COULD BE BETTER
