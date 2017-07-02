@@ -73,7 +73,7 @@ Blockly.JavaScript['load'] = function(block) {
   var value_id = Blockly.JavaScript.valueToCode(block, 'id', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = 	'if(this.ARl.signalIsActive('+value_id+')){'+
-                'this.hideObject('+value_obj+', faslse);'+
+                'this.hideObject('+value_obj+', false);'+
   				'this.setObjectMarker('+value_obj+','+value_id+');}'+
                 'else{this.hideObject('+value_obj+', true);}';
   return code;
