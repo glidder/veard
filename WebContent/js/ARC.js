@@ -1,9 +1,14 @@
 /**
  * Augmented Reality Coordinator Library (ARC)
+ * 30/07/2017
+ * Copyright (c) Luis J. Quintana B.
  */
 
+/*
+ * Methods for ensuring interface implementation
+ ****************************************************************/
 /**
- * Function that checks if an object implements the indicated functions
+ * Function that checks if an object implements the indicated functions.
  * It is used to check the implementation of an ARC "interface".
  */
 Object.defineProperty(Object.prototype, 'implements', {
@@ -51,16 +56,19 @@ function missingFunctionsError(offender,offended){
 missingFunctionsError.prototype = Object.create(Error.prototype);
 missingFunctionsError.prototype.constructor = missingFunctionsError;
 
+/*
+ * Methods for the implementation of 3D Models
+ ****************************************************************/
 /**
- * Model class
+ * Model class consrtuctor
  * It implements the necessary methods for ARC's interaction with 3D models
  * Inherits from THREE.Object3D
  */
-function Model(name){
+function Model(name){ //name is the name of the model
 	THREE.Object3D.apply(this, arguments);
     // Prepare to use THREE.js in ZipLoader
     ZipLoader.use( { 'THREE': THREE } );
-    console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUURRRRKKKKK: "+window.location.host+"/files/models/"+name+".zip");
+    console.log("Loading Model hosted on path: "+window.location.host+"/files/models/"+name+".zip");
 	var object = this,
 		loader = new ZipLoader( "https://"+window.location.host+"/files/models/"+name+".zip" ),//new THREE.JSONLoader(),
 		mesh;
@@ -81,24 +89,10 @@ function Model(name){
         } );
         
         mesh = new THREE.Mesh(result.geometry, new THREE.MeshFaceMaterial( result.materials ));
-
-        /*var mesh = new THREE.SkinnedMesh(
-		  result.geometry,
-		  new THREE.MultiMaterial( result.materials )
-	   );
-        mesh.position.z = -0.2;*/
         
         object.add( mesh );
 
 	   loader.clear();
-        
-    //loader.load("./models/"+name+"/"+name+".js", function (geometry, materials) {
-	//		mesh = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial( materials ));
-	//		object.add(mesh);
-	//	}, "models/"+name+"/");
-    
-	
-//};
     });
     loader.load();
     this.base = { position : {x:0,y:0,z:0}, rotation : {x:0,y:0,z:0} };
@@ -106,6 +100,9 @@ function Model(name){
 };
     
 Model.prototype = new THREE.Object3D();
+/**
+ * Update the position of the model. Called every frame.
+ */
 Model.prototype.update = function(){
 	for(var i in this.base.position){
 		this.position[i] = this.base.position[i]+this.relative.position[i];
@@ -114,35 +111,55 @@ Model.prototype.update = function(){
 		this.relative.rotation[i]=0;
 	}
 };
+/**
+ * Update the scale of the model.
+ */
 Model.prototype.setScale = function(x,y,z){
 	this.scale.x = x;
 	this.scale.y = y;
 	this.scale.z = z;
 };
+/**
+ * Update the base position of the model.
+ */
 Model.prototype.setBasePose = function(pos_x,pos_y,pos_z,rot_x,rot_y,rot_z){
 	this.base.position.x = pos_x;
 	this.base.position.y = pos_y;
 	this.base.position.z = pos_z;
-	this.base.rotation.x = rot_z;
+	this.base.rotation.x = rot_x;
 	this.base.rotation.y = rot_y;
 	this.base.rotation.z = rot_z;
 };
+/**
+ * Update the relative position of the model.
+ */
 Model.prototype.translate = function(pos_x,pos_y,pos_z){
 	this.relative.position.x += pos_x;
 	this.relative.position.y += pos_y;
 	this.relative.position.z += pos_z;
 };
+/**
+ * Update the relative rotation of the model.
+ */
 Model.prototype.rotate = function(rot_x,rot_y,rot_z){
-	this.relative.rotation.x += rot_z;
+	this.relative.rotation.x += rot_x;
 	this.relative.rotation.y += rot_y;
 	this.relative.rotation.z += rot_z;
 };
+/**
+ * Update the scale of the model by a factor.
+ */
 Model.prototype.rescale = function(x,y,z){
 	this.scale.x*=x;
 	this.scale.y*=y;
 	this.scale.z*=z;
 };
-	
+
+/*
+ * Methods for the implementation of the ARC class.
+ * This is the central piece that coordinates all other elements of code.
+ ********************************************************************
+ ********************************************************************/
 /**
  * ARC class (Augmented Reality Coordinator)
  * This is the main class that coordinates all other modules.
@@ -169,7 +186,7 @@ function ARC(source,canvas,container,/*camera,*/ARlibrary){
     
     this.scene = new THREE.Scene();
     //Creating the screen for showing the camera snapshots
-    /*var texture = new THREE.Texture(this.source),
+    /*var texture = new THREE.Texture(this.source), //Debugging options
     	geometry = new THREE.PlaneGeometry(1.0, 1.0, 0.0),
     	material = new THREE.MeshBasicMaterial( {map: texture, depthTest: false, depthWrite: false} ),
     	mesh = new THREE.Mesh(geometry, material);
@@ -194,6 +211,7 @@ function ARC(source,canvas,container,/*camera,*/ARlibrary){
      * Function that updates the Scene.
      * It's behaviour can be modified by the method 'METHODNAME'
      * thus it's defined as a variable and not as a prototype.
+     * Here is where the Blockly code is injected.
      */
     this.updateScene = function(){
   		console.log("Active signals: ",this.ARl.getActiveSignalList().toString());
@@ -201,10 +219,10 @@ function ARC(source,canvas,container,/*camera,*/ARlibrary){
 };
 ARC.prototype = {
 	/**
-	 * Function that returns a list of the names of all necessary methods for ARlibrary
+	 * Function that returns a list of the names of all necessary methods for an ARlibrary
 	 */
-	listInterface: function(){//TBD
-		return ["getActiveSignalList","detectSignals","getPose"];
+	listInterface: function(){
+		return ["getActiveSignalList","detectSignals","getPose","getPreviousPose","signalIsActive","signalWasActive"];
 	},
 
 	/**
@@ -276,12 +294,12 @@ ARC.prototype = {
 		var rotationz = previouspose.rotation.z - currentpose.rotation.z;
 
 		if(rotationz>0.1 || rotationz<-0.1){
-			console.log("\nROTATIOOOOOON: "+previouspose.rotation.z+" - "+currentpose.rotation.z+" = "+rotationz+"\n");
+			console.log("\nRotation: "+previouspose.rotation.z+" - "+currentpose.rotation.z+" = "+rotationz+"\n");
 			if(direction=='right' && rotationz>0){
-				console.log("RIIIIGHT");
+				console.log("Rotated to the right");
 				return true;
 			}else if(direction=='left' && rotationz<0){
-				console.log("LEEEEEFT");
+				console.log("Rotated to the left");
 				return true;
 			}
 		}
@@ -314,10 +332,10 @@ ARC.prototype = {
 
 		return ((currentpose.translation.x - previouspose.translation.x) +
 				(currentpose.translation.y - previouspose.translation.y) +
-				(currentpose.translation.z - previouspose.translation.z)) > 4; //CREATE [GLOBAL?] THRESHOLD!!
+				(currentpose.translation.z - previouspose.translation.z)) > 4;
 	},
 
-	setObjectMarker: function(object, marker_id){ //WITH THE NEW ONES THIS WILL BE DEPRECATED!!!!!!!!!!!!
+	setObjectMarker: function(object, marker_id){ 
 		var pose = this.ARl.getPose(marker_id);
 		var rotation = pose.rotation;
 		var translation = pose.translation;
@@ -339,6 +357,7 @@ ARC.prototype = {
 		if(!this.amap[animation]){
 			var ramap = this.amap;
             var rmap = this.map;
+            //Access the animation on the server
 			$.ajax({url: "https://"+window.location.host+"/files/animations/"+animation+".js", dataType: "script", async: false,
 			success: function(){
 				var tempanim=new Animation();
@@ -352,15 +371,15 @@ ARC.prototype = {
                     ramap[animation].animate(rmap[object]);
                     }
 				}else
-    				throw new missingFunctionsError(animation,"animate"); //COULD BE BETTER
+    				throw new missingFunctionsError(animation,"animate");
 			}});
 		}else{
 		this.amap[animation].animate(this.map[object]);
         }
 	},
 	/**
-	 * DEBUG FUNCTIONS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	 */
+	 * DEBUG FUNCTIONS
+	 ***********************************************************/
 	debug: function(){
 		if (this.source.readyState === this.source.HAVE_ENOUGH_DATA){
 			//snapshot

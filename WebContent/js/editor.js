@@ -1,6 +1,14 @@
+/**
+ * editor.js script that implements all necessary behaviours for the graphical editor
+ * 30/07/2017
+ * Copyright (c) Luis J. Quintana B.
+ */
 var models = [];
 var animations = [];
 
+/**
+ * Creates the list of animations available on the server for the dropdown menus
+ */
 function loadAnimations(){
     $.get("./rest/dao/animations", function(data){
           animations = String(data).split(";");
@@ -9,11 +17,16 @@ function loadAnimations(){
 
 loadAnimations();
 
-
+/**
+ * Creates the list of models available on the server for the dropdown menus
+ */
 function addModels(model) {
     models.push(model);
 }
 
+/**
+ * Updates the list of variables available for the dropdown menus
+ */
 function updateVariables() {
     
     var formatedVariables="";
@@ -25,8 +38,11 @@ function updateVariables() {
     $('#modellist').load("./rest/dao/models");
 }
 
+/**
+ * Creates the pop-up form to save the projects
+ */
 function updateContextButton() {
-	$('#contextButton').html("<button id='popover' data-toggle='popover' data-container='body' data-placement='left' class='btn btn-default navbar-btn'>Save</button>");
+	$('#contextButton').html("<button id='popover' data-toggle='popover' data-container='body' data-placement='left' class='btn btn-default navbar-btn'><span class='glyphicon glyphicon-save' aria-hidden='true'></span> Save</button>");
 	//Instead of a popover, it could be a modal
 	//Also, the form content should be saved and/or loaded if the projects was loaded or previously saved.
 	$('#popover').popover({
@@ -151,6 +167,9 @@ window.addEventListener("beforeunload", function (e) {
 		Blockly.mainWorkspace.clear();
 	}
 
+/**
+ * Injects the code from the editor to the viewer when a tab change is detected
+ */
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   var target = $(e.target).attr("href") // activated tab
     saveWorkspace();

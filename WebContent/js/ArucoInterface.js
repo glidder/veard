@@ -1,5 +1,7 @@
 /**
  * js-aruco Interface implementation for ARC (Augmented Reality Coordinator Library)
+ * 30/07/2017
+ * Copyright (c) Luis J. Quintana B.
  */
 
 /**

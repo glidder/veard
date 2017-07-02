@@ -1,3 +1,8 @@
+/**
+ * core.js script that loads the header and footer in every page it is included.
+ * 30/07/2017
+ * Copyright (c) Luis J. Quintana B.
+ */
 $(document).ready(function(){
 		//Loading header & footer
 		$.get('main_menu.html', function(data){
