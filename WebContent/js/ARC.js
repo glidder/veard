@@ -342,7 +342,7 @@ ARC.prototype = {
 			success: function(){
 				var tempanim=new Animation();
 				//check for an animate function
-				if(tempanim.implements("animate")){
+				if(tempanim.implements(["animate"])){
     				ramap[animation]=tempanim;
     				console.log("Creating new animation "+animation);
                     ramap[animation].animate(this.map[object]);
