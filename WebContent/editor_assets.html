@@ -24,7 +24,7 @@
     function updateVariables(){
         var formatedVariables="";
         for(var i in parent.models){
-            formatedVariables+="<li>"+parent.models[i]+"<button class='btn btn-primary' onclick='deleteModel(\""+parent.models[i]+"\");updateVariables();'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> Remove</a></li>";
+            formatedVariables+="<li><span class='btn btn-default'>"+parent.models[i]+"<a class='btn btn-generic' onclick='deleteModel(\""+parent.models[i]+"\");updateVariables();'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> Remove</a></span></li>";
         }
         $('#variablelist').html(formatedVariables);
     }
