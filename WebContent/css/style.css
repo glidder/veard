@@ -105,7 +105,7 @@ iframe {
  /* The side navigation menu */
 .sidenav {
     color:white;
-    max-height:50%; /* 100% Full-height */
+    /*max-height:50%; /* 100% Full-height */
     max-width: 85%;
     width: 250px; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
