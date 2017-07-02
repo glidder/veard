@@ -186,3 +186,12 @@ iframe {
 .upnav{
     color:black;
 }
+
+.footer{
+    width: 100%;
+    max-width: 100%;
+}
+.footcont{
+    width:100%;
+    max-width:100%;
+}

@@ -3,7 +3,7 @@
 Blockly.Blocks['marker'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(20);
+    this.setColour(210);
     this.appendDummyInput()
         .appendField("Con marcador");
     this.appendValueInput("id")
@@ -28,7 +28,7 @@ Blockly.JavaScript['marker'] = function(block) {
 Blockly.Blocks['load'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(210);
+    this.setColour(160);
     this.appendDummyInput()
         .appendField("Cargar");
     this.appendValueInput("obj")
@@ -58,7 +58,7 @@ Blockly.JavaScript['load'] = function(block) {
 Blockly.Blocks['animate'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(160);
+    this.setColour(330);
     this.appendDummyInput()
         .appendField("Aplicar animación");
     this.appendValueInput("animation")
@@ -93,7 +93,7 @@ Blockly.Blocks['model'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown(options), "DROPDOWN");
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour(160);
     this.setTooltip('');
     this.setHelpUrl('');
   }
@@ -116,7 +116,7 @@ Blockly.Blocks['animation'] = {
     this.appendDummyInput().appendField('Animation');
      this.appendDummyInput().appendField(new Blockly.FieldDropdown(options), "DROPDOWN");
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour(330);
     this.setTooltip('');
     this.setHelpUrl('');
   }

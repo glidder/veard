@@ -23,7 +23,7 @@
     </style>
       <xml id="toolbox" style="display: none">
       <!-- ARC Category -->
-      <category name='Signals'>
+      <category name='Conditions'>
         <block type="marker">
         	<value name="id">
         		<block type="math_number">
@@ -31,6 +31,8 @@
         		</block>
         	</value>
         </block>
+        </category>
+        <category name='Actions'>
         <block type="load">
         	<value name="id">
         		<block type="math_number">
@@ -38,20 +40,17 @@
         		</block>
         	</value>
         	<value name="obj">
-        		<block type="text">
-        			<field name="TEXT">house_15</field>
+        		<block type="model">
         		</block>
         	</value>
         </block>
           <block type="animate">
         	<value name="animation">
-        		<block type="text">
-        			<field name="TEXT">animation_rotate</field>
+        		<block type="animation">
         		</block>
         	</value>
         	<value name="obj">
-        		<block type="text">
-        			<field name="TEXT">house_15</field>
+        		<block type="model">
         		</block>
         	</value>
         </block>
@@ -61,11 +60,6 @@
     		<block type="math_number">
     			<field name="NUM">446</field>
             </block>
-            <block type="text">
-            	<field name="TEXT">house_15</field>
-            </block>
-          </category>
-         <category name='Model'>
           <block type="model"></block>
              <block type="animation"></block>
       </category>
