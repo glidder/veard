@@ -115,7 +115,7 @@ public class Rest extends HttpServlet {
 				"<li class='col-md-3'><div class='thumbnail'>"+
 	                "<div class='caption' align='center'"+
 	                  "<h4>"+model+"</h4>"+
-	                  "<button class='btn' onclick='selectModel(\""+model+"\");'><span class='glyphicon glyphicon-plus-sign' aria-hidden='true'></span> Add to project</button></div></div></li>";
+	                  "<button class='btn btn-primary' onclick='selectModel(\""+model+"\");'><span class='glyphicon glyphicon-plus-sign' aria-hidden='true'></span> Add to project</button></div></div></li>";
 			}
 		}
         Pdao.postLog("Model list request:\n\t\t\t"+list);
