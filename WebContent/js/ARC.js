@@ -387,6 +387,7 @@ ARC.prototype = {
                     child.visible = !hidden;
                 }
             });
+            this.map[object].visible = !hidden;
         }
     },
 	/**
