@@ -5,9 +5,11 @@ Blockly.Blocks['marker'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(210);
     this.appendDummyInput()
-        .appendField("Con marcador");
+        .appendField("When marker");
     this.appendValueInput("id")
         .setCheck("Number");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([["appears","APPEARS"], ["disappears","DISAPPEARS"], ["rotates","ROTATES"], ["moves","MOVES"], ["flips","FLIPS"]]), "DROPDOWN");
     this.appendStatementInput("consequence");
     this.setInputsInline(true);
     this.setTooltip('');
@@ -16,10 +18,28 @@ Blockly.Blocks['marker'] = {
 
 Blockly.JavaScript['marker'] = function(block) {
   var value_id = Blockly.JavaScript.valueToCode(block, 'id', Blockly.JavaScript.ORDER_ATOMIC);
+    var dropdown_name = block.getFieldValue('DROPDOWN',Blockly.JavaScript.ORDER_ATOMIC);
   var statements_consequence = Blockly.JavaScript.statementToCode(block, 'consequence');
   // TODO: Assemble JavaScript into code variable.
-  var code = 'if(this.ARl.signalIsActive('+value_id+')){'+'this.signalIsRotated('+value_id+',\"right\");'+
-  				statements_consequence+'}';
+    var condition;
+    switch(dropdown_name){
+        case 'appears':
+            condition = 'this.ARl.signalIsActive';
+            break;
+        case 'disappears':
+            condition =  'this.signalIsGone';
+            break;
+        case 'rotates':
+            condition = 'this.signalIsRotated';
+            break;
+        case 'flips':
+            condition = 'this.signalIsTurnedOver';
+            break;
+        case 'moves':
+            condition = 'this.signalHasMoved';
+            break;
+    }
+  var code = 'if('+condition+'('+value_id+')){'+statements_consequence+'}';
   return code;
 };
 
@@ -30,11 +50,11 @@ Blockly.Blocks['load'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(160);
     this.appendDummyInput()
-        .appendField("Cargar");
+        .appendField("Load object");
     this.appendValueInput("obj")
         .setCheck("String");
     this.appendDummyInput()
-        .appendField("en marcador");
+        .appendField("in marker");
     this.appendValueInput("id")
         .setCheck("Number");
     this.setInputsInline(true);
@@ -49,7 +69,9 @@ Blockly.JavaScript['load'] = function(block) {
   var value_id = Blockly.JavaScript.valueToCode(block, 'id', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = 	'if(this.ARl.signalIsActive('+value_id+')){'+
-  				'this.setObjectMarker('+value_obj+','+value_id+');}';
+                'this.hideObject('+value_obj+', faslse);'+
+  				'this.setObjectMarker('+value_obj+','+value_id+');}'+
+                'else{this.hideObject('+value_obj+', true);}';
   return code;
 };
 
@@ -60,11 +82,11 @@ Blockly.Blocks['animate'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(330);
     this.appendDummyInput()
-        .appendField("Aplicar animación");
+        .appendField("Apply transformation");
     this.appendValueInput("animation")
         .setCheck("String");
     this.appendDummyInput()
-        .appendField("en objeto");
+        .appendField("in object");
     this.appendValueInput("obj")
         .setCheck("String");
     this.setInputsInline(true);

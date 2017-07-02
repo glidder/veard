@@ -377,6 +377,18 @@ ARC.prototype = {
 		this.amap[animation].animate(this.map[object]);
         }
 	},
+    
+    hideObject: function(object,hidden){
+        if(!this.map[object]){
+            console.log("Object "+object+" not found.");
+        } else {
+            this.map[object].traverse(function(child) {
+                if(child instanceof THREE.Mesh) {
+                    child.visible = !hidden;
+                }
+            });
+        }
+    },
 	/**
 	 * DEBUG FUNCTIONS
 	 ***********************************************************/
