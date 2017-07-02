@@ -24,7 +24,7 @@
     function updateVariables(){
         var formatedVariables="";
         for(var i in parent.models){
-            formatedVariables+="<li><button onclick='deleteModel(\""+parent.models[i]+"\");updateVariables();'>"+parent.models[i]+"</a></li>";
+            formatedVariables+="<li>"+parent.models[i]+"<button class='btn btn-primary' onclick='deleteModel(\""+parent.models[i]+"\");updateVariables();'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> Remove</a></li>";
         }
         $('#variablelist').html(formatedVariables);
     }
@@ -51,32 +51,27 @@
     </script>
   </head>
   <body onload="init()">
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a id="menu-toggle" href="#" class="navbar-toggle">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                </a>
+      <div id="filebar" class="navbar navbar-default navbar-static-top">
+          <div class="navbar-brand upnav">Upload a 3D model</div>
+        <form class="navbar-form navbar-left" action="./rest/dao/upload/model" method="post" enctype="multipart/form-data" onsubmit="updateModels()">
+            <div class="form-group">
+                <input class="form-control" name="file" id="filename" type="file"/>
             </div>
-            <div id="sidebar-wrapper" class="sidebar-toggle">
-                <h3>Selected variables</h3>
-                <ul class="sidebar-nav" id="variablelist">
-                    VARIABLES SHOULD GO HERE
-                </ul>
-            </div>
-        </div>
-    </nav>
-      <br>Choose MODEL to upload<br>
-        <form action="./rest/dao/upload/model" method="post" enctype="multipart/form-data" onsubmit="updateModels()">
-            <input name="file" id="filename" type="file" /><br>
-    	   <button name="submit" type="submit" onclick="updateModels()">Upload</button>
+    	   <button name="submit" class="btn btn-primary" type="submit" onclick="updateModels()"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Upload</button>
         </form>
-      <button name="update" type="button" onclick="updateModels()">Update</button>
+      </div>
+        <div class="container col-md-3">
+            <h3>Selected variables</h3>
+            <ul class="sidebar-nav" id="variablelist">
+                    VARIABLES SHOULD GO HERE
+            </ul>
+        </div>
+      <div class="container col-md-9">
+          <h3>Model Library</h3>
+      <button class="btn btn-block btn-primary" name="update" type="button" onclick="updateModels()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Update list</button>
     <div id="modellist">
     LIST OF MODELS SHOULD GO HERE
     </div>
+          </div>
   </body>
 </html>
