@@ -7,6 +7,7 @@
 package es.uca.veard.rest;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -181,7 +182,7 @@ public class Rest extends HttpServlet {
 				list+=project+"; ";
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
 				"<li class='col-md-3'><div class='thumbnail'>"+
-	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
+	                "<img src='img/veardicon"+ThreadLocalRandom.current().nextInt(0, 9 + 1);+".png' alt='Thumbnail'><div class='caption'>"+
 	                  "<h3>"+Pdao.getName(PRO_PATH+project)+"</h3>"+
 	                  "<p>"+Pdao.getDescription(PRO_PATH+project) +"</p>"+
 	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-play' aria-hidden='true'></span> Open</a><a href='"+"editor.html?proc="+project+"' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span> Edit</a></p></div></div></li>";
@@ -206,10 +207,10 @@ public class Rest extends HttpServlet {
 				list+=project+"; ";
 				result +=//"<li class='col-md-3'><div>"+name+"</div></li>";
 				"<li class='col-md-3'><div class='thumbnail'>"+
-	                "<img src='http://placehold.it/320x200' alt='ALT NAME'><div class='caption'>"+
+	                "<img src='img/veardicon"+ThreadLocalRandom.current().nextInt(0, 9 + 1);+".png' alt='Thumbnail'><div class='caption'>"+
 	                  "<h3>"+Pdao.getName(PRO_PATH+project)+"</h3>"+
 	                  "<p>"+Pdao.getDescription(PRO_PATH+project) +"</p>"+
-	                  "<p align='center'><a href='"+"editor.html?proc="+project+"' class='btn btn-primary btn-block'>Edit</a><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'>Open</a></p></div></div></li>";
+	                  "<p align='center'><a href='"+"viewer.html?proc="+project+"' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-play' aria-hidden='true'></span> Open</a><a href='"+"editor.html?proc="+project+"' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span> Edit</a></p></div></div></li>";
 			}
 		}
         Pdao.postLog("Project ("+num+") list request:\n\t\t\t"+list);
