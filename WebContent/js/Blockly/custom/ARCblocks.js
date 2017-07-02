@@ -74,8 +74,29 @@ Blockly.JavaScript['load'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   var code = 	'if(this.ARl.signalIsActive('+value_id+')){'+
                 'this.hideObject('+value_obj+', false);'+
-  				'this.setObjectMarker('+value_obj+','+value_id+');}'+
-                'else{this.hideObject('+value_obj+', true);}';
+  				'this.setObjectMarker('+value_obj+','+value_id+');}';
+  return code;
+};
+
+Blockly.Blocks['hide'] = {
+    init: function(){
+        this.setHelpUrl('');
+        this.setColour(160);
+        this.appendDummyInput()
+        .appendField("Hide object");
+    this.appendValueInput("obj")
+        .setCheck("String");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+    }
+};
+
+Blockly.JavaScript['hide'] = function(block) {
+  var value_obj = Blockly.JavaScript.valueToCode(block, 'obj', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 	'this.hideObject('+value_obj+', true);';
   return code;
 };
 
