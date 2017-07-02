@@ -104,38 +104,42 @@ iframe {
 
  /* The side navigation menu */
 .sidenav {
-    height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
+    color:white;
+    max-height:50%; /* 100% Full-height */
+    max-width: 85%;
+    width: 250px; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
     top: 0;
     left: 0;
-    background-color: #111; /* Black*/
+    background-color: #3175b0; 
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
+    padding-top: 10px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    margin-top: 80px;
 }
 
 /* The navigation menu links */
 .sidenav a {
-    padding: 8px 8px 8px 32px;
+    padding: 8px 8px 8px 8px;
     text-decoration: none;
-    font-size: 25px;
-    color: #818181;
+    font-size: 30px;
+    color: black;
     display: block;
     transition: 0.3s
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .offcanvas a:focus{
-    color: #f1f1f1;
+    color: #3175b0;
 }
 
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
+    color: #3e3e3e;
     position: absolute;
     top: 0;
-    right: 25px;
+    right: 15px;
     font-size: 36px;
     margin-left: 50px;
 }
@@ -156,3 +160,6 @@ iframe {
     width: 70%;
 }
 .thumbnails li{list-style:none !important;}
+.sidebtn{
+    margin: 20px;
+}
