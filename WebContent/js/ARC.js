@@ -60,7 +60,7 @@ missingFunctionsError.prototype.constructor = missingFunctionsError;
  * Methods for the implementation of 3D Models
  ****************************************************************/
 /**
- * Model class consrtuctor
+ * Model class constructor
  * It implements the necessary methods for ARC's interaction with 3D models
  * Inherits from THREE.Object3D
  */
