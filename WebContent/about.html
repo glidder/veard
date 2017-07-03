@@ -21,8 +21,67 @@
 </head>
 <body>
   <div id='header'></div>
-  <div class="container" role="main">
-		This is the About page. A bunch of nothing goes here.
+  <div class="container maincont text-center" role="main">
+		
+
+<div class="jumbotron">
+    <h1 class="display-1">Introduction</h1><br>
+    <img src="img/VEARDOS.png" alt="VEARD" style="max-height: 5em;"><br><br>
+    <p> is an Online Authoring Tool with graphical interface for the creation of Augmented Reality content.</p><br>
+    <p>Augmented Reality is achieved though the renderization of 3D models on top of the live video feed from the device's camera.</p>
+    <p>To interact with the AR content, we use a set of specific markers, each associated with a numeric code.</p>
+    <img src="img/tutorial/marker.png" alt="Marker" style="max-height: 20em;" ><br><br>
+    <p>When positioned in front of the camera, they'll trigger the specific behaviour assigned to them in the editor.</p>
+</div>
+<div class="jumbotron jumbotron-inverse">
+    <h1 >How to</h1><h2 >Create a New Project</h2><br>
+    <img src="img/tutorial/tutorial3.png" alt="VEARD" style="max-height: 10em;"><br>
+    <p>When the user hits the New Project button, the Editor will open:</p><br>
+    <img src="img/tutorial/tutorial4.png" alt="VEARD" style="max-height: 15em;"><br>
+    <p>Once in the editor, in the first tab (Editor) the user can start dragging blocks in the canvas to define the behaviour of the AR application.</p>
+</div>
+<div class="jumbotron">
+    <h2>Blocks are divided in three categories:</h2>
+    <p>The first one is CONDITIONS</p>
+    <img src="img/tutorial/tutorial5.png" alt="VEARD" style="max-height: 15em;"><br>
+    <p>These are the blocks that determin the triggers that start some behaviour...</p>
+    <p>For example, if a marker appears, disapperas, modes, or rotates...</p><br>
+    <p>The second one is ACTIONS</p>
+    <img src="img/tutorial/tutorial6.png" alt="VEARD" style="max-height: 20em;"><br>
+    <p>These are the blocks that define the behaviours asociated to each trigger.</p>
+    <p>More than one behaviour can be associated to a single trigger.</p>
+    <p>They allow loading a 3D model, hiding it, applying some animation to it, etc...</p><br>
+    <p>The third one is DATA</p>
+    <img src="img/tutorial/tutorial7.png" alt="VEARD" style="max-height: 20em;"><br>
+    <p>These are the blocks thatdefine the contents (markers, models, animations...) that will be used in the AR application.</p>
+    <h3>It's important to remember that for a new model to appear in the dropdown list, a new Model block has to be created, as already created blocks won¡t update their list.</h3>
+</div>
+<div class="jumbotron jumbotron-inverse">
+    <h2 >The Assets tab</h2>
+    <p>Allows to manage the models used in the application.</p>
+    <img src="img/tutorial/tutorial8.png" alt="VEARD" style="max-height: 10em;"><br>
+    <p>The first menu allows the user to upload a new JSON model to the server.</p>
+    <p>The model has certain requirements to be valid:</p>
+    <p>* It MUST be in a zip file with a folder of the same name inside.</p>
+    <p>* Within the folder, there must be a ".json" file of the same name, and all the textures.</p><br>
+    <img src="img/tutorial/tutorial9.png" alt="VEARD" style="max-height: 10em;"><br>
+    <p>Once uploaded, the user must press the "Update List" button to refresh the model library.</p>
+    <p>In the library, the user can add any model to the project, and they will appear in the dropdown list of any new "Model" blocks.</p><br>
+    <img src="img/tutorial/tutorial10.png" alt="VEARD" style="max-height: 15em;"><br>
+    <p>When they're added, models appear in the left menu.</p>
+    <p>Pressing the "Remove" button will remove the model from any new "Model" blocks.</p><br>
+</div>
+<div class="jumbotron">
+    <p>Once the user has finished editing the project, it can be saved to the Project Library.</p>
+    <p>This is achieved by pressing the "Save" button in the top right corner.</p>
+    <img src="img/tutorial/tutorial11.png" alt="VEARD" style="max-height: 10em;"><br><br>
+    
+    <p>Then a form will appear, for the user to input all relevant data that will be shown in the library.</p>
+    <img src="img/tutorial/tutorial12.png" alt="VEARD" style="max-height: 20em;"><br>
+    <p>Once completed, hitting the "Submit" button will send the project to the Project Library.</p><br>
+    
+    <h1>Your project will now be safe and ready for any user to Edit or View it!</h1>
+</div>
   </div>
   <div id='footer'></div>
 </body></html>

@@ -85,7 +85,12 @@ iframe {
 .jumbotron {
     width: 100%;
     background-color: #3e3e3e;;
-    color:white;
+    color:#F7F7F7;
+}
+.jumbotron-inverse {
+    width: 100%;
+    background-color: #F7F7F7;
+    color:#3e3e3e;
 }
 .jumboimage {
     width:500px;
@@ -197,4 +202,8 @@ iframe {
 }
 .graycont{
     background-color: darkgray;
+}
+.aboutcontent{
+    background-color: #3e3e3e;
+    color: white
 }
